@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://latam.awards-global.org/sitemap.xml

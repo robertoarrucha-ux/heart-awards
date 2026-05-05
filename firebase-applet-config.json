@@ -1,0 +1,10 @@
+{
+  "projectId": "apex-vote",
+  "appId": "1:1000187502600:web:360e1df4071b8c1011f1bd",
+  "apiKey": "AIzaSyAcOCdZ9600v_BSnaouZtfBsYwoAvlWyNA",
+  "authDomain": "apex-vote.firebaseapp.com",
+  "firestoreDatabaseId": "(default)",
+  "storageBucket": "apex-vote.firebasestorage.app",
+  "messagingSenderId": "1000187502600",
+  "measurementId": ""
+}

@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 265 100% 15%;
+    --foreground: 275 10% 95%;
+    --card: 265 40% 10%;
+    --card-foreground: 275 10% 95%;
+    --popover: 265 40% 10%;
+    --popover-foreground: 275 10% 95%;
+    --primary: 45 100% 60%;
+    --primary-foreground: 265 100% 10%;
+    --secondary: 265 30% 20%;
+    --secondary-foreground: 275 10% 95%;
+    --muted: 265 30% 20%;
+    --muted-foreground: 275 10% 70%;
+    --accent: 45 100% 60%;
+    --accent-foreground: 265 100% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 265 30% 30%;
+    --input: 265 30% 20%;
+    --ring: 45 100% 60%;
+    --radius: 0.75rem;
+  }
+ 
+  .dark {
+    --background: 265 100% 10%;
+    --foreground: 275 10% 95%;
+    --card: 265 40% 8%;
+    --card-foreground: 275 10% 95%;
+    --popover: 265 40% 8%;
+    --popover-foreground: 275 10% 95%;
+    --primary: 45 100% 60%;
+    --primary-foreground: 265 100% 10%;
+    --secondary: 265 30% 15%;
+    --secondary-foreground: 275 10% 95%;
+    --muted: 265 30% 15%;
+    --muted-foreground: 275 10% 70%;
+    --accent: 45 100% 60%;
+    --accent-foreground: 265 100% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 265 30% 25%;
+    --input: 265 30% 15%;
+    --ring: 45 100% 60%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image: radial-gradient(circle at 50% 0%, hsl(265, 100%, 25%) 0%, hsl(265, 100%, 10%) 100%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-cormorant), serif;
+  }
+  .font-sans {
+    font-family: var(--font-outfit), var(--font-inter), sans-serif;
+  }
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  .text-gold {
+    @apply text-primary;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "entities": {
+    "Nominee": {
+      "title": "Nominee",
+      "description": "Information about award nominees.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "edition": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "votes": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "category", "edition"]
+    },
+    "NominationRequest": {
+      "title": "Nomination Request",
+      "description": "Requests made by users to nominate someone.",
+      "type": "object",
+      "properties": {
+        "nomineeName": { "type": "string" },
+        "category": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nomineeName", "category", "status", "userId"]
+    },
+    "Partner": {
+      "title": "Partner",
+      "description": "Partner/Affiliate information.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "organization": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "active", "suspended"] },
+        "referralCode": { "type": "string" },
+        "clickCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "status", "referralCode"]
+    },
+    "Registration": {
+      "title": "Registration",
+      "description": "Event registrations.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "partnerId": { "type": "string" },
+        "ticketType": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "status"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Discount coupons created by partners.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "discount": { "type": "number" },
+        "partnerId": { "type": "string" },
+        "usageCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "discount", "partnerId"]
+    },
+    "Vote": {
+      "title": "Vote",
+      "description": "Votes for nominees.",
+      "type": "object",
+      "properties": {
+        "nomineeId": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nomineeId", "userId"]
+    }
+  },
+  "firestore": {
+    "/nominees/{nomineeId}": {
+      "schema": "Nominee",
+      "description": "Collection of winners and nominees for different award editions."
+    },
+    "/nominationRequests/{requestId}": {
+      "schema": "NominationRequest",
+      "description": "User applications to nominate someone."
+    },
+    "/partners/{partnerId}": {
+      "schema": "Partner",
+      "description": "Affiliate partner profiles."
+    },
+    "/registrations/{registrationId}": {
+      "schema": "Registration",
+      "description": "Event registration records."
+    },
+    "/free_registrations/{regId}": {
+      "schema": "Registration",
+      "description": "Free event registration records."
+    },
+    "/coupons/{couponId}": {
+      "schema": "Coupon",
+      "description": "Promo codes linked to partners."
+    },
+    "/votes/{voteId}": {
+      "schema": "Vote",
+      "description": "User votes for nominees."
+    }
+  }
+}
