@@ -5,7 +5,13 @@ import NomineeCard from '@/components/nominee-card';
 import { castVoteAction } from '@/app/actions';
 import { type Nominee, viennaCategories2026, madridCategories2026 } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Loader2, MapPin, Vote as VoteIcon, ShieldCheck } from 'lucide-react';
@@ -44,7 +50,7 @@ export default function NomineeList({
   const [uniqueCountries, setUniqueCountries] = useState<string[]>([]);
   const [visibleCount, setVisibleCount] = useState(12);
 
-  // UX de votación (solo cliente)
+  // UX de votación (solo cliente, por edición 2026)
   const [hasVotedThisSession, setHasVotedThisSession] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     return window.localStorage.getItem('latamAwards_voted_2026') === 'true';
@@ -100,12 +106,12 @@ export default function NomineeList({
             'Possible category mismatch. Categories expected:',
             categories,
             'Categories found in DB:',
-            Array.from(new Set(fetchedNominees.map((n) => n.category)))
+            Array.from(new Set(fetchedNominees.map((n) => n.category))),
           );
         }
 
         const countries = Array.from(
-          new Set(filteredByCategory.map((c) => c.country || ''))
+          new Set(filteredByCategory.map((c) => c.country || '')),
         )
           .filter(Boolean)
           .sort();
@@ -120,7 +126,7 @@ export default function NomineeList({
           description: 'No se pudieron cargar los nominados en tiempo real.',
         });
         setIsLoading(false);
-      }
+      },
     );
 
     return () => unsubscribe();
@@ -157,7 +163,7 @@ export default function NomineeList({
 
   const visibleNominees = useMemo(
     () => filteredNominees.slice(0, visibleCount),
-    [filteredNominees, visibleCount]
+    [filteredNominees, visibleCount],
   );
 
   const highestVoteCount = useMemo(() => {
@@ -193,8 +199,8 @@ export default function NomineeList({
     const previousNominees = [...allNominees];
     setAllNominees((prev) =>
       prev.map((n: any) =>
-        n.id === nomineeId ? { ...n, votes: (n.votes || 0) + 1 } : n
-      )
+        n.id === nomineeId ? { ...n, votes: (n.votes || 0) + 1 } : n,
+      ),
     );
 
     setIsVoting(nomineeId);
@@ -279,7 +285,9 @@ export default function NomineeList({
               </>
             ) : (
               <>
-                <p className="font-semibold text-white">Puedes emitir un voto en esta edición.</p>
+                <p className="font-semibold text-white">
+                  Puedes emitir un voto en esta edición.
+                </p>
                 <p className="text-muted-foreground">
                   Tu voto se registra de forma segura y se refleja en el ranking en tiempo real.
                 </p>
@@ -292,7 +300,7 @@ export default function NomineeList({
       {/* Location Tabs (Only for 2026) */}
       {is2026 && (
         <div className="mb-8 flex flex-col items-center space-y-6">
-          <div className="inline-flex rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-md shadow-2xl">
+          <div className="inline-flex rounded-full border border-white/10 bg-white/5 p-1 shadow-2xl backdrop-blur-md">
             {[
               { id: 'all', label: 'Todos', icon: VoteIcon },
               { id: 'madrid', label: 'Madrid', icon: MapPin },
@@ -301,11 +309,11 @@ export default function NomineeList({
               <button
                 key={loc.id}
                 onClick={() => handleLocationChange(loc.id as LocationFilter)}
-                className={`relative flex items-center gap-2 px-6 py-2.5 text-sm font-medium transition-colors duration-300 ${
+                className={`relative flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition-colors duration-300 ${
                   locationFilter === loc.id
                     ? 'bg-primary text-white shadow-[0_0_15px_rgba(212,175,55,0.3)]'
                     : 'text-gray-400 hover:text-white'
-                } rounded-full`}
+                }`}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <loc.icon
@@ -378,7 +386,7 @@ export default function NomineeList({
 
       {/* Grid */}
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center py-20 space-y-4">
+        <div className="flex flex-col items-center justify-center space-y-4 py-20">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
           <p className="animate-pulse text-muted-foreground">
             Cargando nominados de {yearLabel}...
@@ -391,7 +399,7 @@ export default function NomineeList({
           </p>
 
           {allNominees.length > 0 && (
-            <div className="mb-6 mx-auto max-w-md rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4 text-sm text-yellow-200/80">
+            <div className="mx-auto mb-6 max-w-md rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4 text-sm text-yellow-200/80">
               <p className="mb-1 font-bold">¡Atención!</p>
               <p>
                 Hay {allNominees.length} nominados en esta edición, pero ninguno coincide con las
@@ -444,7 +452,7 @@ export default function NomineeList({
                 variant="outline"
                 size="lg"
                 onClick={() => setVisibleCount((prev) => prev + 12)}
-                className="px-12 py-6 text-lg border-primary/20 hover:bg-primary/10"
+                className="border-primary/20 px-12 py-6 text-lg hover:bg-primary/10"
               >
                 Cargar más nominados
               </Button>
