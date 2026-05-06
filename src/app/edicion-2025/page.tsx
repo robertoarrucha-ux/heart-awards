@@ -20,6 +20,107 @@ export const metadata: Metadata = {
   },
 };
 
+// Ganadores estáticos 2025
+const winners2025 = [
+  // LÍDERES EN AMÉRICA LATINA
+  {
+    category: 'Líderes en América Latina',
+    name: 'Michael Franco',
+    role: 'CEO de Without Borders Corp',
+    country: 'Colombia',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Karen Farías Cruzado',
+    role: 'Sustainability & ESG Director de Grupo Aeroméxico',
+    country: 'México',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Leonardo Penotti',
+    role: 'Director de Nexo UCA',
+    country: 'Argentina',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Elizabeth Casillas Cruz',
+    role: 'Fundadora de Marka la Diferencia',
+    country: 'México',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Jonathan Yesid Roa Jaimes',
+    role: 'Líder de Investigación y desarrollo I+D en ETO INGENIERIA SAS',
+    country: 'Colombia',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Yudith Ortega',
+    role: 'CEO de IDINAT LAB INTERNATIONAL GROUP',
+    country: 'México',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Eliana Figueroa',
+    role: 'Directora de Marketing y publicidad en EF Productora',
+    country: 'Argentina',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Thomas Nett',
+    role: 'Fundador & Socio Gerente de Biopharma Consulting AG',
+    country: 'Suiza / Europa',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Juana Noemí Miranda Valencia',
+    role: 'Directora de Recilita',
+    country: 'Perú',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Javier Martínez',
+    role: 'Director de ConsciencIA',
+    country: 'Estados Unidos',
+  },
+  {
+    category: 'Líderes en América Latina',
+    name: 'Diego Angulo Jiménez',
+    role: 'Director General de Héroes SdeH',
+    country: 'México',
+  },
+  // JÓVENES PROMESAS
+  {
+    category: 'Jóvenes Promesas (menores de 29 años)',
+    name: 'Lucas Marsden-Smedley Rodríguez',
+    role:
+      "Leader of FTI Consulting's Risk Management, Sustainability and Low-Bono Services in Latin America",
+    country: 'Colombia',
+  },
+  // MENCIONES ESPECIALES
+  {
+    category: 'Mención especial',
+    name: 'Alberto Mercado',
+    role:
+      'Presidente del Sindicato Independiente del Poder Legislativo del Estado de Jalisco',
+    country: 'México',
+  },
+  {
+    category: 'Mención especial',
+    name: 'Diana Carolina Kecan Cervantes',
+    role:
+      'Ministro Consejero de la Embajada y Misión Permanente de Colombia en Viena / Austria',
+    country: 'Colombia',
+  },
+  {
+    category: 'Mención especial',
+    name: 'Sebastian Palacio Echeverri',
+    role:
+      'Global Finance Business Partner – Sales, Product and Innovation en AGRANA FRUIT',
+    country: 'Colombia',
+  },
+];
+
 export default function Edition2025Page() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
@@ -137,77 +238,61 @@ export default function Edition2025Page() {
                 </p>
               </div>
 
-            <div className="space-y-4 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-                <Users className="h-4 w-4" />
-                Datos clave de la edición 2025
+              <div className="space-y-4 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                  <Users className="h-4 w-4" />
+                  Datos clave de la edición 2025
+                </div>
+                <ul className="space-y-2">
+                  <li>
+                    • Sede: <span className="font-semibold text-white">Viena, Austria</span>
+                  </li>
+                  <li>
+                    • Fecha: <span className="font-semibold text-white">Diciembre 2025</span>
+                  </li>
+                  <li>• Enfoque en liderazgo con impacto regional y diálogo global.</li>
+                  <li>• Participación de líderes de negocio, sociedad civil y sector público.</li>
+                </ul>
               </div>
-              <ul className="space-y-2">
-                <li>
-                  • Sede: <span className="font-semibold text-white">Viena, Austria</span>
-                </li>
-                <li>
-                  • Fecha: <span className="font-semibold text-white">Diciembre 2025</span>
-                </li>
-                <li>• Enfoque en liderazgo con impacto regional y diálogo global.</li>
-                <li>• Participación de líderes de negocio, sociedad civil y sector público.</li>
-              </ul>
-            </div>
             </div>
           </div>
         </section>
 
-        {/* Ganadores destacados (placeholders) */}
+        {/* Ganadores 2025 */}
         <section className="border-b border-white/10 bg-gradient-to-b from-background to-black">
           <div className="container mx-auto px-4 py-14 md:py-20">
             <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
                 <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
-                  Líderes y organizaciones destacados 2025
+                  Ganadores de la edición 2025
                 </h2>
                 <p className="text-sm text-muted-foreground md:text-base">
-                  Ejemplos de la diversidad de talento y visión estratégica que la edición 2025
-                  reunió en Viena.
+                  Reconocimientos otorgados en Viena a líderes, organizaciones y empresas que
+                  representan lo mejor de América Latina y su diáspora.
                 </p>
               </div>
-              <Link href="/nominados/2025" className="text-sm text-primary hover:underline">
-                Ver archivo de nominados 2025
+              <Link href="/archive" className="text-sm text-primary hover:underline">
+                Ver archivo completo de ediciones
               </Link>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  label: 'Diáspora Latinoamericana',
-                  description:
-                    'Líderes que construyen puentes entre América Latina y Europa desde la empresa, la diplomacia y la cultura.',
-                },
-                {
-                  label: 'Líderes en América Latina',
-                  description:
-                    'Personas que transforman realidades locales con impacto regional en negocios, innovación y desarrollo social.',
-                },
-                {
-                  label: 'Jóvenes Promesas (-29)',
-                  description:
-                    'Talentos emergentes que están creando proyectos de alto impacto desde temprana edad.',
-                },
-                {
-                  label: 'Empresas extranjeras',
-                  description:
-                    'Organizaciones internacionales que apuestan por América Latina con inversión responsable y de largo plazo.',
-                },
-              ].map((item) => (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {winners2025.map((winner) => (
                 <div
-                  key={item.label}
+                  key={`${winner.category}-${winner.name}`}
                   className="flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-5"
                 >
                   <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
                     <Star className="h-3 w-3" />
-                    Categoría 2025
+                    {winner.category}
                   </div>
-                  <h3 className="mb-2 text-sm font-semibold text-white">{item.label}</h3>
-                  <p className="text-xs text-muted-foreground">{item.description}</p>
+                  <div className="mb-1 text-sm font-semibold text-white">{winner.name}</div>
+                  {winner.country && (
+                    <div className="mb-2 text-xs text-primary/80">{winner.country}</div>
+                  )}
+                  {winner.role && (
+                    <p className="text-xs text-muted-foreground">{winner.role}</p>
+                  )}
                 </div>
               ))}
             </div>
