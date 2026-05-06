@@ -56,12 +56,8 @@ export default function NomineeList({
     let q = query(nomineesRef);
 
     if (edition) {
-      const editionNumber = parseInt(edition);
-      const editionFilters: (string | number)[] = [edition];
-      if (!isNaN(editionNumber)) {
-        editionFilters.push(editionNumber);
-      }
-      q = query(q, where('edition', 'in', editionFilters as any));
+      // En Firestore el campo edition está guardado como string, por ejemplo "2026"
+      q = query(q, where('edition', '==', edition));
     }
 
     const unsubscribe = onSnapshot(
@@ -326,7 +322,7 @@ export default function NomineeList({
           </p>
         </div>
       ) : filteredNominees.length === 0 ? (
-        <div className="text-center py-20 border-2 border-dashed border-white/10 rounded-2xl bg-white/5">
+        <div className="text-center py-20 border-2 border-dashed border白/10 rounded-2xl bg-white/5">
           <p className="text-xl text-muted-foreground mb-4">
             No se encontraron nominados con los filtros seleccionados.
           </p>
