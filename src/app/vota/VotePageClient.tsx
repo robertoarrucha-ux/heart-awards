@@ -133,8 +133,8 @@ function TopRanking({ topTen }: TopRankingProps) {
         </span>
       </div>
 
-      {/* Top 5 destacados */}
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
+      {/* Top 5 destacados – mobile first */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {topFive.map((nominee, index) => {
           const rank = index + 1;
           const isPodium = rank <= 3;
@@ -149,7 +149,7 @@ function TopRanking({ topTen }: TopRankingProps) {
                   : 'border-yellow-500/30 bg-black/10',
               ].join(' ')}
             >
-              <div className="mb-2 flex items-center justify-between gap-2">
+              <div className="mb-1 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1.5">
                   <div
                     className={[
@@ -165,19 +165,21 @@ function TopRanking({ topTen }: TopRankingProps) {
                   >
                     {rank}
                   </div>
-                  <span className="line-clamp-2 font-semibold text-yellow-50">
+                  <span className="line-clamp-1 text-[11px] font-semibold text-yellow-50 md:text-xs">
                     {nominee.name}
                   </span>
                 </div>
                 <Medal className="h-4 w-4 text-yellow-300" />
               </div>
+
               {nominee.country && (
-                <div className="mb-1 flex items-center gap-1.5 text-[11px] text-yellow-100/80">
+                <div className="mb-1 flex items-center gap-1.5 text-[10px] text-yellow-100/80 md:text-[11px]">
                   <MapPin className="h-3 w-3" />
-                  <span>{nominee.country}</span>
+                  <span className="line-clamp-1">{nominee.country}</span>
                 </div>
               )}
-              <div className="flex items-center justify-between text-[11px] text-yellow-100/80">
+
+              <div className="flex items-center justify-between text-[10px] text-yellow-100/80 md:text-[11px]">
                 <span className="line-clamp-1">{nominee.category}</span>
                 <span className="font-semibold">
                   {nominee.votes?.toLocaleString?.() ?? 0} votos
@@ -190,7 +192,7 @@ function TopRanking({ topTen }: TopRankingProps) {
 
       {/* Mención de ganadores 6–10 */}
       {sixToTen.length > 0 && (
-        <div className="rounded-lg border border-yellow-500/20 bg-black/30 px-3 py-2 text-[11px] md:text-xs text-yellow-100/80">
+        <div className="rounded-lg border border-yellow-500/20 bg-black/30 px-3 py-2 text-[11px] text-yellow-100/80 md:text-xs">
           <span className="font-semibold">También forman parte de los 10 líderes premiados:</span>{' '}
           {sixToTen
             .map((n, idx) => `${idx + 6}º ${n.name}`)
@@ -230,10 +232,10 @@ export default function VotePageClient({
     }
   }, []);
 
-  // Suscripción a top 10 desde Firestore
+  // Suscripción a top 10 desde Firestore (ordenado por votos desc + limit 10) [web:125][web:128]
   useEffect(() => {
     const nomineesRef = collection(db, 'nominees');
-    let q = query(
+    const q = query(
       nomineesRef,
       where('edition', '==', edition),
       orderBy('votes', 'desc'),
@@ -332,7 +334,7 @@ export default function VotePageClient({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Stepper de progreso */}
       <VotingSteps currentStep={currentStep} />
 
@@ -379,7 +381,7 @@ export default function VotePageClient({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
           <button
             type="button"
             onClick={() =>
@@ -389,7 +391,7 @@ export default function VotePageClient({
               )
             }
             className={[
-              'flex flex-col items-center justify-center gap-1 rounded-xl border px-3 py-3 text-center text-xs font-semibold transition',
+              'flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 sm:px-3 sm:py-3 text-center text-[11px] sm:text-xs font-semibold transition',
               clickedWhatsApp
                 ? 'border-emerald-400 bg-emerald-500/10 text-emerald-100'
                 : 'border-white/15 bg-black/20 text-white/80 hover:border-primary/50 hover:bg-primary/10',
@@ -411,7 +413,7 @@ export default function VotePageClient({
               )
             }
             className={[
-              'flex flex-col items-center justify-center gap-1 rounded-xl border px-3 py-3 text-center text-xs font-semibold transition',
+              'flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 sm:px-3 sm:py-3 text-center text-[11px] sm:text-xs font-semibold transition',
               clickedX
                 ? 'border-emerald-400 bg-emerald-500/10 text-emerald-100'
                 : 'border-white/15 bg-black/20 text-white/80 hover:border-primary/50 hover:bg-primary/10',
@@ -433,7 +435,7 @@ export default function VotePageClient({
               )
             }
             className={[
-              'flex flex-col items-center justify-center gap-1 rounded-xl border px-3 py-3 text-center text-xs font-semibold transition',
+              'flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 sm:px-3 sm:py-3 text-center text-[11px] sm:text-xs font-semibold transition',
               clickedInstagram
                 ? 'border-emerald-400 bg-emerald-500/10 text-emerald-100'
                 : 'border-white/15 bg-black/20 text-white/80 hover:border-primary/50 hover:bg-primary/10',
@@ -455,7 +457,7 @@ export default function VotePageClient({
               )
             }
             className={[
-              'flex flex-col items-center justify-center gap-1 rounded-xl border px-3 py-3 text-center text-xs font-semibold transition',
+              'flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 sm:px-3 sm:py-3 text-center text-[11px] sm:text-xs font-semibold transition',
               clickedYouTube
                 ? 'border-emerald-400 bg-emerald-500/10 text-emerald-100'
                 : 'border-white/15 bg-black/20 text-white/80 hover:border-primary/50 hover:bg-primary/10',
