@@ -5,26 +5,16 @@ import { db, auth } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot, getDoc, doc } from 'firebase/firestore';
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { motion } from 'motion/react';
-import { 
-  Users, 
-  DollarSign, 
-  Calendar, 
-  MapPin, 
-  Download, 
-  ExternalLink, 
-  LogOut, 
+import {
+  Users,
+  DollarSign,
+  MapPin,
+  ExternalLink,
   ShieldCheck,
   TrendingUp,
   Ticket,
   Search,
-  RefreshCw,
-  Database,
   LayoutDashboard,
-  Shield,
-  Settings,
-  Mail,
-  AlertCircle,
-  FileDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -76,7 +66,6 @@ export default function AdminDashboard() {
         if (user.email && adminEmails.includes(user.email)) {
           setIsAdmin(true);
         } else {
-          // Check role in Firestore
           const userDoc = await getDoc(doc(db, 'users', user.uid));
           if (userDoc.exists() && userDoc.data().role === 'admin') {
             setIsAdmin(true);
@@ -96,9 +85,9 @@ export default function AdminDashboard() {
     if (isAdmin) {
       const q = query(collection(db, 'registrations'), orderBy('createdAt', 'desc'));
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        const data = snapshot.docs.map(doc => ({
+        const data = snapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         })) as Registration[];
         setRegistrations(data);
       });
@@ -116,31 +105,36 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = () => signOut(auth);
-  
+
   const handleSyncVotes = async () => {
-    if (!confirm('¿Estás seguro de que quieres sincronizar los votos desde los logs? Esto recalculará el total de cada nominado basándose en los registros individuales.')) return;
-    
+    if (
+      !confirm(
+        '¿Estás seguro de que quieres sincronizar los votos desde los logs? Esto recalculará el total de cada nominado basándose en los registros individuales.'
+      )
+    )
+      return;
+
     setIsSyncing(true);
     try {
       const result = await syncVotesAction();
       if (result.success) {
         toast({
-          title: "Sincronización Exitosa",
+          title: 'Sincronización Exitosa',
           description: result.message,
         });
       } else {
         toast({
-          variant: "destructive",
-          title: "Error en Sincronización",
+          variant: 'destructive',
+          title: 'Error en Sincronización',
           description: result.message,
         });
       }
     } catch (error) {
-      console.error("Error in handleSyncVotes:", error);
+      console.error('Error in handleSyncVotes:', error);
       toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Ocurrió un error inesperado al sincronizar.",
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Ocurrió un error inesperado al sincronizar.',
       });
     } finally {
       setIsSyncing(false);
@@ -150,14 +144,15 @@ export default function AdminDashboard() {
   const stats = {
     totalRevenue: registrations.reduce((acc, reg) => acc + reg.amount, 0),
     totalRegistrations: registrations.length,
-    viennaCount: registrations.filter(r => r.edition === 'vienna').length,
-    madridCount: registrations.filter(r => r.edition === 'madrid').length,
+    viennaCount: registrations.filter((r) => r.edition === 'vienna').length,
+    madridCount: registrations.filter((r) => r.edition === 'madrid').length,
   };
 
-  const filteredRegistrations = registrations.filter(reg => 
-    reg.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    reg.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    reg.ticketType?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredRegistrations = registrations.filter(
+    (reg) =>
+      reg.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reg.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reg.ticketType?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {
@@ -171,7 +166,7 @@ export default function AdminDashboard() {
   if (!user || !isAdmin) {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-md w-full text-center space-y-8"
@@ -182,18 +177,14 @@ export default function AdminDashboard() {
             </div>
           </div>
           <h1 className="text-4xl font-bold text-white tracking-tight">Acceso Restringido</h1>
-          <p className="text-gray-400">
-            Este panel es exclusivo para administradores de Latam Awards.
-          </p>
+          <p className="text-gray-400">Este panel es exclusivo para administradores de Latam Awards.</p>
           {!user ? (
             <Button onClick={handleLogin} className="w-full py-6 text-lg font-bold rounded-xl">
               Iniciar Sesión como Admin
             </Button>
           ) : (
             <div className="space-y-4">
-              <p className="text-red-400 text-sm">
-                Tu cuenta ({user.email}) no tiene permisos de administrador.
-              </p>
+              <p className="text-red-400 text-sm">Tu cuenta ({user.email}) no tiene permisos de administrador.</p>
               <Button variant="outline" onClick={handleLogout} className="w-full border-white/10 text-white">
                 Cerrar Sesión
               </Button>
@@ -207,11 +198,11 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-[#050505] text-white">
       <Header />
-      
+
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <AdminHeader title="Dashboard & Registros" icon={LayoutDashboard} />
 
-        {/* Stats Grid */}
+        {/* Stats + accesos clave */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -225,7 +216,7 @@ export default function AdminDashboard() {
               </p>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-400">Total Registros</CardTitle>
@@ -244,10 +235,15 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{pageViews.toLocaleString()}</div>
-              <Button 
-                variant="link" 
+              <Button
+                variant="link"
                 className="text-xs text-primary p-0 h-auto mt-1"
-                onClick={() => window.open('https://analytics.google.com/analytics/web/?authuser=3#/a375278391p513271747/reports/intelligenthome?params=_u..nav%3Dmaui', '_blank')}
+                onClick={() =>
+                  window.open(
+                    'https://analytics.google.com/analytics/web/?authuser=3#/a375278391p513271747/reports/intelligenthome?params=_u..nav%3Dmaui',
+                    '_blank'
+                  )
+                }
               >
                 Ver más en Google Analytics <ExternalLink className="w-3 h-3 ml-1" />
               </Button>
@@ -276,7 +272,11 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/5 border-white/10 text-white cursor-pointer hover:border-primary/50 transition-colors" onClick={() => window.location.href = '/admin/partners'}>
+          {/* Gestión de Aliados */}
+          <Card
+            className="bg-white/5 border-white/10 text-white cursor-pointer hover:border-primary/50 transition-colors"
+            onClick={() => (window.location.href = '/admin/partners')}
+          >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-400">Gestión de Aliados</CardTitle>
               <Users className="w-4 h-4 text-primary" />
@@ -287,42 +287,51 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/5 border-white/10 text-white cursor-pointer hover:border-primary/50 transition-colors" onClick={() => window.location.href = '/admin/migrate'}>
+          {/* Acceso rápido a Nominaciones */}
+          <Card
+            className="bg-white/5 border-white/10 text-white cursor-pointer hover:border-primary/50 transition-colors"
+            onClick={() => (window.location.href = '/admin/requests')}
+          >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Migración de Datos</CardTitle>
-              <RefreshCw className="w-4 h-4 text-primary" />
+              <CardTitle className="text-sm font-medium text-gray-400">Nominaciones</CardTitle>
+              <Ticket className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Migrar Nominados</div>
-              <p className="text-xs text-primary mt-1">Cargar lista JSON a Firestore</p>
+              <div className="text-2xl font-bold">Ver solicitudes</div>
+              <p className="text-xs text-primary mt-1">Aprobar o rechazar nominaciones</p>
             </CardContent>
           </Card>
 
-          <Card className="bg-blue-500/5 border-blue-500/10 text-white cursor-pointer hover:border-blue-500/50 transition-colors" onClick={() => window.location.href = '/admin/debug-db'}>
+          {/* Acceso rápido a Pagos */}
+          <Card
+            className="bg-white/5 border-white/10 text-white cursor-pointer hover:border-primary/50 transition-colors"
+            onClick={() => (window.location.href = '/admin/payments')}
+          >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Estado de BD</CardTitle>
-              <Database className="w-4 h-4 text-blue-400" />
+              <CardTitle className="text-sm font-medium text-gray-400">Pagos</CardTitle>
+              <DollarSign className="w-4 h-4 text-green-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Resumen de Datos</div>
-              <p className="text-xs text-blue-400 mt-1">Ver conteos reales en Firestore</p>
+              <div className="text-2xl font-bold">Ver pagos</div>
+              <p className="text-xs text-primary mt-1">Historial y estado de pagos</p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Maintenance / Recovery Actions */}
+        {/* Recuperación de votos */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-400">Recuperación de Votos</CardTitle>
-              <RefreshCw className={`w-4 h-4 text-primary ${isSyncing ? 'animate-spin' : ''}`} />
+              <TrendingUp className={`w-4 h-4 text-primary ${isSyncing ? 'animate-spin' : ''}`} />
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-gray-400">
-                Sincroniza el conteo de votos de los nominados con los registros individuales (logs) para recuperar votos perdidos por errores técnicos.
+                Sincroniza el conteo de votos de los nominados con los registros individuales (logs) para recuperar
+                votos perdidos por errores técnicos.
               </p>
-              <Button 
-                onClick={handleSyncVotes} 
+              <Button
+                onClick={handleSyncVotes}
                 disabled={isSyncing}
                 className="w-full bg-primary hover:bg-primary/90 text-white font-bold"
               >
@@ -332,7 +341,7 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Registrations Table */}
+        {/* Tabla de asistentes */}
         <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
           <div className="p-6 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <h2 className="text-xl font-bold flex items-center">
@@ -341,8 +350,8 @@ export default function AdminDashboard() {
             </h2>
             <div className="relative max-w-sm w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Buscar por nombre, email..."
                 className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 value={searchTerm}
@@ -350,7 +359,7 @@ export default function AdminDashboard() {
               />
             </div>
           </div>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
@@ -380,9 +389,7 @@ export default function AdminDashboard() {
                         {reg.edition === 'vienna' ? 'Viena' : 'Madrid'}
                       </div>
                     </td>
-                    <td className="px-6 py-4 font-mono text-sm">
-                      €{reg.amount}
-                    </td>
+                    <td className="px-6 py-4 font-mono text-sm">€{reg.amount}</td>
                     <td className="px-6 py-4 text-sm text-gray-500">
                       {reg.createdAt?.toDate ? reg.createdAt.toDate().toLocaleDateString() : 'Reciente'}
                     </td>
