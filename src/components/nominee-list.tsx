@@ -215,8 +215,8 @@ export default function NomineeList({
         }
 
         toast({
-          title: '¡Voto registrado!',
-          description: result.message,
+          title: '¡Tu voto fue registrado!',
+          description: 'Gracias por reconocer el liderazgo latino en la edición 2026.',
         });
         setIsVoteModalOpen(false);
       } else {
@@ -228,21 +228,27 @@ export default function NomineeList({
           if (typeof window !== 'undefined') {
             window.localStorage.setItem('latamAwards_voted_2026', 'true');
           }
+          toast({
+            variant: 'destructive',
+            title: 'Ya registraste un voto',
+            description: 'Solo se permite un voto por persona / IP en esta edición.',
+          });
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'No pudimos registrar tu voto',
+            description: result.message || 'Inténtalo de nuevo en unos minutos.',
+          });
         }
         setAllNominees(previousNominees);
-        toast({
-          variant: 'destructive',
-          title: 'Error al votar',
-          description: result.message,
-        });
       }
     } catch (error) {
       console.error('Error in handleConfirmVote:', error);
       setAllNominees(previousNominees);
       toast({
         variant: 'destructive',
-        title: 'Error',
-        description: 'Ocurrió un error inesperado.',
+        title: 'No pudimos registrar tu voto',
+        description: 'Inténtalo de nuevo en unos minutos o verifica tu conexión.',
       });
     } finally {
       setIsVoting(null);
@@ -254,7 +260,7 @@ export default function NomineeList({
     navigator.clipboard.writeText(url);
     toast({
       title: 'Enlace copiado',
-      description: 'El enlace directo al nominado ha sido copiado al portapapeles.',
+      description: 'El enlace directo a este líder ha sido copiado para que puedas compartirlo.',
     });
     router.push(url, { scroll: false });
   };
@@ -329,7 +335,7 @@ export default function NomineeList({
 
           <div className="text-center">
             <h3 className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-xl font-bold text-transparent">
-              {locationFilter === 'all' && 'Todos los Líderes Nominados'}
+              {locationFilter === 'all' && 'Todos los líderes nominados'}
               {locationFilter === 'madrid' &&
                 'Edición Madrid: Premios a la Excelencia Empresarial'}
               {locationFilter === 'viena' &&
