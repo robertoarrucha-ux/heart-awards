@@ -22,13 +22,16 @@ type Category = {
 interface Nominee {
   id: string;
   name: string;
-  category: string;
+  category?: string;
   photoUrl?: string;
   country?: string;
-  organization?: string;
-  bio?: string;
+  organizationName?: string;
+  positionAndProject?: string;
+  linkedinUrl?: string;
+  websiteUrl?: string;
   edition?: string;
-  votesCount?: number;
+  votes: number;
+  position?: number;
   [key: string]: any;
 }
 
@@ -43,10 +46,12 @@ export default function VotePageClient({ categories, edition }: VotePageClientPr
 
   useEffect(() => {
     const nomineesRef = collection(db, 'nominees');
+
+    // Filtramos por edición y ordenamos por votos descendente
     const q = query(
       nomineesRef,
       where('edition', '==', edition),
-      orderBy('votesCount', 'desc')
+      orderBy('votes', 'desc')
     );
 
     const unsubscribe = onSnapshot(
@@ -57,7 +62,7 @@ export default function VotePageClient({ categories, edition }: VotePageClientPr
           return {
             id: doc.id,
             ...raw,
-            votesCount: raw.votesCount ?? 0,
+            votes: typeof raw.votes === 'number' ? raw.votes : 0,
           };
         });
         setNominees(data);
@@ -72,12 +77,14 @@ export default function VotePageClient({ categories, edition }: VotePageClientPr
     return () => unsubscribe();
   }, [edition]);
 
-  const nomineesWithPosition = useMemo(() => {
-    return nominees.map((n, index) => ({
-      ...n,
-      position: index + 1,
-    }));
-  }, [nominees]);
+  const nomineesWithPosition = useMemo(
+    () =>
+      nominees.map((n, index) => ({
+        ...n,
+        position: index + 1,
+      })),
+    [nominees]
+  );
 
   if (loading) {
     return (
