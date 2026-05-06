@@ -43,9 +43,9 @@ type NomineeCardProps = {
   onVoteClick?: (nominee: Nominee) => void;
   isVoteLoading?: boolean;
   priority?: boolean;
-  // NUEVO: resaltar al nominado votado por el usuario
+  // Resalta al nominado votado por el usuario
   isUserChoice?: boolean;
-  // NUEVO: permitir que el padre controle el share (para tracking o deep-links)
+  // Permite que el padre controle el share
   onShare?: () => void;
 };
 
@@ -104,8 +104,8 @@ export default function NomineeCard({
     const shareUrl = `${window.location.origin}/nominados/${nominee.id}`;
     navigator.clipboard.writeText(shareUrl);
     toast({
-      title: '¡Enlace Copiado!',
-      description: 'El enlace al perfil de este nominado ha sido copiado a tu portapapeles.',
+      title: 'Enlace copiado',
+      description: 'El perfil de este líder se ha copiado para que puedas compartirlo.',
     });
   };
 
@@ -125,7 +125,7 @@ export default function NomineeCard({
           <Link href={`/nominados/${nominee.id}`} className="relative shrink-0 group">
             <Image
               src={nominee.imageUrl}
-              alt={`Retrato de ${nominee.name}, nominado a los Premios Líderes Latinoamericanos`}
+              alt={`Retrato de ${nominee.name}, nominado a los Latin American Leaders Awards`}
               width={100}
               height={100}
               className="rounded-full border-4 border-primary/50 object-cover transition-colors group-hover:border-primary"
@@ -225,7 +225,7 @@ export default function NomineeCard({
             <div className="flex items-center gap-4">
               <BarChart className="h-6 w-6 text-primary" />
               <span className="text-lg font-semibold text-foreground">
-                {nominee.votes.toLocaleString()} Votos
+                {nominee.votes.toLocaleString()} votos del público
               </span>
             </div>
             <Progress value={progressValue} className="mt-2 h-2 [&>div]:bg-primary" />
@@ -302,7 +302,7 @@ export default function NomineeCard({
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Compartir Perfil</p>
+                <p>Compartir perfil</p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -316,12 +316,12 @@ export default function NomineeCard({
               {isVoteLoading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Votando...
+                  Registrando voto...
                 </>
               ) : (
                 <>
                   <Vote className="mr-2 h-5 w-5" />
-                  Votar Ahora
+                  Votar por este líder
                 </>
               )}
             </Button>
