@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Loader2, MapPin, Vote as VoteIcon } from 'lucide-react';
+import { Search, Loader2, MapPin, Vote as VoteIcon, ShieldCheck } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import VoteModal from '@/components/vote-modal';
 import { db } from '@/lib/firebase';
@@ -42,8 +42,17 @@ export default function NomineeList({
   const [countryFilter, setCountryFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [uniqueCountries, setUniqueCountries] = useState<string[]>([]);
-
   const [visibleCount, setVisibleCount] = useState(12);
+
+  // UX de votación (solo cliente)
+  const [hasVotedThisSession, setHasVotedThisSession] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return window.localStorage.getItem('latamAwards_voted_2026') === 'true';
+  });
+  const [votedNomineeId, setVotedNomineeId] = useState<string | null>(() => {
+    if (typeof window === 'undefined') return null;
+    return window.localStorage.getItem('latamAwards_voted_2026_nominee') || null;
+  });
 
   const { toast } = useToast();
   const searchParams = useSearchParams();
@@ -56,22 +65,24 @@ export default function NomineeList({
     let q = query(nomineesRef);
 
     if (edition) {
-      // En Firestore el campo edition está guardado como string, por ejemplo "2026"
+      // En Firestore edition está guardado como string, ej. "2026"
       q = query(q, where('edition', '==', edition));
     }
 
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const fetchedNominees = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Nominee[];
-
-        // Normalizamos votes a número
-        fetchedNominees.forEach((n) => {
-          // @ts-ignore
-          n.votes = typeof n.votes === 'number' ? n.votes : 0;
+        const fetchedNominees = snapshot.docs.map((doc) => {
+          const data = doc.data() as any;
+          return {
+            id: doc.id,
+            votes: typeof data.votes === 'number' ? data.votes : 0,
+            name: data.name || '',
+            organizationName: data.organizationName || '',
+            country: data.country || '',
+            category: data.category || '',
+            ...data,
+          } as Nominee & { organizationName?: string; country?: string };
         });
 
         // Ordenar por votos desc en cliente
@@ -93,7 +104,11 @@ export default function NomineeList({
           );
         }
 
-        const countries = Array.from(new Set(filteredByCategory.map((c) => c.country))).sort();
+        const countries = Array.from(
+          new Set(filteredByCategory.map((c) => c.country || ''))
+        )
+          .filter(Boolean)
+          .sort();
         setUniqueCountries(countries);
         setIsLoading(false);
       },
@@ -112,12 +127,17 @@ export default function NomineeList({
   }, [categories, edition, toast]);
 
   const filteredNominees = useMemo(() => {
-    return allNominees.filter((c) => {
-      const matchesCategory = categoryFilter === 'all' || c.category === categoryFilter;
-      const matchesCountry = countryFilter === 'all' || c.country === countryFilter;
-      const matchesSearch =
-        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        c.organizationName.toLowerCase().includes(searchQuery.toLowerCase());
+    const q = searchQuery.toLowerCase().trim();
+
+    return allNominees.filter((c: any) => {
+      const name = (c.name || '').toLowerCase();
+      const org = (c.organizationName || '').toLowerCase();
+      const category = c.category || '';
+      const country = c.country || '';
+
+      const matchesCategory = categoryFilter === 'all' || category === categoryFilter;
+      const matchesCountry = countryFilter === 'all' || country === countryFilter;
+      const matchesSearch = !q || name.includes(q) || org.includes(q);
 
       let matchesLocation = true;
       if (is2026 && locationFilter !== 'all') {
@@ -125,9 +145,9 @@ export default function NomineeList({
         const madridCats = madridCategories2026 as unknown as string[];
 
         if (locationFilter === 'viena') {
-          matchesLocation = vienaCats.includes(c.category);
+          matchesLocation = vienaCats.includes(category);
         } else if (locationFilter === 'madrid') {
-          matchesLocation = madridCats.includes(c.category);
+          matchesLocation = madridCats.includes(category);
         }
       }
 
@@ -142,7 +162,7 @@ export default function NomineeList({
 
   const highestVoteCount = useMemo(() => {
     if (allNominees.length === 0) return 1;
-    return Math.max(...allNominees.map((c) => c.votes || 0));
+    return Math.max(...allNominees.map((c: any) => c.votes || 0));
   }, [allNominees]);
 
   const handleLocationChange = (loc: LocationFilter) => {
@@ -164,7 +184,7 @@ export default function NomineeList({
   }, [searchParams, allNominees]);
 
   const handleVoteClick = (nominee: Nominee) => {
-    if (!allowVoting) return;
+    if (!allowVoting || hasVotedThisSession) return;
     setSelectedNominee(nominee);
     setIsVoteModalOpen(true);
   };
@@ -172,7 +192,7 @@ export default function NomineeList({
   const handleConfirmVote = async (nomineeId: string) => {
     const previousNominees = [...allNominees];
     setAllNominees((prev) =>
-      prev.map((n) =>
+      prev.map((n: any) =>
         n.id === nomineeId ? { ...n, votes: (n.votes || 0) + 1 } : n
       )
     );
@@ -181,12 +201,28 @@ export default function NomineeList({
     try {
       const result = await castVoteAction(nomineeId);
       if (result.success) {
+        setHasVotedThisSession(true);
+        setVotedNomineeId(nomineeId);
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem('latamAwards_voted_2026', 'true');
+          window.localStorage.setItem('latamAwards_voted_2026_nominee', nomineeId);
+        }
+
         toast({
           title: '¡Voto registrado!',
           description: result.message,
         });
         setIsVoteModalOpen(false);
       } else {
+        if (
+          result.message &&
+          result.message.toLowerCase().includes('ya ha emitido un voto')
+        ) {
+          setHasVotedThisSession(true);
+          if (typeof window !== 'undefined') {
+            window.localStorage.setItem('latamAwards_voted_2026', 'true');
+          }
+        }
         setAllNominees(previousNominees);
         toast({
           variant: 'destructive',
@@ -226,10 +262,37 @@ export default function NomineeList({
 
   return (
     <div className="space-y-8">
+      {/* Mensaje de estado de votación */}
+      {allowVoting && (
+        <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 text-xs md:text-sm">
+          <ShieldCheck className="mt-0.5 h-4 w-4 text-primary" />
+          <div>
+            {hasVotedThisSession ? (
+              <>
+                <p className="font-semibold text-white">
+                  Tu voto para esta edición ya fue registrado.
+                </p>
+                <p className="text-muted-foreground">
+                  Para garantizar la integridad del proceso, solo se permite un voto por persona / IP.
+                  Puedes seguir consultando el ranking en tiempo real.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="font-semibold text-white">Puedes emitir un voto en esta edición.</p>
+                <p className="text-muted-foreground">
+                  Tu voto se registra de forma segura y se refleja en el ranking en tiempo real.
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Location Tabs (Only for 2026) */}
       {is2026 && (
-        <div className="flex flex-col items-center space-y-6 mb-8">
-          <div className="inline-flex p-1 bg-white/5 rounded-full border border-white/10 backdrop-blur-md shadow-2xl">
+        <div className="mb-8 flex flex-col items-center space-y-6">
+          <div className="inline-flex rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-md shadow-2xl">
             {[
               { id: 'all', label: 'Todos', icon: VoteIcon },
               { id: 'madrid', label: 'Madrid', icon: MapPin },
@@ -238,15 +301,15 @@ export default function NomineeList({
               <button
                 key={loc.id}
                 onClick={() => handleLocationChange(loc.id as LocationFilter)}
-                className={`relative px-6 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 flex items-center gap-2 ${
+                className={`relative flex items-center gap-2 px-6 py-2.5 text-sm font-medium transition-colors duration-300 ${
                   locationFilter === loc.id
-                    ? 'text-white bg-primary shadow-[0_0_15px_rgba(212,175,55,0.3)]'
+                    ? 'bg-primary text-white shadow-[0_0_15px_rgba(212,175,55,0.3)]'
                     : 'text-gray-400 hover:text-white'
-                }`}
+                } rounded-full`}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <loc.icon
-                    className={`w-4 h-4 ${
+                    className={`h-4 w-4 ${
                       locationFilter === loc.id ? 'text-white' : 'text-gray-500'
                     }`}
                   />
@@ -257,7 +320,7 @@ export default function NomineeList({
           </div>
 
           <div className="text-center">
-            <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+            <h3 className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-xl font-bold text-transparent">
               {locationFilter === 'all' && 'Todos los Líderes Nominados'}
               {locationFilter === 'madrid' &&
                 'Edición Madrid: Premios a la Excelencia Empresarial'}
@@ -269,12 +332,12 @@ export default function NomineeList({
       )}
 
       {/* Filters */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-card/30 p-4 rounded-xl border border-white/5 backdrop-blur-sm">
+      <div className="grid grid-cols-1 gap-4 rounded-xl border border-white/5 bg-card/30 p-4 backdrop-blur-sm md:grid-cols-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Buscar por nombre..."
-            className="pl-10 bg-background/50"
+            className="bg-background/50 pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -317,19 +380,19 @@ export default function NomineeList({
       {isLoading ? (
         <div className="flex flex-col items-center justify-center py-20 space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
-          <p className="text-muted-foreground animate-pulse">
+          <p className="animate-pulse text-muted-foreground">
             Cargando nominados de {yearLabel}...
           </p>
         </div>
       ) : filteredNominees.length === 0 ? (
-        <div className="text-center py-20 border-2 border-dashed border白/10 rounded-2xl bg-white/5">
-          <p className="text-xl text-muted-foreground mb-4">
+        <div className="rounded-2xl border-2 border-dashed border-white/10 bg-white/5 py-20 text-center">
+          <p className="mb-4 text-xl text-muted-foreground">
             No se encontraron nominados con los filtros seleccionados.
           </p>
 
           {allNominees.length > 0 && (
-            <div className="mb-6 max-w-md mx-auto p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-sm text-yellow-200/80">
-              <p className="font-bold mb-1">¡Atención!</p>
+            <div className="mb-6 mx-auto max-w-md rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4 text-sm text-yellow-200/80">
+              <p className="mb-1 font-bold">¡Atención!</p>
               <p>
                 Hay {allNominees.length} nominados en esta edición, pero ninguno coincide con las
                 categorías de esta página.
@@ -355,15 +418,21 @@ export default function NomineeList({
         </div>
       ) : (
         <div className="space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {visibleNominees.map((nominee) => (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {visibleNominees.map((nominee: any) => (
               <div key={nominee.id} id={`nominee-${nominee.id}`}>
                 <NomineeCard
                   nominee={nominee}
-                  onVoteClick={allowVoting ? () => handleVoteClick(nominee) : undefined}
+                  onVoteClick={
+                    allowVoting && !hasVotedThisSession
+                      ? () => handleVoteClick(nominee)
+                      : undefined
+                  }
                   isVoteLoading={isVoting === nominee.id}
-                  rank={allNominees.findIndex((c) => c.id === nominee.id) + 1}
+                  rank={allNominees.findIndex((c: any) => c.id === nominee.id) + 1}
                   highestVoteCount={highestVoteCount}
+                  isUserChoice={votedNomineeId === nominee.id}
+                  onShare={() => handleShare(nominee.id)}
                 />
               </div>
             ))}
