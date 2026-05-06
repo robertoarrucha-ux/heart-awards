@@ -51,7 +51,6 @@ export default function VotePageClient({ categories, edition }: VotePageClientPr
     const q = query(
       nomineesRef,
       where('edition', '==', edition),
-      orderBy('votes', 'desc')
     );
 
     const unsubscribe = onSnapshot(
