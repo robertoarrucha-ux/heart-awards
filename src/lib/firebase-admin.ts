@@ -33,4 +33,3 @@ export const adminDb =
     : getFirestore(app);
 
 export const adminAuth = getAuth(app);
-fix: use FIREBASE_SERVICE_ACCOUNT env var for admin credentials
