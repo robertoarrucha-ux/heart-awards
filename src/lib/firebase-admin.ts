@@ -1,27 +1,27 @@
 // src/lib/firebase-admin.ts
-import { initializeApp, getApps, getApp, AppOptions } from 'firebase-admin/app';
+import { initializeApp, getApps, getApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { getAuth } from 'firebase-admin/auth';
 import firebaseConfig from '../../firebase-applet-config.json';
 
-// IMPORTANTE:
-// Este módulo está pensado para uso en scripts locales o entornos
-// donde tengas credenciales de servicio configuradas (GOOGLE_APPLICATION_CREDENTIALS).
-// En Vercel, si no configuras credenciales explícitas, las operaciones Admin fallarán.
-
 let app;
-if (!getApps().length) {
-  const options: AppOptions = {
-    projectId: firebaseConfig.projectId,
-    // Si quieres usar Admin SDK en producción, añade aquí:
-    // credential: cert({
-    //   projectId: process.env.FIREBASE_PROJECT_ID,
-    //   clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    //   privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    // }),
-  };
 
-  app = initializeApp(options);
+if (!getApps().length) {
+  const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
+
+  if (serviceAccountJson) {
+    // Producción: usa la service account completa desde variable de entorno
+    const serviceAccount = JSON.parse(serviceAccountJson);
+    app = initializeApp({
+      credential: cert(serviceAccount),
+      projectId: serviceAccount.project_id,
+    });
+  } else {
+    // Local: intenta con credenciales por defecto (GOOGLE_APPLICATION_CREDENTIALS)
+    app = initializeApp({
+      projectId: firebaseConfig.projectId,
+    });
+  }
 } else {
   app = getApp();
 }
