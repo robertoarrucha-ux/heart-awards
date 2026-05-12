@@ -36,8 +36,7 @@ leadershipLesson: z.string().min(20, "La lección de liderazgo debe tener al men
 profilePhoto: z
 .custom<FileList>()
 .refine((files) => files === undefined || files.length === 0 || files.length === 1, 'Puedes subir un solo archivo.')
-.refine((files) => files === undefined || files.length === 0 || files?.[0]?.size <= MAX_PHOTO_SIZE, ``La imagen no debe superar ${MAX_PHOTO_SIZE_LABEL}. Por favor selecciona una imagen más pequeña.`
-`)
+.refine((files) => files === undefined || files.length === 0 || files?.[0]?.size <= MAX_PHOTO_SIZE, `La imagen no debe superar ${MAX_PHOTO_SIZE_LABEL}. Por favor selecciona una imagen más pequeña.`)
 .refine(
 (files) => files === undefined || files.length === 0 || ACCEPTED_PHOTO_TYPES.includes(files?.[0]?.type),
 'Solo se aceptan formatos .jpg, .jpeg, .png y .webp.'
