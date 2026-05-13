@@ -309,8 +309,8 @@ export default function BienvenidosNominadosPage() {
               className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl"
             >
               <Image 
-                src={getAssetUrl("Latin-American-Leaders-Awards-Viena.webp")} 
-                alt="Latin American Leaders Awards Viena" 
+                src={getAssetUrl("Latin-American-Leaders-Awards-2.webp")} 
+                alt="Latin American Leaders Awards" 
                 fill 
                 className="object-cover"
                 referrerPolicy="no-referrer"
