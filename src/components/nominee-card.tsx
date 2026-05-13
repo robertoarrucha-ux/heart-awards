@@ -19,7 +19,6 @@ import {
   Sparkles,
   Briefcase,
   Building,
-  Share2,
   ExternalLink,
   Star,
 } from 'lucide-react';
@@ -43,9 +42,7 @@ type NomineeCardProps = {
   onVoteClick?: (nominee: Nominee) => void;
   isVoteLoading?: boolean;
   priority?: boolean;
-  // Resalta al nominado votado por el usuario
   isUserChoice?: boolean;
-  // Permite que el padre controle el share
   onShare?: () => void;
 };
 
@@ -95,19 +92,6 @@ export default function NomineeCard({
   const rankClass = rankColorClasses[rank] || 'bg-muted text-muted-foreground border-muted';
   const progressValue =
     highestVoteCount > 0 ? Math.min(100, (nominee.votes / highestVoteCount) * 100) : 0;
-
-  const handleShare = () => {
-    if (onShare) {
-      onShare();
-      return;
-    }
-    const shareUrl = `${window.location.origin}/nominados/${nominee.id}`;
-    navigator.clipboard.writeText(shareUrl);
-    toast({
-      title: 'Enlace copiado',
-      description: 'El perfil de este líder se ha copiado para que puedas compartirlo.',
-    });
-  };
 
   return (
     <TooltipProvider>
@@ -290,21 +274,6 @@ export default function NomineeCard({
                 </TooltipContent>
               </Tooltip>
             )}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleShare}
-                  aria-label="Compartir perfil del nominado"
-                >
-                  <Share2 className="h-5 w-5 text-primary hover:text-primary/80" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Compartir perfil</p>
-              </TooltipContent>
-            </Tooltip>
           </div>
 
           {onVoteClick && (
