@@ -36,8 +36,8 @@ export const timelineSteps = [
   },
   {
     title: "4. Ceremonia Anuncio y Premiación",
-    date: "Viena / Madrid 2026",
-    description: "Gala oficial de entrega de galardones y networking internacional.",
+    date: "Madrid (Nov) · Viena (Dic) 2026",
+    description: "Gala oficial de entrega de galardones y networking internacional. Cada sede celebra sus categorías específicas.",
     icon: <Trophy className="w-6 h-6" />,
     status: "upcoming"
   }
@@ -55,7 +55,7 @@ export const stats = [
 export const achievements = [
   { title: "INSPIRACIÓN", desc: "Ideas poderosas e innovadoras de todo América Latina.", icon: <Lightbulb className="w-6 h-6" /> },
   { title: "ALIANZAS", desc: "Oportunidades de colaboración y negocios Europa-América Latina.", icon: <Zap className="w-6 h-6" /> },
-  { title: "ACCESO", desc: "A la economía DACH, la más poderosa de Europa.", icon: <Globe className="w-6 h-6" /> },
+  { title: "ACCESO", desc: "A las economías más poderosas de Europa: DACH y el ecosistema ibérico.", icon: <Globe className="w-6 h-6" /> },
   { title: "CONOCIMIENTO", desc: "De primera mano sobre negocios y políticas exitosas.", icon: <Info className="w-6 h-6" /> },
   { title: "IMPULSO", desc: "Posicionamiento positivo de tu marca personal.", icon: <Star className="w-6 h-6" /> },
   { title: "AMISTADES", desc: "De tu nivel y para toda la vida.", icon: <Heart className="w-6 h-6" /> }
@@ -63,8 +63,12 @@ export const achievements = [
 
 export const faqs = [
   {
-    q: "¿Cuáles son las fechas del evento?",
-    a: "Evento en Viena: 3, 4 y 5 de Diciembre. Evento en Madrid: 19, 20 y 21 de Noviembre."
+    q: "¿Cuáles son las fechas y sedes del evento?",
+    a: "Hay dos ediciones en 2026: Madrid (19, 20 y 21 de Noviembre) para proyectos Empresariales, y Viena (3, 4 y 5 de Diciembre) para proyectos Sociales. Puedes asistir a ambas, pero tu sede principal depende de tu categoría."
+  },
+  {
+    q: "¿Cuál es mi sede principal según mi categoría?",
+    a: "Si tu nominación es en una categoría de proyectos Empresariales, tu sede principal es Madrid. Si es en una categoría de proyectos Sociales, tu sede es Viena. En tu sede principal podrás presentar tu proyecto y ser premiado. Los nominados pueden asistir a ambos eventos si lo desean."
   },
   {
     q: "¿Cómo eligen a los nominados?",
@@ -84,7 +88,7 @@ export const faqs = [
   },
   {
     q: "¿Los nominados pagan sus viajes y entradas?",
-    a: "Sí, cada nominado cubre sus viajes y estancia. Ofrecemos ayudas de hasta 50% en costo de hoteles (solicitar vía WhatsApp). La ceremonia de premiación es GRATIS para nominados, pero la agenda VIP de 3 días tiene costo con 50% de descuento."
+    a: "Sí, cada nominado cubre sus viajes y estancia. Ofrecemos ayudas de hasta 50% en costo de hoteles (solicitar vía WhatsApp). La ceremonia de premiación es GRATIS para nominados en ambas sedes, pero la agenda VIP de 3 días tiene costo con 50% de descuento. El cupón FINALISTAS aplica para Madrid y Viena."
   },
   {
     q: "¿Qué pasa si no puedo viajar?",
@@ -100,7 +104,7 @@ export const faqs = [
   }
 ];
 
-export const agenda = [
+export const agendaViena = [
   {
     day: "Día 1 - Vestimenta Casual",
     events: [
@@ -131,3 +135,38 @@ export const agenda = [
     ]
   }
 ];
+
+export const agendaMadrid = [
+  {
+    day: "Día 1 - Vestimenta Casual",
+    events: [
+      "17:00 – Punto de encuentro",
+      "17:10 – Brindis especial de Bienvenida",
+      "17:30 – Recepción y networking con Cámaras Empresariales",
+      "20:00 – Recorrido por la ciudad y sesión de fotos"
+    ]
+  },
+  {
+    day: "Día 2 - Vestimenta Formal",
+    events: [
+      "12:00 – Recepción en Institución Aliada Madrid",
+      "13:00 – Recorrido y charlas",
+      "16:00 – Traslado a Impact Hub Madrid",
+      "17:00 – Charlas de 10 minutos (Estilo TEDx)",
+      "19:00 – Networking con inversionistas y aliados",
+      "22:00 – Noche de Fiesta"
+    ]
+  },
+  {
+    day: "Día 3 - Vestimenta Formal",
+    events: [
+      "15:30 – Registro y Bienvenida en Impact Hub Madrid",
+      "16:10 – Más de 10 Charlas de 10 minutos (Estilo TEDx)",
+      "18:30 – Ceremonia de Premiación (Acceso gratuito para nominados)",
+      "19:00 – Cocktail & Fiesta de Cierre"
+    ]
+  }
+];
+
+// Keep legacy export for backwards compatibility
+export const agenda = agendaViena;
