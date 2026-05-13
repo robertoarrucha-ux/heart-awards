@@ -18,7 +18,6 @@ import {
   Award,
   ChevronDown,
   ChevronUp,
-  Video,
   Star,
   ShieldCheck,
   Lightbulb,
@@ -473,33 +472,8 @@ export default function BienvenidosNominadosPage() {
         </div>
       </section>
 
-      {/* Video / Presentation Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-sm font-bold mb-6">
-                <Video className="w-4 h-4" /> OPCIONAL
-              </div>
-              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-6">Promoción de tu Nominación</h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
-                Para aumentar tu visibilidad y votos, te recomendamos grabar un video corto presentando tu proyecto. Aplica para ambas sedes.
-              </p>
-            </div>
-            <div className="glass p-8 rounded-3xl border border-white/10">
-              <Link 
-                href="/bienvenidos-nominados/guia-video"
-                className="inline-flex items-center gap-2 text-primary hover:underline font-bold"
-              >
-                Ver guía completa para tu video de nominación <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Presentation Section */}
-      <section className="py-24 bg-[#0f0f0f]">
+      <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -527,7 +501,7 @@ export default function BienvenidosNominadosPage() {
       </section>
 
       {/* Participation Section */}
-      <section className="py-24">
+      <section className="py-24 bg-[#0f0f0f]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -542,7 +516,7 @@ export default function BienvenidosNominadosPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-[#0f0f0f]">
+      <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-16 text-center">Preguntas frecuentes</h2>
@@ -556,7 +530,7 @@ export default function BienvenidosNominadosPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24">
+      <section className="py-24 bg-[#0f0f0f]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-5xl font-outfit font-bold mb-6">
             ¿Listo para <span className="text-yellow-500">brillar</span> en Europa?
