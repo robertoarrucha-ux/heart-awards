@@ -151,16 +151,16 @@ export default function TerminosConvocatoria() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="glass p-4 rounded-xl border-white/5">
-                    <p className="text-primary font-bold text-sm mb-2">7.1 Comité Abierto</p>
-                    <p className="text-xs">Elige a 15 premiados mediante votación pública en awards.pro-latam.org.</p>
+                    <p className="text-primary font-bold text-sm mb-2">7.1 Comité Comunidad</p>
+                    <p className="text-xs">Elige a 15 premiados mediante votación pública en awards.pro-latam.org/vota.</p>
                   </div>
                   <div className="glass p-4 rounded-xl border-white/5">
-                    <p className="text-primary font-bold text-sm mb-2">7.2 Comité Cerrado</p>
+                    <p className="text-primary font-bold text-sm mb-2">7.2 Comité Asistentes al Evento</p>
                     <p className="text-xs">Elige a 5 premiados mediante el voto de los asistentes al evento (Agenda General y VIP).</p>
                   </div>
                   <div className="glass p-4 rounded-xl border-white/5">
-                    <p className="text-primary font-bold text-sm mb-2">7.3 Comité Cerrado</p>
-                    <p className="text-xs">Elige a 5 premiados mediante el voto preferencial de Empresas Aliadas y Patrocinadores.</p>
+                    <p className="text-primary font-bold text-sm mb-2">7.3 Comité Organizadores y Patrocinadores</p>
+                    <p className="text-xs">Elige a 5 premiados mediante el voto preferencial de Empresas Organizadoras y Patrocinadoras.</p>
                   </div>
                 </div>
               </div>
