@@ -10,6 +10,8 @@ export default function MediaPartners() {
   const { t } = useLanguage();
 
   const mediaPartners = [
+    { name: "El Universal", logo: getLogoUrl("el-universal.webp"), url: "https://www.eluniversal.com.mx/estados/premian-politicas-publicas-estatales" },
+    { name: "El Heraldo", logo: getLogoUrl("el-heraldo.webp"), url: "https://heraldodemexico.com.mx/nacional/2022/12/11/yucatan-es-reconocido-con-el-premio-latin-american-leaders-awards-465252.html" },
     { name: "El Tiempo", logo: getLogoUrl("el-tiempo.webp"), url: "https://www.eltiempo.com/vida/mujeres/premio-cafam-a-la-mujer-recibe-reconocimiento-por-su-liderazgo-714929" },
     { name: "Excélsior", logo: getLogoUrl("Excelsior.webp"), url: "https://www.excelsior.com.mx/nacional/reconocen-a-mauricio-vila-con-el-premio-latin-american-leaders-awards/1558040" },
     { name: "Radio Fórmula", logo: getLogoUrl("Radio-Formula.webp"), url: "https://www.radioformula.com.mx/nacional/2022/12/11/reconocen-yucatan-con-el-premio-latin-american-leaders-awards-742946.html" },
