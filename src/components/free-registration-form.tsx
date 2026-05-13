@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -16,7 +15,7 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { addFreeRegistrationAction } from '@/app/actions';
-import { Loader2, CheckCircle2, MessageCircle } from 'lucide-react';
+import { Loader2, CheckCircle2, MessageCircle, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const countries = [
@@ -38,6 +37,7 @@ const participationStatuses = [
 export function FreeRegistrationForm() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [venues, setVenues] = useState<{ madrid: boolean; viena: boolean }>({ madrid: false, viena: false });
   const { toast } = useToast();
   
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({
@@ -49,11 +49,29 @@ export function FreeRegistrationForm() {
       websiteOrLinkedin: '',
       participationStatus: '',
       whatsapp: '',
-      comments: ''
+      comments: '',
+      venues: ''
     }
   });
 
+  const handleVenueChange = (venue: 'madrid' | 'viena') => {
+    const updated = { ...venues, [venue]: !venues[venue] };
+    setVenues(updated);
+    const selected = [];
+    if (updated.madrid) selected.push('Madrid (19-21 Nov)');
+    if (updated.viena) selected.push('Viena (3-5 Dic)');
+    setValue('venues', selected.join(', '));
+  };
+
   const onSubmit = async (data: any) => {
+    if (!venues.madrid && !venues.viena) {
+      toast({
+        variant: "destructive",
+        title: "Selecciona una sede",
+        description: "Por favor indica a cuál de las dos sedes deseas asistir.",
+      });
+      return;
+    }
     setLoading(true);
     try {
       const result = await addFreeRegistrationAction(data);
@@ -180,6 +198,69 @@ export function FreeRegistrationForm() {
           <Input type="hidden" {...register('participationStatus', { required: "El estatus es obligatorio" })} />
           {errors.participationStatus && <p className="text-xs text-red-500">{errors.participationStatus.message}</p>}
         </div>
+      </div>
+
+      {/* Venue Selection */}
+      <div className="space-y-3">
+        <Label className="flex items-center gap-2">
+          <MapPin className="w-4 h-4 text-primary" />
+          ¿A qué sede(s) deseas asistir? <span className="text-red-500">*</span>
+        </Label>
+        <p className="text-xs text-gray-500">
+          Puedes seleccionar una o ambas sedes. Tu sede principal depende de tu categoría: <strong className="text-gray-400">Madrid</strong> para proyectos Empresariales, <strong className="text-gray-400">Viena</strong> para proyectos Sociales.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <button
+            type="button"
+            onClick={() => handleVenueChange('madrid')}
+            className={`flex items-center gap-4 p-4 rounded-2xl border transition-all text-left ${
+              venues.madrid
+                ? 'bg-primary/10 border-primary/40 text-white'
+                : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'
+            }`}
+          >
+            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+              venues.madrid ? 'bg-primary border-primary' : 'border-white/30'
+            }`}>
+              {venues.madrid && (
+                <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </div>
+            <div>
+              <p className="font-bold text-sm text-white">🇪🇸 Madrid</p>
+              <p className="text-xs opacity-70">19, 20 y 21 de Noviembre 2026</p>
+              <p className="text-xs opacity-50 mt-0.5">Proyectos Empresariales</p>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleVenueChange('viena')}
+            className={`flex items-center gap-4 p-4 rounded-2xl border transition-all text-left ${
+              venues.viena
+                ? 'bg-primary/10 border-primary/40 text-white'
+                : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'
+            }`}
+          >
+            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+              venues.viena ? 'bg-primary border-primary' : 'border-white/30'
+            }`}>
+              {venues.viena && (
+                <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </div>
+            <div>
+              <p className="font-bold text-sm text-white">🇦🇹 Viena</p>
+              <p className="text-xs opacity-70">3, 4 y 5 de Diciembre 2026</p>
+              <p className="text-xs opacity-50 mt-0.5">Proyectos Sociales</p>
+            </div>
+          </button>
+        </div>
+        <Input type="hidden" {...register('venues')} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
