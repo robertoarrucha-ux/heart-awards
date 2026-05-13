@@ -237,7 +237,7 @@ export default function BienvenidosNominadosPage() {
     <main className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-yellow-500/30">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center opacity-20 blur-sm" style={{ backgroundImage: `url(${getAssetUrl('Latin-American-Leaders-Awards-1.webp')})` }}></div>
+        <div className="absolute inset-0 bg-cover bg-center opacity-20 blur-sm" style={{ backgroundImage: `url(${getAssetUrl('public/Latin-American-Leaders-Awards-1.webp')})` }}></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/80 to-[#0a0a0a]"></div>
         
         <div className="container mx-auto px-4 relative z-10 text-center">
@@ -308,7 +308,7 @@ export default function BienvenidosNominadosPage() {
               className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl"
             >
               <Image 
-                src={getAssetUrl("Latin-American-Leaders-Awards-2.webp")} 
+                src={getAssetUrl("public/Latin-American-Leaders-Awards-2.webp")} 
                 alt="Latin American Leaders Awards" 
                 fill 
                 className="object-cover"
