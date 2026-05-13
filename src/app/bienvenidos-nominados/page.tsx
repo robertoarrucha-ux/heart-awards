@@ -62,8 +62,8 @@ function AgendaTabs() {
   const [activeCity, setActiveCity] = useState<'madrid' | 'viena'>('madrid');
   const agenda = activeCity === 'madrid' ? agendaMadrid : agendaViena;
   const cityInfo = {
-    madrid: { label: '\ud83c\uddea\ud83c\uddf8 Madrid', date: '19, 20 y 21 de Noviembre 2026', category: 'Proyectos Empresariales', color: 'from-orange-500/20 to-transparent', border: 'border-orange-500/30', accent: 'text-orange-400' },
-    viena:  { label: '\ud83c\udde6\ud83c\uddf9 Viena',  date: '3, 4 y 5 de Diciembre 2026',    category: 'Proyectos Sociales',      color: 'from-primary/20 to-transparent',  border: 'border-primary/30',  accent: 'text-primary' },
+    madrid: { label: '🇪🇸 Madrid', date: '19, 20 y 21 de Noviembre 2026', category: 'Proyectos Empresariales', color: 'from-orange-500/20 to-transparent', border: 'border-orange-500/30', accent: 'text-orange-400' },
+    viena:  { label: '🇦🇹 Viena',  date: '3, 4 y 5 de Diciembre 2026',    category: 'Proyectos Sociales',      color: 'from-primary/20 to-transparent',  border: 'border-primary/30',  accent: 'text-primary' },
   };
   const info = cityInfo[activeCity];
 
@@ -76,7 +76,7 @@ function AgendaTabs() {
             activeCity === 'madrid' ? 'bg-orange-500 text-black' : 'text-gray-400 hover:text-white'
           }`}
         >
-          \ud83c\uddea\ud83c\uddf8 Madrid
+          🇪🇸 Madrid
         </button>
         <button
           onClick={() => setActiveCity('viena')}
@@ -84,7 +84,7 @@ function AgendaTabs() {
             activeCity === 'viena' ? 'bg-primary text-black' : 'text-gray-400 hover:text-white'
           }`}
         >
-          \ud83c\udde6\ud83c\uddf9 Viena
+          🇦🇹 Viena
         </button>
       </div>
 
@@ -106,7 +106,7 @@ function AgendaTabs() {
             <ul className="space-y-3">
               {day.events.map((event, j) => (
                 <li key={j} className="flex items-start gap-3 text-gray-300 text-sm">
-                  <span className="text-primary mt-0.5">\u2023</span>
+                  <span className="text-primary mt-0.5">›</span>
                   <span>{event}</span>
                 </li>
               ))}
@@ -116,7 +116,7 @@ function AgendaTabs() {
       </div>
 
       <p className="text-center text-xs text-gray-500">
-        Los nominados pueden asistir a ambas sedes. La sede principal donde podr\u00e1s presentar tu proyecto y ser premiado depende de tu categor\u00eda.
+        Los nominados pueden asistir a ambas sedes. La sede principal donde podrás presentar tu proyecto y ser premiado depende de tu categoría.
       </p>
     </div>
   );
@@ -134,7 +134,7 @@ function ParticipationTabs() {
             activeTab === 'free' ? 'bg-primary text-black' : 'text-gray-400 hover:text-white'
           }`}
         >
-          Acceso Gratuito (D\u00eda 3)
+          Acceso Gratuito (Día 3)
         </button>
         <button
           onClick={() => setActiveTab('full')}
@@ -153,9 +153,9 @@ function ParticipationTabs() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold mb-4">
                 <Info className="w-3 h-3" /> IMPORTANTE
               </div>
-              <h3 className="text-2xl font-bold mb-2">Ceremonia de Premiaci\u00f3n (D\u00eda 3)</h3>
+              <h3 className="text-2xl font-bold mb-2">Ceremonia de Premiación (Día 3)</h3>
               <p className="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
-                Este acceso es <span className="text-white font-bold underline">exclusivamente para el d\u00eda de la premiaci\u00f3n</span> en cada sede. Incluye la participaci\u00f3n en el anuncio de ganadores y el networking de cierre. Aplica para <strong className="text-white">Madrid</strong> (Proyectos Empresariales) y <strong className="text-white">Viena</strong> (Proyectos Sociales).
+                Este acceso es <span className="text-white font-bold underline">exclusivamente para el día de la premiación</span> en cada sede. Incluye la participación en el anuncio de ganadores y el networking de cierre. Aplica para <strong className="text-white">Madrid</strong> (Proyectos Empresariales) y <strong className="text-white">Viena</strong> (Proyectos Sociales).
               </p>
             </div>
             
@@ -178,12 +178,12 @@ function ParticipationTabs() {
                 <h3 className="text-2xl font-bold mb-2">Agenda VIP & Networking</h3>
                 <p className="text-xs text-gray-400 mb-4 font-medium">Aplica para Madrid y Viena</p>
                 <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                  Vive la experiencia completa de 3 d\u00edas. Acceso a instituciones internacionales, cenas exclusivas, reuniones con inversionistas, charlas estilo TED y la gala de premiaci\u00f3n con trato preferencial.
+                  Vive la experiencia completa de 3 días. Acceso a instituciones internacionales, cenas exclusivas, reuniones con inversionistas, charlas estilo TED y la gala de premiación con trato preferencial.
                 </p>
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-8">
-                  <p className="text-xs text-gray-500 uppercase tracking-widest mb-1 font-bold">Cup\u00f3n Exclusivo para Nominados:</p>
+                  <p className="text-xs text-gray-500 uppercase tracking-widest mb-1 font-bold">Cupón Exclusivo para Nominados:</p>
                   <div className="text-2xl font-black text-primary tracking-widest">FINALISTAS</div>
-                  <p className="text-xs text-gray-500 mt-1">V\u00e1lido para ambas sedes</p>
+                  <p className="text-xs text-gray-500 mt-1">Válido para ambas sedes</p>
                 </div>
                 <Link 
                   href="/tickets" 
@@ -201,7 +201,7 @@ function ParticipationTabs() {
                     </div>
                     <div>
                       <h4 className="font-bold">Networking de Alto Nivel</h4>
-                      <p className="text-xs text-gray-400 mt-1">Conecta con el ecosistema de inversi\u00f3n europeo y l\u00edderes de 4 continentes.</p>
+                      <p className="text-xs text-gray-400 mt-1">Conecta con el ecosistema de inversión europeo y líderes de 4 continentes.</p>
                     </div>
                   </div>
                   <div className="flex gap-4 mb-4">
@@ -243,13 +243,13 @@ export default function BienvenidosNominadosPage() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <div>
             <span className="inline-block px-4 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-sm font-medium mb-6">
-              \u00a1Felicidades! Eres nominado finalista
+              ¡Felicidades! Eres nominado finalista
             </span>
             <h1 className="text-5xl md:text-8xl font-outfit font-bold mb-6 tracking-tight leading-tight">
               Bienvenidos <span className="text-yellow-500 italic">Nominados</span>
             </h1>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-6">
-              El evento de alianzas, negocios y reconocimiento m\u00e1s importante en Europa para l\u00edderes trabajando en el desarrollo sostenible de Am\u00e9rica Latina.
+              El evento de alianzas, negocios y reconocimiento más importante en Europa para líderes trabajando en el desarrollo sostenible de América Latina.
             </p>
 
             {/* Dual city badges */}
@@ -257,14 +257,14 @@ export default function BienvenidosNominadosPage() {
               <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-400">
                 <MapPin className="w-4 h-4" />
                 <div className="text-left">
-                  <p className="font-bold text-sm">\ud83c\uddea\ud83c\uddf8 Madrid &middot; 19-21 Nov 2026</p>
+                  <p className="font-bold text-sm">🇪🇸 Madrid · 19-21 Nov 2026</p>
                   <p className="text-xs opacity-70">Proyectos Empresariales</p>
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary/10 border border-primary/20 text-primary">
                 <MapPin className="w-4 h-4" />
                 <div className="text-left">
-                  <p className="font-bold text-sm">\ud83c\udde6\ud83c\uddf9 Viena &middot; 3-5 Dic 2026</p>
+                  <p className="font-bold text-sm">🇦🇹 Viena · 3-5 Dic 2026</p>
                   <p className="text-xs opacity-70">Proyectos Sociales</p>
                 </div>
               </div>
@@ -287,10 +287,10 @@ export default function BienvenidosNominadosPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto mb-24">
             <div>
-              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-8">¿Qui\u00e9nes somos?</h2>
+              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-8">¿Quiénes somos?</h2>
               <div className="space-y-6 text-gray-400 leading-relaxed">
-                <p>Desde 2010, dise\u00f1amos programas ejecutivos y educativos para L\u00edderes de Gobierno y Empresa. Nuestras oficinas est\u00e1n en Viena, Austria, con representaciones y aliados en m\u00e1s de 10 pa\u00edses de 4 continentes.</p>
-                <p>Reconocida como la ONG <strong>"M\u00e1s admirable"</strong> por la ONU en Viena, trabajamos bajo los objetivos de desarrollo sostenible de las Naciones Unidas.</p>
+                <p>Desde 2010, diseñamos programas ejecutivos y educativos para Líderes de Gobierno y Empresa. Nuestras oficinas están en Viena, Austria, con representaciones y aliados en más de 10 países de 4 continentes.</p>
+                <p>Reconocida como la ONG <strong>"Más admirable"</strong> por la ONU en Viena, trabajamos bajo los objetivos de desarrollo sostenible de las Naciones Unidas.</p>
                 <div className="flex flex-wrap gap-8 mt-8 grayscale opacity-70">
                   <div className="h-12 w-32 relative">
                     <Image src={getAssetUrl("Global School Logo Black.webp")} alt="The Global School" fill className="object-contain" />
@@ -327,7 +327,7 @@ export default function BienvenidosNominadosPage() {
             </div>
 
             <h3 className="text-2xl font-outfit font-bold mb-4">Aliados que forman y han formado parte</h3>
-            <p className="text-gray-400 mb-8">M\u00e1s de 14 organizaciones respaldan esta iniciativa.</p>
+            <p className="text-gray-400 mb-8">Más de 14 organizaciones respaldan esta iniciativa.</p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center grayscale opacity-50 hover:grayscale-0 transition-all duration-500 max-w-5xl mx-auto">
@@ -352,32 +352,32 @@ export default function BienvenidosNominadosPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-outfit font-bold mb-6">¿Qu\u00e9 son los <span className="text-yellow-500">Latin American Leaders Awards</span>?</h2>
+              <h2 className="text-3xl md:text-5xl font-outfit font-bold mb-6">¿Qué son los <span className="text-yellow-500">Latin American Leaders Awards</span>?</h2>
               <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                Desde 2017, reconocemos a los l\u00edderes m\u00e1s destacados de Am\u00e9rica Latina en Europa. En 2026 celebramos <strong className="text-white">dos ediciones</strong>: Madrid para proyectos Empresariales y Viena para proyectos Sociales.
+                Desde 2017, reconocemos a los líderes más destacados de América Latina en Europa. En 2026 celebramos <strong className="text-white">dos ediciones</strong>: Madrid para proyectos Empresariales y Viena para proyectos Sociales.
               </p>
             </div>
 
             {/* Two city cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
               <div className="p-8 rounded-3xl bg-gradient-to-br from-orange-500/10 to-transparent border border-orange-500/20">
-                <div className="text-3xl mb-3">\ud83c\uddea\ud83c\uddf8</div>
-                <h3 className="text-xl font-bold mb-2">Edici\u00f3n Madrid</h3>
+                <div className="text-3xl mb-3">🇪🇸</div>
+                <h3 className="text-xl font-bold mb-2">Edición Madrid</h3>
                 <p className="text-orange-400 font-medium text-sm mb-3">19, 20 y 21 de Noviembre 2026</p>
-                <p className="text-gray-400 text-sm leading-relaxed">Sede principal para categor\u00edas de <strong className="text-white">proyectos Empresariales</strong>. Presenta tu proyecto en Impact Hub Madrid ante inversionistas y aliados europeos.</p>
+                <p className="text-gray-400 text-sm leading-relaxed">Sede principal para categorías de <strong className="text-white">proyectos Empresariales</strong>. Presenta tu proyecto en Impact Hub Madrid ante inversionistas y aliados europeos.</p>
               </div>
               <div className="p-8 rounded-3xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20">
-                <div className="text-3xl mb-3">\ud83c\udde6\ud83c\uddf9</div>
-                <h3 className="text-xl font-bold mb-2">Edici\u00f3n Viena</h3>
+                <div className="text-3xl mb-3">🇦🇹</div>
+                <h3 className="text-xl font-bold mb-2">Edición Viena</h3>
                 <p className="text-primary font-medium text-sm mb-3">3, 4 y 5 de Diciembre 2026</p>
-                <p className="text-gray-400 text-sm leading-relaxed">Sede principal para categor\u00edas de <strong className="text-white">proyectos Sociales</strong>. Presenta en Impact Hub Vienna con acceso a la ONU y el ecosistema DACH.</p>
+                <p className="text-gray-400 text-sm leading-relaxed">Sede principal para categorías de <strong className="text-white">proyectos Sociales</strong>. Presenta en Impact Hub Vienna con acceso a la ONU y el ecosistema DACH.</p>
               </div>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center mb-16">
               <p className="text-sm text-gray-400">
                 <ShieldCheck className="w-4 h-4 inline-block mr-2 text-primary" />
-                Los nominados pueden asistir a <strong className="text-white">ambas sedes</strong>. Sin embargo, solo podr\u00e1n presentar su proyecto y ser premiados en la sede que corresponda a su categor\u00eda.
+                Los nominados pueden asistir a <strong className="text-white">ambas sedes</strong>. Sin embargo, solo podrán presentar su proyecto y ser premiados en la sede que corresponda a su categoría.
               </p>
             </div>
 
@@ -432,8 +432,8 @@ export default function BienvenidosNominadosPage() {
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4 text-center">¿Qu\u00e9 vas a lograr?</h2>
-            <p className="text-center text-gray-400 mb-16">Al ser parte de esta comunidad de l\u00edderes en Europa</p>
+            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4 text-center">¿Qué vas a lograr?</h2>
+            <p className="text-center text-gray-400 mb-16">Al ser parte de esta comunidad de líderes en Europa</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {achievements.map((a, i) => (
                 <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all">
@@ -466,7 +466,7 @@ export default function BienvenidosNominadosPage() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-sm font-bold mb-6">
                 <Video className="w-4 h-4" /> OPCIONAL
               </div>
-              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-6">Promoci\u00f3n de tu Nominaci\u00f3n</h2>
+              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-6">Promoción de tu Nominación</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">
                 Para aumentar tu visibilidad y votos, te recomendamos grabar un video corto presentando tu proyecto. Aplica para ambas sedes.
               </p>
@@ -476,7 +476,7 @@ export default function BienvenidosNominadosPage() {
                 href="/bienvenidos-nominados/guia-video"
                 className="inline-flex items-center gap-2 text-primary hover:underline font-bold"
               >
-                Ver gu\u00eda completa para tu video de nominaci\u00f3n <ArrowRight className="w-4 h-4" />
+                Ver guía completa para tu video de nominación <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -490,25 +490,25 @@ export default function BienvenidosNominadosPage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-6">¿Puedo Presentar en el Evento?</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">
-                S\u00ed. Todos los nominados tienen la oportunidad de presentar su proyecto en su sede principal en un formato de charla de <strong className="text-white">10 minutos al estilo TEDx</strong>. La estructura y din\u00e1mica es la misma en Madrid y en Viena.
+                Sí. Todos los nominados tienen la oportunidad de presentar su proyecto en su sede principal en un formato de charla de <strong className="text-white">10 minutos al estilo TEDx</strong>. La estructura y dinámica es la misma en Madrid y en Viena.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
                 <p className="text-3xl font-black text-primary mb-2">1-2 min</p>
-                <p className="text-sm text-gray-400">Presentaci\u00f3n personal y del proyecto</p>
+                <p className="text-sm text-gray-400">Presentación personal y del proyecto</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
                 <p className="text-3xl font-black text-primary mb-2">5-7 min</p>
-                <p className="text-sm text-gray-400">Problema, soluci\u00f3n e impacto</p>
+                <p className="text-sm text-gray-400">Problema, solución e impacto</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
                 <p className="text-3xl font-black text-primary mb-2">1-2 min</p>
-                <p className="text-sm text-gray-400">Llamado a la acci\u00f3n y alianzas</p>
+                <p className="text-sm text-gray-400">Llamado a la acción y alianzas</p>
               </div>
             </div>
             <p className="text-center text-xs text-gray-500">
-              Las presentaciones se realizan el D\u00eda 2 y D\u00eda 3. Los horarios exactos se confirman seg\u00fan el programa de cada sede.
+              Las presentaciones se realizan el Día 2 y Día 3. Los horarios exactos se confirman según el programa de cada sede.
             </p>
           </div>
         </div>
@@ -519,22 +519,22 @@ export default function BienvenidosNominadosPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4 text-center">Sistema de Votaciones</h2>
-            <p className="text-center text-gray-400 mb-12">Tres comit\u00e9s de votaci\u00f3n determinan los ganadores</p>
+            <p className="text-center text-gray-400 mb-12">Tres comités de votación determinan los ganadores</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
                 <Users className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h4 className="font-bold mb-2">Votos P\u00fablicos</h4>
+                <h4 className="font-bold mb-2">Votos Públicos</h4>
                 <p className="text-xs text-gray-400">Cualquier persona puede votar por sus nominados favoritos en la plataforma.</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
                 <ShieldCheck className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
-                <h4 className="font-bold mb-2">Comit\u00e9 T\u00e9cnico</h4>
-                <p className="text-xs text-gray-400">Evaluadores especializados revisan el impacto, trayectoria e innovaci\u00f3n de cada nominado.</p>
+                <h4 className="font-bold mb-2">Comité Técnico</h4>
+                <p className="text-xs text-gray-400">Evaluadores especializados revisan el impacto, trayectoria e innovación de cada nominado.</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
                 <Award className="w-8 h-8 text-orange-400 mx-auto mb-4" />
                 <h4 className="font-bold mb-2">Jurado de Honor</h4>
-                <p className="text-xs text-gray-400">Personalidades de alto perfil con voto definitivo en la elecci\u00f3n de ganadores.</p>
+                <p className="text-xs text-gray-400">Personalidades de alto perfil con voto definitivo en la elección de ganadores.</p>
               </div>
             </div>
           </div>
@@ -545,27 +545,27 @@ export default function BienvenidosNominadosPage() {
       <section className="py-24 bg-[#0f0f0f]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-12 text-center">Informaci\u00f3n Importante</h2>
+            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-12 text-center">Información Importante</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-2xl bg-green-500/5 border border-green-500/20">
                 <CheckCircle2 className="w-6 h-6 text-green-500 mb-3" />
                 <h4 className="font-bold mb-2">Ceremonia: Entrada Gratuita</h4>
-                <p className="text-sm text-gray-400">El D\u00eda 3 de cada sede (ceremonia de premiaci\u00f3n) es de <strong className="text-white">acceso 100% gratuito</strong> para todos los nominados. Aplica para Madrid y Viena.</p>
+                <p className="text-sm text-gray-400">El Día 3 de cada sede (ceremonia de premiación) es de <strong className="text-white">acceso 100% gratuito</strong> para todos los nominados. Aplica para Madrid y Viena.</p>
               </div>
               <div className="p-6 rounded-2xl bg-primary/5 border border-primary/20">
                 <Ticket className="w-6 h-6 text-primary mb-3" />
                 <h4 className="font-bold mb-2">50% Descuento Agenda VIP</h4>
-                <p className="text-sm text-gray-400">Con el cup\u00f3n <strong className="text-primary">FINALISTAS</strong> obtienes 50% de descuento en la agenda completa de 3 d\u00edas. V\u00e1lido para <strong className="text-white">ambas sedes</strong>.</p>
+                <p className="text-sm text-gray-400">Con el cupón <strong className="text-primary">FINALISTAS</strong> obtienes 50% de descuento en la agenda completa de 3 días. Válido para <strong className="text-white">ambas sedes</strong>.</p>
               </div>
               <div className="p-6 rounded-2xl bg-yellow-500/5 border border-yellow-500/20">
                 <FileText className="w-6 h-6 text-yellow-500 mb-3" />
                 <h4 className="font-bold mb-2">Certificado Oficial</h4>
-                <p className="text-sm text-gray-400">Todos los nominados finalistas reciben un certificado f\u00edsico y digital como Latin American Leaders Nominee.</p>
+                <p className="text-sm text-gray-400">Todos los nominados finalistas reciben un certificado físico y digital como Latin American Leaders Nominee.</p>
               </div>
               <div className="p-6 rounded-2xl bg-orange-500/5 border border-orange-500/20">
                 <Trophy className="w-6 h-6 text-orange-400 mb-3" />
                 <h4 className="font-bold mb-2">Premio Monetario</h4>
-                <p className="text-sm text-gray-400">Los ganadores de cada sede reciben un reconocimiento monetario y/o en especie. Monto confirmado posterior al evento seg\u00fan fondos.</p>
+                <p className="text-sm text-gray-400">Los ganadores de cada sede reciben un reconocimiento monetario y/o en especie. Monto confirmado posterior al evento según fondos.</p>
               </div>
             </div>
           </div>
@@ -577,9 +577,9 @@ export default function BienvenidosNominadosPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4">Confirma tu Participaci\u00f3n</h2>
+              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4">Confirma tu Participación</h2>
               <p className="text-gray-400">
-                Selecciona el tipo de acceso que deseas. El acceso gratuito incluye la ceremonia del D\u00eda 3 en la sede de tu elecci\u00f3n.
+                Selecciona el tipo de acceso que deseas. El acceso gratuito incluye la ceremonia del Día 3 en la sede de tu elección.
               </p>
             </div>
             <ParticipationTabs />
@@ -607,7 +607,7 @@ export default function BienvenidosNominadosPage() {
           <div className="max-w-3xl mx-auto text-center">
             <MessageCircle className="w-12 h-12 text-[#25D366] mx-auto mb-6" />
             <h2 className="text-3xl font-outfit font-bold mb-4">¿Tienes preguntas?</h2>
-            <p className="text-gray-400 mb-8">\u00danete al grupo oficial o escribe directamente a nuestro equipo.</p>
+            <p className="text-gray-400 mb-8">Únete al grupo oficial o escribe directamente a nuestro equipo.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn" 
