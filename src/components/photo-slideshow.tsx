@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
@@ -9,63 +8,41 @@ import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
-
-import { getAssetUrl } from '@/lib/assets';
+import { getSliderImageUrl } from '@/lib/assets';
 
 const SLIDE_IMAGES = [
-  {
-    url: getAssetUrl('Latin-American-Leaders-Awards-Viena.webp'),
-    alt: 'Gala de Premiación en Viena',
-  },
-  {
-    url: getAssetUrl('Latin-American-Leaders-Awards-Mauricio-Vila.webp'),
-    alt: 'Mauricio Vila en Latin American Leaders Awards',
-  },
-  {
-    url: getAssetUrl('Gonzalo-Munoz-Abogabir-Latin-American-Leaders-Awards.webp'),
-    alt: 'Gonzalo Muñoz Abogabir en Latin American Leaders Awards',
-  },
-  {
-    url: getAssetUrl('Latin American Leaders Awards 1.webp'),
-    alt: 'Cumbre de Liderazgo Latinoamericano',
-  },
-  {
-    url: getAssetUrl('Latin-American-Leaders-Awards-Viena 2.webp'),
-    alt: 'Momentos de la gala en Viena',
-  },
-  {
-    url: getAssetUrl('Latin-American-Leaders-Awards-Viena 3.webp'),
-    alt: 'Reconocimientos en Viena',
-  },
-  {
-    url: getAssetUrl('Latin American Leaders Awards 2.webp'),
-    alt: 'Premiación Latin American Leaders Awards',
-  },
-  {
-    url: getAssetUrl('Latin American Leaders Awards 3.webp'),
-    alt: 'Networking entre líderes',
-  },
-  {
-    url: getAssetUrl('Latin American Leaders Awards 29.webp'),
-    alt: 'Líderes reunidos en la cumbre',
-  },
-  {
-    url: getAssetUrl('Latin-American-Leaders-Awards-Viena 4.webp'),
-    alt: 'Panel de discusión en Viena',
-  },
-  {
-    url: getAssetUrl('Latin-American-Leaders-Awards-Viena 5.webp'),
-    alt: 'Gala de premiación',
-  },
-  {
-    url: getAssetUrl('Latin-American-Leaders-Awards-Viena 6.webp'),
-    alt: 'Líderes premiados',
-  },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena.webp'), alt: 'Gala de Premiación en Viena' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 1.JPEG'), alt: 'Latin American Leaders Awards' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 2.webp'), alt: 'Momentos de la gala en Viena' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 6.webp'), alt: 'Líderes premiados en Viena' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 2.webp'), alt: 'Premiación Latin American Leaders Awards' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 5.webp'), alt: 'Gala de premiación 2025' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Mauricio-Vila.webp'), alt: 'Mauricio Vila en Latin American Leaders Awards' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 18.webp'), alt: 'Latin American Leaders Awards 2024' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 3.webp'), alt: 'Networking entre líderes' },
+  { url: getSliderImageUrl('Gonzalo-Munoz-Abogabir-Latin-American-Leaders-Awards.webp'), alt: 'Gonzalo Muñoz Abogabir en Latin American Leaders Awards' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 20.webp'), alt: 'Líderes latinoamericanos reunidos' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-1.webp'), alt: 'Latin American Leaders Awards' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-8.webp'), alt: 'Reconocimientos Latin American Leaders Awards' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 28.webp'), alt: 'Cumbre de líderes latinoamericanos' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 13.webp'), alt: 'Latin American Leaders Awards 2023' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-7.webp'), alt: 'Entrega de premios' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 16.webp'), alt: 'Alianzas y negocios en el evento' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 29.webp'), alt: 'Líderes reunidos en la cumbre' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 14.webp'), alt: 'Panel de líderes latinoamericanos' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 4.webp'), alt: 'Panel de discusión en Viena' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-3.webp'), alt: 'Premiación en el evento' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-6.webp'), alt: 'Líderes latinoamericanos' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-5.webp'), alt: 'Reconocimientos a líderes' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 25.webp'), alt: 'Latin American Leaders Awards 2025' },
+  { url: getSliderImageUrl('Latin American Leaders Awards 19.webp'), alt: 'Gala anual Latin American Leaders Awards' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-4.webp'), alt: 'Ceremonia de premiación' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 3.webp'), alt: 'Reconocimientos en Viena' },
 ];
 
 export default function PhotoSlideshow() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, duration: 30 }, 
+    { loop: true, duration: 30 },
     [Autoplay({ delay: 6000, stopOnInteraction: false })]
   );
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -91,7 +68,7 @@ export default function PhotoSlideshow() {
   return (
     <section className="py-32 relative overflow-hidden">
       <div className="container mx-auto px-4 mb-16 text-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -168,8 +145,8 @@ export default function PhotoSlideshow() {
             ))}
           </div>
         </div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="mt-16 text-center"
