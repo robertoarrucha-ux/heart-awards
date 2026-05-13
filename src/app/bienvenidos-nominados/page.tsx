@@ -343,7 +343,21 @@ export default function BienvenidosNominadosPage() {
             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/LOGO-BOOSTERIIT-OFICIAL.webp")} alt="Boosterit" fill className="object-contain" /></div>
             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Logo-CAGG.webp")} alt="CAAG" fill className="object-contain" /></div>
             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/logo-emprende-austria-e1666889487679.webp")} alt="Emprende Austria" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Logo-Red-Global-MXSolo-1024x273.webp")} alt="Red Global MX" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Tequila-Inteligente.webp")} alt="Tequila Inteligente" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/logo the new global school.webp")} alt="The New Global School" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Diario-Sustentable.webp")} alt="Diario Sustentable" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/gente-motivando-gente.webp")} alt="Gente Motivando Gente" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Marketing-Insider-Review.webp")} alt="Marketing Insider Review" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Vienna School Logo Dark.webp")} alt="Vienna School Dark" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Amigos-Del-Viento.webp")} alt="Amigos Del Viento" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Sambito.webp")} alt="Sambito" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Anahuac-Mexico.webp")} alt="Anahuac Mexico" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Excelsior.webp")} alt="Excelsior" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Radio-Formula.webp")} alt="Radio Formula" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Opera-Latinoamericana.webp")} alt="Opera Latinoamericana" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/pro-latam logo transparent.webp")} alt="Pro Latam" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/La-Razon.webp")} alt="La Razon" fill className="object-contain" /></div> fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Logo-Red-Global-MXSolo-1024x273.webp")} alt="Red Global MX" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Tequila-Inteligente.webp")} alt="Tequila Inteligente" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/logo the new global school.webp")} alt="The New Global School" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Diario-Sustentable.webp")} alt="Diario Sustentable" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/gente-motivando-gente.webp")} alt="Gente Motivando Gente" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Marketing-Insider-Review.webp")} alt="Marketing Insider Review" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Vienna School Logo Dark.webp")} alt="Vienna School Dark" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Amigos-Del-Viento.webp")} alt="Amigos Del Viento" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Sambito.webp")} alt="Sambito" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Anahuac-Mexico.webp")} alt="Anahuac Mexico" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Excelsior.webp")} alt="Excelsior" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Radio-Formula.webp")} alt="Radio Formula" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Opera-Latinoamericana.webp")} alt="Opera Latinoamericana" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/pro-latam logo transparent.webp")} alt="Pro Latam" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/La-Razon.webp")} alt="La Razon" fill className="object-contain" /></div>
           </div>
         </div>
       </section>
@@ -505,123 +519,21 @@ export default function BienvenidosNominadosPage() {
               </div>
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
                 <p className="text-3xl font-black text-primary mb-2">1-2 min</p>
-                <p className="text-sm text-gray-400">Llamado a la acción y alianzas</p>
-              </div>
-            </div>
-            <p className="text-center text-xs text-gray-500">
-              Las presentaciones se realizan el Día 2 y Día 3. Los horarios exactos se confirman según el programa de cada sede.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Voting System */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4 text-center">Sistema de Votaciones</h2>
-            <p className="text-center text-gray-400 mb-12">Tres comités independientes determinan los premiados</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-              {/* 7.1 Comité Comunidad */}
-              <div className="p-6 rounded-2xl bg-primary/5 border border-primary/20 flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
-                    <Users className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-black text-primary uppercase tracking-widest">7.1</span>
-                </div>
-                <h4 className="font-bold text-base mb-2">Comité Comunidad</h4>
-                <p className="text-xs text-gray-400 leading-relaxed mb-4 flex-1">
-                  Elige a <strong className="text-white">15 premiados</strong> mediante votación pública en la plataforma.
-                </p>
-                <Link
-                  href="/vota"
-                  className="inline-flex items-center gap-1.5 text-xs text-primary font-bold hover:underline mt-auto"
-                >
-                  Votar en awards.pro-latam.org/vota <ArrowRight className="w-3 h-3" />
-                </Link>
-              </div>
-
-              {/* 7.2 Comité Asistentes */}
-              <div className="p-6 rounded-2xl bg-yellow-500/5 border border-yellow-500/20 flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center text-yellow-500 flex-shrink-0">
-                    <Trophy className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-black text-yellow-500 uppercase tracking-widest">7.2</span>
-                </div>
-                <h4 className="font-bold text-base mb-2">Comité Asistentes al Evento</h4>
-                <p className="text-xs text-gray-400 leading-relaxed flex-1">
-                  Elige a <strong className="text-white">5 premiados</strong> mediante el voto de los asistentes al evento (Agenda General y VIP).
-                </p>
-              </div>
-
-              {/* 7.3 Comité Organizadores */}
-              <div className="p-6 rounded-2xl bg-orange-500/5 border border-orange-500/20 flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0">
-                    <Building2 className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-black text-orange-400 uppercase tracking-widest">7.3</span>
-                </div>
-                <h4 className="font-bold text-base mb-2">Comité Organizadores y Patrocinadores</h4>
-                <p className="text-xs text-gray-400 leading-relaxed flex-1">
-                  Elige a <strong className="text-white">5 premiados</strong> mediante el voto preferencial de Empresas Organizadoras y Patrocinadoras.
-                </p>
-              </div>
-
-            </div>
-
-            {/* Total premiados */}
-            <div className="mt-8 p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-              <p className="text-sm text-gray-400">
-                En total se otorgan <strong className="text-white text-base">25 premios</strong> por sede &mdash; 15 por voto público + 5 por asistentes + 5 por organizadores y patrocinadores.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Information */}
-      <section className="py-24 bg-[#0f0f0f]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-12 text-center">Información Importante</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-2xl bg-green-500/5 border border-green-500/20">
-                <CheckCircle2 className="w-6 h-6 text-green-500 mb-3" />
-                <h4 className="font-bold mb-2">Ceremonia: Entrada Gratuita</h4>
-                <p className="text-sm text-gray-400">El Día 3 de cada sede (ceremonia de premiación) es de <strong className="text-white">acceso 100% gratuito</strong> para todos los nominados. Aplica para Madrid y Viena.</p>
-              </div>
-              <div className="p-6 rounded-2xl bg-primary/5 border border-primary/20">
-                <Ticket className="w-6 h-6 text-primary mb-3" />
-                <h4 className="font-bold mb-2">50% Descuento Agenda VIP</h4>
-                <p className="text-sm text-gray-400">Con el cupón <strong className="text-primary">FINALISTAS</strong> obtienes 50% de descuento en la agenda completa de 3 días. Válido para <strong className="text-white">ambas sedes</strong>.</p>
-              </div>
-              <div className="p-6 rounded-2xl bg-yellow-500/5 border border-yellow-500/20">
-                <FileText className="w-6 h-6 text-yellow-500 mb-3" />
-                <h4 className="font-bold mb-2">Certificado Oficial</h4>
-                <p className="text-sm text-gray-400">Todos los nominados finalistas reciben un certificado físico y digital como Latin American Leaders Nominee.</p>
-              </div>
-              <div className="p-6 rounded-2xl bg-orange-500/5 border border-orange-500/20">
-                <Trophy className="w-6 h-6 text-orange-400 mb-3" />
-                <h4 className="font-bold mb-2">Premio Monetario</h4>
-                <p className="text-sm text-gray-400">Los ganadores de cada sede reciben un reconocimiento monetario y/o en especie. Monto confirmado posterior al evento según fondos.</p>
+                <p className="text-sm text-gray-400">Call to action y cierre</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Confirm Participation */}
+      {/* Participation Section */}
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4">Confirma tu Participación</h2>
-              <p className="text-gray-400">
-                Selecciona el tipo de acceso que deseas. El acceso gratuito incluye la ceremonia del Día 3 en la sede de tu elección.
+              <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-6">¿Cómo participar?</h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Elige el nivel de participación que mejor se adapte a tus posibilidades.
               </p>
             </div>
             <ParticipationTabs />
@@ -629,12 +541,12 @@ export default function BienvenidosNominadosPage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ Section */}
       <section className="py-24 bg-[#0f0f0f]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-12 text-center">Preguntas Frecuentes</h2>
-            <div>
+            <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-16 text-center">Preguntas frecuentes</h2>
+            <div className="space-y-0">
               {faqs.map((faq, i) => (
                 <FAQItem key={i} q={faq.q} a={faq.a} />
               ))}
@@ -643,50 +555,27 @@ export default function BienvenidosNominadosPage() {
         </div>
       </section>
 
-      {/* WhatsApp CTA */}
+      {/* CTA Section */}
       <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <MessageCircle className="w-12 h-12 text-[#25D366] mx-auto mb-6" />
-            <h2 className="text-3xl font-outfit font-bold mb-4">¿Tienes preguntas?</h2>
-            <p className="text-gray-400 mb-8">Únete al grupo oficial o escribe directamente a nuestro equipo.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white rounded-xl font-bold hover:scale-105 transition-transform"
-              >
-                <MessageCircle className="w-5 h-5" /> Grupo de Nominados
-              </a>
-              <a 
-                href="https://wa.me/436767644211" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 border border-white/20 text-white rounded-xl font-bold hover:bg-white/15 transition-all"
-              >
-                <MessageCircle className="w-5 h-5" /> Soporte Individual
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="py-16 bg-[#0f0f0f] border-t border-white/10">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-outfit font-bold mb-6">
+            ¿Listo para <span className="text-yellow-500">brillar</span> en Europa?
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto mb-8">
+            Tu nominación ya está activa. Comparte tu historia, conecta con otros líderes y prepárate para el evento más importante del año.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
             <Link 
-              href="/vota"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-yellow-500 text-black rounded-xl font-black hover:scale-105 transition-transform"
+              href="/nominados"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-black font-black rounded-xl hover:scale-[1.02] transition-transform"
             >
-              <Trophy className="w-5 h-5" /> Ver Nominados y Votar
+              Ver todos los nominados <ArrowRight className="w-4 h-4" />
             </Link>
             <Link 
               href="/tickets"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 border border-white/20 text-white rounded-xl font-bold hover:bg-white/15 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 border border-white/20 text-white font-bold rounded-xl hover:bg-white/5 transition-colors"
             >
-              <Ticket className="w-5 h-5" /> Adquirir Tickets con Descuento
+              <Ticket className="w-4 h-4" /> Adquirir acceso completo
             </Link>
           </div>
         </div>
