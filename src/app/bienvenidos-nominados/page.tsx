@@ -24,7 +24,8 @@ import {
   Lightbulb,
   Zap,
   Heart,
-  MapPin
+  MapPin,
+  Building2
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -519,23 +520,64 @@ export default function BienvenidosNominadosPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-outfit font-bold mb-4 text-center">Sistema de Votaciones</h2>
-            <p className="text-center text-gray-400 mb-12">Tres comités de votación determinan los ganadores</p>
+            <p className="text-center text-gray-400 mb-12">Tres comités independientes determinan los premiados</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
-                <Users className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h4 className="font-bold mb-2">Votos Públicos</h4>
-                <p className="text-xs text-gray-400">Cualquier persona puede votar por sus nominados favoritos en la plataforma.</p>
+
+              {/* 7.1 Comité Comunidad */}
+              <div className="p-6 rounded-2xl bg-primary/5 border border-primary/20 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-black text-primary uppercase tracking-widest">7.1</span>
+                </div>
+                <h4 className="font-bold text-base mb-2">Comité Comunidad</h4>
+                <p className="text-xs text-gray-400 leading-relaxed mb-4 flex-1">
+                  Elige a <strong className="text-white">15 premiados</strong> mediante votación pública en la plataforma.
+                </p>
+                <Link
+                  href="/vota"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary font-bold hover:underline mt-auto"
+                >
+                  Votar en awards.pro-latam.org/vota <ArrowRight className="w-3 h-3" />
+                </Link>
               </div>
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
-                <ShieldCheck className="w-8 h-8 text-yellow-500 mx-auto mb-4" />
-                <h4 className="font-bold mb-2">Comité Técnico</h4>
-                <p className="text-xs text-gray-400">Evaluadores especializados revisan el impacto, trayectoria e innovación de cada nominado.</p>
+
+              {/* 7.2 Comité Asistentes */}
+              <div className="p-6 rounded-2xl bg-yellow-500/5 border border-yellow-500/20 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center text-yellow-500 flex-shrink-0">
+                    <Trophy className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-black text-yellow-500 uppercase tracking-widest">7.2</span>
+                </div>
+                <h4 className="font-bold text-base mb-2">Comité Asistentes al Evento</h4>
+                <p className="text-xs text-gray-400 leading-relaxed flex-1">
+                  Elige a <strong className="text-white">5 premiados</strong> mediante el voto de los asistentes al evento (Agenda General y VIP).
+                </p>
               </div>
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
-                <Award className="w-8 h-8 text-orange-400 mx-auto mb-4" />
-                <h4 className="font-bold mb-2">Jurado de Honor</h4>
-                <p className="text-xs text-gray-400">Personalidades de alto perfil con voto definitivo en la elección de ganadores.</p>
+
+              {/* 7.3 Comité Organizadores */}
+              <div className="p-6 rounded-2xl bg-orange-500/5 border border-orange-500/20 flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0">
+                    <Building2 className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-black text-orange-400 uppercase tracking-widest">7.3</span>
+                </div>
+                <h4 className="font-bold text-base mb-2">Comité Organizadores y Patrocinadores</h4>
+                <p className="text-xs text-gray-400 leading-relaxed flex-1">
+                  Elige a <strong className="text-white">5 premiados</strong> mediante el voto preferencial de Empresas Organizadoras y Patrocinadoras.
+                </p>
               </div>
+
+            </div>
+
+            {/* Total premiados */}
+            <div className="mt-8 p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+              <p className="text-sm text-gray-400">
+                En total se otorgan <strong className="text-white text-base">25 premios</strong> por sede &mdash; 15 por voto público + 5 por asistentes + 5 por organizadores y patrocinadores.
+              </p>
             </div>
           </div>
         </div>
