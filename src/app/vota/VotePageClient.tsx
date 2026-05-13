@@ -154,11 +154,7 @@ export default function VotePageClient({
       },
       (error) => {
         console.error('Error fetching top 10 nominees:', error);
-        toast({
-          variant: 'destructive',
-          title: 'Error al cargar el ranking',
-          description: 'No se pudo actualizar el top 10 en tiempo real.',
-        });
+
       },
     );
 
