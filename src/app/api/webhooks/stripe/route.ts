@@ -77,13 +77,24 @@ export async function POST(req: Request) {
       rawMetadata: metadata
     };
 
-    try {
-      // Use adminDb to bypass security rules on the server
-      await adminDb.collection('registrations').add(attendeeInfo);
-      console.log(`Registration saved to Firestore (${event.type}):`, email);
-    } catch (error) {
-      console.error('Error saving registration to Firestore:', error);
-    }
+try {
+  // Guard contra duplicados por mismo stripeId
+  const existing = await adminDb
+    .collection('registrations')
+    .where('stripeId', '==', obj.id)
+    .limit(1)
+    .get();
+
+  if (!existing.empty) {
+    console.log(`[Webhook] Duplicate event for ${obj.id}, skipping`);
+    return NextResponse.json({ received: true });
+  }
+
+  await adminDb.collection('registrations').add(attendeeInfo);
+  console.log(`Registration saved to Firestore (${event.type}):`, email);
+} catch (error) {
+  console.error('Error saving registration to Firestore:', error);
+}
   }
 
   return NextResponse.json({ received: true });
