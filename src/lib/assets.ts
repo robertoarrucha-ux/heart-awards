@@ -21,6 +21,13 @@ export const getAssetUrl = (filename: string) => {
   return `https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/${encodedFilename}?alt=media`;
 };
 
+// Use this for logos stored in Firebase Storage under public/Logos/
+export const getLogoUrl = (filename: string) => {
+  if (!filename) return '';
+  const encodedPath = encodeURIComponent(`public/Logos/${filename}`);
+  return `https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/${encodedPath}?alt=media`;
+};
+
 export const getSliderImageUrl = (filename: string) => {
   const encodedFilename = encodeURIComponent(`public/Photo Slider/${filename}`);
   return `https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/${encodedFilename}?alt=media`;
