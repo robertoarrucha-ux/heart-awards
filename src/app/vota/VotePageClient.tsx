@@ -167,15 +167,6 @@ export default function VotePageClient({
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Mensaje corto de contexto */}
-      <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-xs md:text-sm">
-        <p className="text-muted-foreground">
-          Elige al líder que mejor representa el talento y la visión de América Latina. Tu voto se
-          registra en tiempo real y contribuye al reconocimiento internacional de los Latin American
-          Leaders Awards.
-        </p>
-      </div>
-
       {/* Bloque de Top 5 + mención 6–10 (solo en /vota) */}
       {topTen.length > 0 && <TopRanking topTen={topTen} />}
 
