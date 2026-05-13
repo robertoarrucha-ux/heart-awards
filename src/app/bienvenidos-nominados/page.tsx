@@ -294,13 +294,13 @@ export default function BienvenidosNominadosPage() {
                 <p>Reconocida como la ONG <strong>"Más admirable"</strong> por la ONU en Viena, trabajamos bajo los objetivos de desarrollo sostenible de las Naciones Unidas.</p>
                 <div className="flex flex-wrap gap-8 mt-8 grayscale opacity-70">
                   <div className="h-12 w-32 relative">
-                    <Image src={getAssetUrl("Global School Logo Black.webp")} alt="The Global School" fill className="object-contain" />
+                    <Image src={getAssetUrl("public/Logos/Global School Logo Black.webp")} alt="The Global School" fill className="object-contain" />
                   </div>
                   <div className="h-12 w-32 relative">
-                    <Image src={getAssetUrl("Vienna School logo black.webp")} alt="Vienna School" fill className="object-contain" />
+                    <Image src={getAssetUrl("public/Logos/Vienna School logo black.webp")} alt="Vienna School" fill className="object-contain" />
                   </div>
                   <div className="h-12 w-32 relative">
-                    <Image src={getAssetUrl("pro-latam logo full.webp")} alt="Pro-Latam" fill className="object-contain" />
+                    <Image src={getAssetUrl("public/Logos/pro-latam logo full.webp")} alt="Pro-Latam" fill className="object-contain" />
                   </div>
                 </div>
               </div>
@@ -321,10 +321,10 @@ export default function BienvenidosNominadosPage() {
           <div className="text-center mb-12">
             <h3 className="text-2xl font-outfit font-bold mb-4">Organizadores</h3>
             <div className="flex flex-wrap justify-center gap-12 items-center mb-16">
-              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("Global School Logo Black.webp")} alt="The Global School" fill className="object-contain" /></div>
-              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("Vienna School logo black.webp")} alt="Vienna School" fill className="object-contain" /></div>
-              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("pro-latam logo full.webp")} alt="Pro-Latam" fill className="object-contain" /></div>
-              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("Global Institute Logo Black.webp")} alt="The Global Institute" fill className="object-contain" /></div>
+              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("public/Logos/Global School Logo Black.webp")} alt="The Global School" fill className="object-contain" /></div>
+              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("public/Logos/Vienna School logo black.webp")} alt="Vienna School" fill className="object-contain" /></div>
+              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("public/Logos/pro-latam logo full.webp")} alt="Pro-Latam" fill className="object-contain" /></div>
+              <div className="h-16 w-40 relative grayscale hover:grayscale-0 transition-all"><Image src={getAssetUrl("public/Logos/Global Institute Logo Black.webp")} alt="The Global Institute" fill className="object-contain" /></div>
             </div>
 
             <h3 className="text-2xl font-outfit font-bold mb-4">Aliados que forman y han formado parte</h3>
@@ -332,18 +332,18 @@ export default function BienvenidosNominadosPage() {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center grayscale opacity-50 hover:grayscale-0 transition-all duration-500 max-w-5xl mx-auto">
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("Bank-Ki-Moon-Logo_525_1 Logo.png")} alt="Ban Ki Moon" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("Civic-Tech-Center-Logo.jpg")} alt="Civi Center" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("RAUN logo.png")} alt="RAUN" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("Punto Latino logo.png")} alt="Punto Latino" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("Eurolat Logo.jpg")} alt="EuroLat" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("ISCAN logo.jpg")} alt="ISCAN" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("LAI Logo.webp")} alt="LAI" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("Logo SDGs.png")} alt="SDGs" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("LOGO-BOOSTERIIT-OFICIAL.webp")} alt="Boosterit" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("Logo-CAGG.webp")} alt="CAAG" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("logo-emprende-austria-e1666889487679.png")} alt="Emprende Austria" fill className="object-contain" /></div>
-            <div className="h-12 w-28 relative"><Image src={getAssetUrl("Logo-Red-Global-MXSolo-1024x273.webp")} alt="Red Global MX" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Tigres.webp")} alt="Ban Ki Moon" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Civic-Tech-Center-Logo.webp")} alt="Civi Center" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/RAUN logo.webp")} alt="RAUN" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Punto Latino logo.webp")} alt="Punto Latino" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Eurolat Logo.webp")} alt="EuroLat" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/ISCAN-logo.webp")} alt="ISCAN" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Viena City.webp")} alt="LAI" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Gobierno-de-Yucatan.webp")} alt="SDGs" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/LOGO-BOOSTERIIT-OFICIAL.webp")} alt="Boosterit" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Logo-CAGG.webp")} alt="CAAG" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/logo-emprende-austria-e1666889487679.webp")} alt="Emprende Austria" fill className="object-contain" /></div>
+            <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Logo-Red-Global-MXSolo-1024x273.webp")} alt="Red Global MX" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Tequila-Inteligente.webp")} alt="Tequila Inteligente" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/logo the new global school.webp")} alt="The New Global School" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Diario-Sustentable.webp")} alt="Diario Sustentable" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/gente-motivando-gente.webp")} alt="Gente Motivando Gente" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Marketing-Insider-Review.webp")} alt="Marketing Insider Review" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Vienna School Logo Dark.webp")} alt="Vienna School Dark" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Amigos-Del-Viento.webp")} alt="Amigos Del Viento" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Sambito.webp")} alt="Sambito" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Anahuac-Mexico.webp")} alt="Anahuac Mexico" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Excelsior.webp")} alt="Excelsior" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Radio-Formula.webp")} alt="Radio Formula" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/Opera-Latinoamericana.webp")} alt="Opera Latinoamericana" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/pro-latam logo transparent.webp")} alt="Pro Latam" fill className="object-contain" /></div>             <div className="h-12 w-28 relative"><Image src={getAssetUrl("public/Logos/La-Razon.webp")} alt="La Razon" fill className="object-contain" /></div> fill className="object-contain" /></div>
           </div>
         </div>
       </section>
