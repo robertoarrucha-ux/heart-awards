@@ -21,7 +21,6 @@ export default function MediaPartners() {
     { name: "Gobierno de Yucatán", logo: getLogoUrl("Gobierno-de-Yucatan.webp"), url: "https://www.yucatan.gob.mx/docs/transparencia/finanzas_publicas/2018_2024/2024/Trimestre_1/16_IGD_IT_24.pdf" },
     { name: "Diario Sustentable", logo: getLogoUrl("Diario-Sustentable.webp"), url: "https://www.diariosustentable.com/2022/11/gonzalo-munoz-recibe-reconocimiento-de-latin-american-leaders-awards-2022/" },
     { name: "Marketing Insider Review", logo: getLogoUrl("Marketing-Insider-Review.webp"), url: "https://marketinginsiderreview.com/latin-american-leaders-awards-2022/" },
-    { name: "Ópera Latinoamérica", logo: getLogoUrl("Opera-Latinoamericana.webp"), url: "https://www.operala.org/alejandra-marti-es-nominada-a-los-latin-american-leaders-awards-2024-otorgados-por-ong-europea/" },
     { name: "Amigos del Viento", logo: getLogoUrl("Amigos-Del-Viento.webp"), url: "https://www.amigosdelviento.org/single-post/premiados-latin-american-leaders-awards-2022" },
     { name: "Tequila Inteligente", logo: getLogoUrl("Tequila-Inteligente.webp"), url: "https://tequilainteligente.com/entrevista-federico-de-arteaga-latin-american-leaders-awards-2022/" },
     { name: "Gente Motivando Gente", logo: getLogoUrl("gente-motivando-gente.webp"), url: "https://mail.gentemotivandogente.com/index.php/en/rse-blog?start=500" },
