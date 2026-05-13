@@ -551,6 +551,14 @@ export default function BienvenidosNominadosPage() {
             >
               <Ticket className="w-4 h-4" /> Adquirir acceso completo
             </Link>
+            <a
+              href="https://api.whatsapp.com/send?phone=4367761735010&text=Soy%20nominado%20Latam%20Awards"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#1ebe5d] hover:scale-[1.02] transition-all"
+            >
+              <MessageCircle className="w-4 h-4" /> Contacto por WhatsApp
+            </a>
           </div>
         </div>
       </section>
