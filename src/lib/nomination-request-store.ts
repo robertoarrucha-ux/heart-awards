@@ -1,8 +1,6 @@
 
 'use server';
 
-import { db } from '@/lib/firebase';
-import { collection, getDocs, doc, query, where, getDoc } from 'firebase/firestore';
 import { adminDb } from '@/lib/firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
 import type { NominationRequest } from '@/lib/data';
@@ -46,16 +44,13 @@ export async function addNominationRequest(requestData: Omit<NominationRequest, 
 
 export async function getNominationRequestsByStatus(status: 'pending' | 'rejected' | 'approved' | 'archived', edition?: string): Promise<NominationRequest[]> {
     try {
-        let q = query(
-            collection(db, REQUESTS_COLLECTION), 
-            where("status", "==", status)
-        );
-        
+        let ref = adminDb.collection(REQUESTS_COLLECTION).where('status', '==', status);
+
         if (edition) {
-            q = query(q, where("edition", "==", edition));
+            ref = ref.where('edition', '==', edition);
         }
 
-        const querySnapshot = await getDocs(q);
+        const querySnapshot = await ref.get();
         const requests: NominationRequest[] = [];
         querySnapshot.forEach((doc) => {
             const data = doc.data();
@@ -75,10 +70,9 @@ export async function getNominationRequestsByStatus(status: 'pending' | 'rejecte
 
 export async function getNominationRequestById(requestId: string): Promise<NominationRequest | null> {
     try {
-        const docRef = doc(db, REQUESTS_COLLECTION, requestId);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            const data = docSnap.data();
+        const docSnap = await adminDb.collection(REQUESTS_COLLECTION).doc(requestId).get();
+        if (docSnap.exists) {
+            const data = docSnap.data()!;
             return {
                 id: docSnap.id,
                 ...data,

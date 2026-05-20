@@ -31,9 +31,9 @@ export async function hasVoted(ip: string): Promise<boolean> {
     }
     return false;
   } catch (error) {
-    // If it's a permission or system error, we log it but don't block the user from trying
+    // Si Firestore falla, lanzamos el error para no dejar pasar votos sin verificar
     console.error(`Error checking vote status for IP ${safeIp}:`, error);
-    return false;
+    throw error;
   }
 }
 

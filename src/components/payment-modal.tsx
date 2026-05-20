@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, useMemo, FormEvent } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import {
@@ -56,8 +56,8 @@ export function PaymentModal({
   const [discountedPrice, setDiscountedPrice] = useState<number | null>(null);
   const [validatingCoupon, setValidatingCoupon] = useState(false);
 
-  // Stringify metadata to use as a stable dependency
-  const metadataString = JSON.stringify(metadata);
+  // Stringify metadata con useMemo para evitar PaymentIntents duplicados en re-renders
+  const metadataString = useMemo(() => JSON.stringify(metadata), [metadata.edition, metadata.ticketType, metadata.coupon]);
 
   const fetchPaymentIntent = async (code?: string) => {
     setLoading(true);

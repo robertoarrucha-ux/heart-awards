@@ -64,7 +64,7 @@ export async function POST(req: Request) {
       stripeId: obj.id,
       email: email,
       name: name,
-      amount: (obj.amount_total || obj.amount) / 100,
+      amount: ((obj.amount_total ?? obj.amount) ?? 0) / 100,
       currency: obj.currency,
       ticketType: metadata.ticketType || metadata.method || 'general',
       edition: metadata.edition || metadata.tripId || '2026',

@@ -21,8 +21,10 @@ export async function POST(req: Request) {
       mode: 'payment',
       success_url: successUrl,
       cancel_url: cancelUrl,
-      allow_promotion_codes: true,
-      discounts: coupon ? [{ coupon }] : [],
+      // allow_promotion_codes y discounts son mutuamente excluyentes en Stripe
+      ...(coupon
+        ? { discounts: [{ coupon }] }
+        : { allow_promotion_codes: true }),
       metadata: {
         edition,
         ticketType,

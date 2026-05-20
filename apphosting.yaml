@@ -2,6 +2,30 @@
 # https://firebase.google.com/docs/app-hosting/configure
 
 runConfig:
-  # Increase this value if you'd like to automatically spin up
-  # more instances in response to increased traffic.
   maxInstances: 1
+
+env:
+  # Secrets (almacenados en Google Secret Manager)
+  - variable: STRIPE_SECRET_KEY
+    secret: STRIPE_SECRET_KEY
+  - variable: STRIPE_WEBHOOK_SECRET
+    secret: STRIPE_WEBHOOK_SECRET
+  - variable: FIREBASE_SERVICE_ACCOUNT
+    secret: FIREBASE_SERVICE_ACCOUNT
+  - variable: ACUMBAMAIL_SMTP_HOST
+    secret: ACUMBAMAIL_SMTP_HOST
+  - variable: ACUMBAMAIL_SMTP_PORT
+    secret: ACUMBAMAIL_SMTP_PORT
+  - variable: ACUMBAMAIL_SMTP_USER
+    secret: ACUMBAMAIL_SMTP_USER
+  - variable: ACUMBAMAIL_SMTP_PASS
+    secret: ACUMBAMAIL_SMTP_PASS
+  - variable: ACUMBAMAIL_FROM_EMAIL
+    secret: ACUMBAMAIL_FROM_EMAIL
+
+  # Variables públicas (no son secretas)
+  - variable: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+    value: pk_live_51PV9Ms2K14FofuJ5gBVL8mL4ptM16ZpEx11aVHcjHoQFgdn1jbilcH75pNegpHtsewcWeQ2WqOC6O9w1hoFBHy7b007vfPNo9w
+    availability:
+      - BUILD
+      - RUNTIME

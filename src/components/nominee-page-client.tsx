@@ -28,7 +28,7 @@ type NomineePageClientProps = {
 export default function NomineePageClient({ nominee, rank, highestVoteCount }: NomineePageClientProps) {
   const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
   const [isVoting, setIsVoting] = useState(false);
-  const [currentVotes, setCurrentVotes] = useState(nominee.votes);
+  const [currentVotes, setCurrentVotes] = useState(nominee.votes ?? 0);
   const { toast } = useToast();
 
   const progressValue = highestVoteCount > 0 ? (currentVotes / highestVoteCount) * 100 : 0;

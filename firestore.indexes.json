@@ -1,0 +1,21 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "nominees",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "edition", "order": "ASCENDING" },
+        { "fieldPath": "votes", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "nominationRequests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "edition", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

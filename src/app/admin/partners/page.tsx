@@ -1,23 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db, auth } from '@/lib/firebase';
+import { db } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot, getDoc, doc, updateDoc, deleteDoc, setDoc } from 'firebase/firestore';
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Users, 
-  ShieldCheck,
-  LayoutDashboard,
+import {
+  Users,
   CheckCircle2,
-  XCircle,
-  AlertCircle,
   Search,
-  Filter,
-  ExternalLink,
   Mail,
   Building2,
-  MoreVertical,
   Trash2,
   Ban
 } from 'lucide-react';
@@ -26,6 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import AdminHeader from '@/components/admin-header';
+import AdminGuard from '@/components/admin-guard';
 import { useToast } from '@/hooks/use-toast';
 
 interface Partner {
@@ -39,52 +31,26 @@ interface Partner {
   createdAt: any;
 }
 
-export default function AdminPartnersPage() {
-  const [user, setUser] = useState<any>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+function AdminPartnersContent() {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const { toast } = useToast();
 
-  const adminEmails = ['arrucha@theglobal.school', 'roberto@pro-latam.org'];
-
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-        if (user.email && adminEmails.includes(user.email)) {
-          setIsAdmin(true);
-        } else {
-          const userDoc = await getDoc(doc(db, 'users', user.uid));
-          if (userDoc.exists() && userDoc.data().role === 'admin') {
-            setIsAdmin(true);
-          }
-        }
-      } else {
-        setUser(null);
-        setIsAdmin(false);
-      }
+    const q = query(collection(db, 'partners'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setPartners(snapshot.docs.map(d => ({ id: d.id, ...d.data() })) as Partner[]);
       setLoading(false);
     });
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (isAdmin) {
-      const q = query(collection(db, 'partners'), orderBy('createdAt', 'desc'));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        setPartners(snapshot.docs.map(d => ({ id: d.id, ...d.data() })) as Partner[]);
-      });
-      return () => unsubscribe();
-    }
-  }, [isAdmin]);
-
   const handleUpdateStatus = async (partnerId: string, newStatus: 'active' | 'suspended' | 'pending') => {
     try {
       await updateDoc(doc(db, 'partners', partnerId), { status: newStatus });
-      
+
       // If approved, also sync user role
       if (newStatus === 'active') {
         const userRef = doc(db, 'users', partnerId);
@@ -120,7 +86,7 @@ export default function AdminPartnersPage() {
   };
 
   const filteredPartners = partners.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           p.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           p.organization.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || p.status === statusFilter;
@@ -135,18 +101,10 @@ export default function AdminPartnersPage() {
     );
   }
 
-  if (!user || !isAdmin) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <h1 className="text-white text-2xl font-bold">Sin Autorización</h1>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-[#050505] text-white">
       <Header />
-      
+
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <AdminHeader title="Gestión de Aliados" icon={Users} />
 
@@ -160,7 +118,7 @@ export default function AdminPartnersPage() {
                <p className="text-xs text-yellow-500 mt-2">Pendientes de aprobación</p>
              </CardContent>
            </Card>
-           
+
            <Card className="bg-white/5 border-white/10 text-white">
              <CardHeader className="pb-2">
                <CardTitle className="text-sm font-medium text-gray-400">Aliados Activos</CardTitle>
@@ -189,15 +147,15 @@ export default function AdminPartnersPage() {
             <div className="flex items-center gap-4">
               <div className="relative max-w-sm w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Nombre, email o empresa..."
                   className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <select 
+              <select
                 className="bg-black/40 border border-white/10 rounded-xl py-3 px-4 text-sm focus:outline-none text-white"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
@@ -255,8 +213,8 @@ export default function AdminPartnersPage() {
                     </td>
                     <td className="px-8 py-6">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${
-                        p.status === 'active' ? 'bg-green-500/10 text-green-400' : 
-                        p.status === 'pending' ? 'bg-yellow-500/10 text-yellow-400 animate-pulse' : 
+                        p.status === 'active' ? 'bg-green-500/10 text-green-400' :
+                        p.status === 'pending' ? 'bg-yellow-500/10 text-yellow-400 animate-pulse' :
                         'bg-red-500/10 text-red-400'
                       }`}>
                         {p.status}
@@ -265,16 +223,16 @@ export default function AdminPartnersPage() {
                     <td className="px-8 py-6">
                       <div className="flex items-center gap-2">
                         {p.status === 'pending' && (
-                          <Button 
+                          <Button
                             onClick={() => handleUpdateStatus(p.id, 'active')}
-                            size="sm" 
+                            size="sm"
                             className="bg-green-600 hover:bg-green-700 text-white h-8"
                           >
                             <CheckCircle2 className="w-4 h-4 mr-1" /> Aprobar
                           </Button>
                         )}
                         {p.status === 'active' && (
-                          <Button 
+                          <Button
                             onClick={() => handleUpdateStatus(p.id, 'suspended')}
                             size="sm" variant="ghost" className="text-yellow-500 hover:bg-yellow-500/10 h-8"
                           >
@@ -282,14 +240,14 @@ export default function AdminPartnersPage() {
                           </Button>
                         )}
                         {p.status === 'suspended' && (
-                          <Button 
+                          <Button
                             onClick={() => handleUpdateStatus(p.id, 'active')}
                             size="sm" variant="ghost" className="text-green-500 hover:bg-green-500/10 h-8"
                           >
                             <CheckCircle2 className="w-4 h-4 mr-1" /> Reactivar
                           </Button>
                         )}
-                        <Button 
+                        <Button
                           onClick={() => handleDeletePartner(p.id)}
                           size="sm" variant="ghost" className="text-red-500 hover:bg-red-500/10 h-8"
                         >
@@ -306,5 +264,13 @@ export default function AdminPartnersPage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function AdminPartnersPage() {
+  return (
+    <AdminGuard>
+      <AdminPartnersContent />
+    </AdminGuard>
   );
 }

@@ -1,16 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db, auth } from '@/lib/firebase';
-import { collection, query, orderBy, onSnapshot, getDoc, doc } from 'firebase/firestore';
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { motion } from 'motion/react';
+import { db } from '@/lib/firebase';
+import { collection, query, orderBy, onSnapshot, doc } from 'firebase/firestore';
 import {
   Users,
   DollarSign,
   MapPin,
   ExternalLink,
-  ShieldCheck,
   TrendingUp,
   Ticket,
   Search,
@@ -21,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import AdminHeader from '@/components/admin-header';
+import AdminGuard from '@/components/admin-guard';
 import { syncVotesAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -35,76 +33,34 @@ interface Registration {
   createdAt: any;
 }
 
-export default function AdminDashboard() {
-  const [user, setUser] = useState<any>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+function AdminDashboardContent() {
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [pageViews, setPageViews] = useState<number>(0);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const { toast } = useToast();
 
-  const adminEmails = ['arrucha@theglobal.school', 'roberto@pro-latam.org'];
-
   useEffect(() => {
-    if (isAdmin) {
-      const statsRef = doc(db, 'admin_stats', 'page_views');
-      const unsubscribe = onSnapshot(statsRef, (doc) => {
-        if (doc.exists()) {
-          setPageViews(doc.data().total || 0);
-        }
-      });
-      return () => unsubscribe();
-    }
-  }, [isAdmin]);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-        if (user.email && adminEmails.includes(user.email)) {
-          setIsAdmin(true);
-        } else {
-          const userDoc = await getDoc(doc(db, 'users', user.uid));
-          if (userDoc.exists() && userDoc.data().role === 'admin') {
-            setIsAdmin(true);
-          }
-        }
-      } else {
-        setUser(null);
-        setIsAdmin(false);
+    const statsRef = doc(db, 'admin_stats', 'page_views');
+    const unsubscribe = onSnapshot(statsRef, (doc) => {
+      if (doc.exists()) {
+        setPageViews(doc.data().total || 0);
       }
-      setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (isAdmin) {
-      const q = query(collection(db, 'registrations'), orderBy('createdAt', 'desc'));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Registration[];
-        setRegistrations(data);
-      });
-      return () => unsubscribe();
-    }
-  }, [isAdmin]);
-
-  const handleLogin = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error('Login error:', error);
-    }
-  };
-
-  const handleLogout = () => signOut(auth);
+    const q = query(collection(db, 'registrations'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Registration[];
+      setRegistrations(data);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSyncVotes = async () => {
     if (
@@ -154,46 +110,6 @@ export default function AdminDashboard() {
       reg.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       reg.ticketType?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  if (!user || !isAdmin) {
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full text-center space-y-8"
-        >
-          <div className="flex justify-center">
-            <div className="p-4 bg-primary/10 rounded-full">
-              <ShieldCheck className="w-16 h-16 text-primary" />
-            </div>
-          </div>
-          <h1 className="text-4xl font-bold text-white tracking-tight">Acceso Restringido</h1>
-          <p className="text-gray-400">Este panel es exclusivo para administradores de Latam Awards.</p>
-          {!user ? (
-            <Button onClick={handleLogin} className="w-full py-6 text-lg font-bold rounded-xl">
-              Iniciar Sesión como Admin
-            </Button>
-          ) : (
-            <div className="space-y-4">
-              <p className="text-red-400 text-sm">Tu cuenta ({user.email}) no tiene permisos de administrador.</p>
-              <Button variant="outline" onClick={handleLogout} className="w-full border-white/10 text-white">
-                Cerrar Sesión
-              </Button>
-            </div>
-          )}
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#050505] text-white">
@@ -410,5 +326,13 @@ export default function AdminDashboard() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function AdminDashboard() {
+  return (
+    <AdminGuard>
+      <AdminDashboardContent />
+    </AdminGuard>
   );
 }

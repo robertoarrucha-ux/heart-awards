@@ -11,7 +11,12 @@ if (!getApps().length) {
 
   if (serviceAccountJson) {
     // Producción: usa la service account completa desde variable de entorno
-    const serviceAccount = JSON.parse(serviceAccountJson);
+    let serviceAccount;
+    try {
+      serviceAccount = JSON.parse(serviceAccountJson);
+    } catch (e) {
+      throw new Error('FIREBASE_SERVICE_ACCOUNT contiene JSON inválido. Verifica el formato en tus variables de entorno.');
+    }
     app = initializeApp({
       credential: cert(serviceAccount),
       projectId: serviceAccount.project_id,

@@ -92,7 +92,10 @@ export async function POST(req: Request) {
     }
 
     if (amountInCents <= 0) {
-      amountInCents = Math.max(50, amountInCents);
+      return NextResponse.json({
+        error: 'El descuento cubre el total del pedido. No se requiere pago.',
+        code: 'amount_zero'
+      }, { status: 400 });
     }
 
     const paymentIntent = await stripe.paymentIntents.create({
