@@ -35,18 +35,27 @@ export async function POST(req: Request) {
     console.log(`[Webhook] Processing successful payment: ${obj.id}`);
     
     // Extract consumer details based on object type
-    const email = obj.customer_details?.email || 
-                  obj.billing_details?.email || 
-                  obj.receipt_email || 
-                  obj.customer_email || 
+    const email = obj.customer_details?.email ||
+                  obj.billing_details?.email ||
+                  obj.receipt_email ||
+                  obj.customer_email ||
                   '';
-                  
-    const name = obj.customer_details?.name || 
-                 obj.billing_details?.name || 
-                 'Unspecified Name';
-    
+
     // metadata is common to both, but sometimes nested
     const metadata = obj.metadata || {};
+
+    // Prefer metadata fields collected in our pre-payment form (Step 1)
+    const name = metadata.name ||
+                 obj.customer_details?.name ||
+                 obj.billing_details?.name ||
+                 'Sin nombre';
+
+    const country = metadata.country ||
+                    obj.customer_details?.address?.country ||
+                    obj.billing_details?.address?.country ||
+                    '';
+
+    const whatsapp = metadata.whatsapp || '';
     
     let discountPercent = 0;
     if (metadata.discount_detail && metadata.discount_detail !== 'none') {
@@ -64,6 +73,8 @@ export async function POST(req: Request) {
       stripeId: obj.id,
       email: email,
       name: name,
+      country: country,
+      whatsapp: whatsapp,
       amount: ((obj.amount_total ?? obj.amount) ?? 0) / 100,
       currency: obj.currency,
       ticketType: metadata.ticketType || metadata.method || 'general',

@@ -39,6 +39,8 @@ interface PaidRegistration {
   id: string;
   name: string;
   email: string;
+  country?: string;
+  whatsapp?: string;
   amount: number;
   currency: string;
   ticketType: string;
@@ -265,6 +267,12 @@ export default function AdminAttendeesPage() {
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-2 text-sm">
                         <div className="flex items-center gap-2 text-muted-foreground"><Mail className="w-4 h-4" /> {reg.email}</div>
+                        {reg.country && (
+                          <div className="flex items-center gap-2 text-muted-foreground"><Globe className="w-4 h-4" /> {reg.country}</div>
+                        )}
+                        {reg.whatsapp && (
+                          <div className="flex items-center gap-2 text-muted-foreground"><MessageCircle className="w-4 h-4" /> {reg.whatsapp}</div>
+                        )}
                         <div className="flex items-center gap-2 font-semibold text-green-400">
                           💳 {reg.amount?.toFixed(2)} {reg.currency?.toUpperCase()}
                           {reg.discountPercent ? <span className="text-xs text-yellow-400 font-normal">(-{reg.discountPercent}%)</span> : null}
