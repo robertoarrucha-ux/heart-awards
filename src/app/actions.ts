@@ -454,7 +454,7 @@ export async function updateFreeRegistrationStatusAction(id: string, status: 'ap
     // Enviar email de notificación
     if (data?.email && data?.firstName) {
       if (status === 'approved') {
-        await sendFreeRegistrationApprovalEmail(data.email, data.firstName);
+        await sendFreeRegistrationApprovalEmail(data.email, data.firstName, data.participationStatus, data.venues);
       } else {
         await sendFreeRegistrationRejectionEmail(data.email, data.firstName);
       }

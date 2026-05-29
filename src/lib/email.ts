@@ -281,11 +281,48 @@ export async function sendTestEmail(to: string) {
   return await mailTransporter.sendMail(mailOptions);
 }
 
-export async function sendFreeRegistrationApprovalEmail(to: string, firstName: string) {
+function getAccessDays(participationStatus: string, venues: string): string {
+  const hasMadrid = venues?.toLowerCase().includes('madrid');
+  const hasViena = venues?.toLowerCase().includes('viena') || venues?.toLowerCase().includes('viena');
+
+  const madridDays: Record<string, string> = {
+    'Empresas e Inversionistas Europeos': 'Jueves 20 de Noviembre (Día 2)',
+    'Premiadas':      'Viernes 21 de Noviembre (Día 3)',
+    'Nominados':      'Viernes 21 de Noviembre (Día 3)',
+    'Medios':         'Viernes 21 de Noviembre (Día 3)',
+    'Aliados':        'Miércoles 19, Jueves 20 y Viernes 21 de Noviembre (Días 1, 2 y 3)',
+    'Red Profesional':'Viernes 21 de Noviembre (Día 3)',
+  };
+
+  const vienaDays: Record<string, string> = {
+    'Empresas e Inversionistas Europeos': 'Jueves 4 de Diciembre (Día 2)',
+    'Premiadas':      'Viernes 5 de Diciembre (Día 3)',
+    'Nominados':      'Viernes 5 de Diciembre (Día 3)',
+    'Medios':         'Viernes 5 de Diciembre (Día 3)',
+    'Aliados':        'Miércoles 3, Jueves 4 y Viernes 5 de Diciembre (Días 1, 2 y 3)',
+    'Red Profesional':'Viernes 5 de Diciembre (Día 3)',
+  };
+
+  const lines: string[] = [];
+  if (hasMadrid && madridDays[participationStatus]) {
+    lines.push(`🇪🇸 <strong>Madrid:</strong> ${madridDays[participationStatus]}`);
+  }
+  if (hasViena && vienaDays[participationStatus]) {
+    lines.push(`🇦🇹 <strong>Viena:</strong> ${vienaDays[participationStatus]}`);
+  }
+
+  return lines.length > 0 ? lines.join('<br>') : 'Confirma tu sede con nuestro equipo.';
+}
+
+export async function sendFreeRegistrationApprovalEmail(to: string, firstName: string, participationStatus?: string, venues?: string) {
   const mailTransporter = getTransporter();
   if (!mailTransporter) return;
 
   const fromEmail = process.env.ACUMBAMAIL_FROM_EMAIL || process.env.EMAIL_FROM || 'awards@pro-latam.org';
+
+  const accessDays = participationStatus && venues
+    ? getAccessDays(participationStatus, venues)
+    : 'Confirma tu acceso con nuestro equipo.';
 
   const mailOptions = {
     from: `"Latin American Leaders Awards" <${fromEmail}>`,
@@ -302,6 +339,12 @@ export async function sendFreeRegistrationApprovalEmail(to: string, firstName: s
         <h2 style="color: #192A56; text-align: center;">Latin American Leaders Awards 2026</h2>
         <p>¡Hola <strong>${firstName}</strong>!</p>
         <p>Nos complace informarte que tu solicitud de registro gratuito ha sido <strong>aprobada</strong>. ¡Estamos muy felices de contarte entre nuestros asistentes!</p>
+
+        <div style="background-color: #f0f7ff; border-left: 4px solid #192A56; padding: 16px; border-radius: 6px; margin: 20px 0;">
+          <p style="margin: 0 0 8px 0; font-weight: bold; color: #192A56;">📅 Tu acceso al evento:</p>
+          <p style="margin: 0; color: #333;">${accessDays}</p>
+        </div>
+
         <p>Para estar al tanto de todas las novedades, horarios y detalles del evento, únete a nuestro grupo oficial de WhatsApp:</p>
         <div style="text-align: center; margin: 30px 0;">
           <a href="https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn"
@@ -322,6 +365,8 @@ export async function sendFreeRegistrationApprovalEmail(to: string, firstName: s
       ¡Hola ${firstName}!
 
       Tu solicitud de registro gratuito ha sido APROBADA para los Latin American Leaders Awards 2026.
+
+      Tu acceso: ${accessDays.replace(/<[^>]+>/g, '')}
 
       Únete a nuestro grupo de WhatsApp para recibir todas las novedades:
       https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn

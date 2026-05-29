@@ -26,12 +26,12 @@ const countries = [
 ];
 
 const participationStatuses = [
-  "Empresas e Inversionistas Europeos",
-  "Premiadas",
-  "Nominados",
-  "Medios",
-  "Aliados",
-  "Red Profesional"
+  { value: "Empresas e Inversionistas Europeos", days: "Día 2" },
+  { value: "Premiadas",                          days: "Día 3" },
+  { value: "Nominados",                          days: "Día 3" },
+  { value: "Medios",                             days: "Día 3" },
+  { value: "Aliados",                            days: "Días 1, 2 y 3" },
+  { value: "Red Profesional",                    days: "Día 3" },
 ];
 
 export function FreeRegistrationForm() {
@@ -191,7 +191,9 @@ export function FreeRegistrationForm() {
             </SelectTrigger>
             <SelectContent>
               {participationStatuses.map(s => (
-                <SelectItem key={s} value={s}>{s}</SelectItem>
+                <SelectItem key={s.value} value={s.value}>
+                  {s.value} <span className="text-muted-foreground text-xs ml-1">— {s.days}</span>
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
