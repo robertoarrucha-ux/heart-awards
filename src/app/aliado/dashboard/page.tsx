@@ -55,16 +55,17 @@ function handleFirestoreError(error: any, operationType: OperationType, path: st
   console.error('Firestore Error: ', JSON.stringify(errInfo));
   throw new Error(JSON.stringify(errInfo));
 }
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Users, 
-  DollarSign, 
-  Ticket, 
-  Link as LinkIcon, 
-  Copy, 
-  Plus, 
-  Trash2, 
-  LogOut, 
+import {
+  Users,
+  DollarSign,
+  Ticket,
+  Link as LinkIcon,
+  Copy,
+  Plus,
+  Trash2,
+  LogOut,
   ShieldCheck,
   TrendingUp,
   LayoutDashboard,
@@ -72,7 +73,16 @@ import {
   AlertCircle,
   ExternalLink,
   ChevronRight,
-  Target
+  Target,
+  Award,
+  Globe,
+  Handshake,
+  MapPin,
+  Star,
+  Clock,
+  MessageCircle,
+  ArrowRight,
+  Tag,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -87,6 +97,7 @@ interface Partner {
   email: string;
   referralCode: string;
   organization: string;
+  website?: string;
   status: 'active' | 'suspended' | 'pending';
   clickCount?: number;
 }
@@ -125,6 +136,7 @@ export default function AliadoDashboard() {
   const [allPartners, setAllPartners] = useState<Partner[]>([]);
   const [origin, setOrigin] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [website, setWebsite] = useState('');
   const { toast } = useToast();
 
   useEffect(() => {
@@ -259,18 +271,19 @@ export default function AliadoDashboard() {
         name: user.displayName || 'Aliado',
         email: user.email || '',
         organization: orgName.trim(),
-        status: 'active',
+        website: website.trim(),
+        status: 'pending',
         referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
         createdAt: serverTimestamp(),
         clickCount: 0
       };
-      
+
       const partnerRef = doc(db, 'partners', user.uid);
       await setDoc(partnerRef, partnerData);
-      
+
       setPartner({ id: user.uid, ...partnerData } as any);
-      
-      toast({ title: 'Cuenta activada', description: '¡Bienvenido! Ya puedes empezar a gestionar tus cupones y enlaces.' });
+
+      toast({ title: '¡Solicitud enviada!', description: 'Revisaremos tu postulación y te notificaremos en 2-3 días hábiles.' });
     } catch (error: any) {
       console.error('Detailed Application Error:', error);
       handleFirestoreError(error, OperationType.WRITE, `partners/${user.uid}`);
@@ -346,99 +359,227 @@ export default function AliadoDashboard() {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full text-center space-y-8"
-        >
-          <div className="flex justify-center">
-            <div className="p-4 bg-primary/10 rounded-full border border-primary/20">
-              <ShieldCheck className="w-16 h-16 text-primary" />
+  // ── Shared landing page content (renders for !user and !partner states) ──
+  const benefits = [
+    {
+      icon: <MapPin className="w-7 h-7" />,
+      title: 'Lugares Especiales en el Evento',
+      desc: 'Tus invitados tendrán espacios VIP reservados en las sedes de Madrid y Viena. Visibilidad de marca frente a 200–300 líderes de gobierno y empresa.',
+    },
+    {
+      icon: <Tag className="w-7 h-7" />,
+      title: 'Cupones de Descuento Exclusivos',
+      desc: 'Crea códigos personalizados de hasta 30% de descuento para tu comunidad. Cada venta generada a través de tu enlace te genera una comisión directa.',
+    },
+    {
+      icon: <Award className="w-7 h-7" />,
+      title: 'Espacio de Presentación',
+      desc: 'Oportunidad de presentar tu organización o proyecto ante una audiencia selecta de líderes latinoamericanos y europeos. Networking de alto nivel.',
+    },
+    {
+      icon: <Handshake className="w-7 h-7" />,
+      title: 'Red de Alianzas Estratégicas',
+      desc: 'Acceso a la red Pro-Latam de más de 20 aliados activos. Reuniones de alianzas exclusivas durante el evento para conectar con socios clave.',
+    },
+  ];
+
+  const steps = [
+    { n: '01', title: 'Postulación', desc: 'Completa el formulario con tu información y página web.' },
+    { n: '02', title: 'Revisión', desc: 'Nuestro equipo analiza cada candidatura en 2–3 días hábiles.' },
+    { n: '03', title: 'Activación', desc: 'Recibirás acceso a tu panel, cupones y enlace de referido.' },
+    { n: '04', title: 'Gestión', desc: 'Comparte, genera ventas y monitorea tus resultados en tiempo real.' },
+  ];
+
+  const AliadoLandingPage = ({ cta }: { cta: React.ReactNode }) => (
+    <div className="flex flex-col min-h-screen bg-[#050505] text-white">
+      <Header />
+      <main className="flex-grow">
+
+        {/* HERO */}
+        <section className="relative py-28 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold mb-8 uppercase tracking-widest">
+              <Star className="w-4 h-4" /> Programa de Aliados
+            </motion.div>
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+              className="text-5xl md:text-7xl font-black mb-6 max-w-4xl mx-auto leading-tight">
+              Impulsa líderes.<br /><span className="text-primary">Crece con nosotros.</span>
+            </motion.h1>
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
+              className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+              El programa de aliados de <strong className="text-white">Pro-Latam Awards</strong> está diseñado para organizaciones y líderes que quieren ser parte activa del movimiento latinoamericano en Europa.
+            </motion.p>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <a href="#postular" className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-black font-bold px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">
+                Quiero ser Aliado <ArrowRight className="w-5 h-5" />
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* BENEFITS */}
+        <section className="py-20 container mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Beneficios del Programa</h2>
+            <p className="text-gray-400 max-w-xl mx-auto">Seleccionamos a nuestros aliados cuidadosamente para garantizar una red de alto valor para todos.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((b, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+                className="p-7 rounded-3xl bg-white/5 border border-white/10 hover:border-primary/40 transition-all group">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:scale-110 transition-transform">
+                  {b.icon}
+                </div>
+                <h3 className="font-bold text-lg mb-2">{b.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{b.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* PROCESS */}
+        <section className="py-20 bg-white/[0.02] border-y border-white/5">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-4">
+                <Clock className="w-3.5 h-3.5" /> Por Postulación
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-3">Proceso de Selección</h2>
+              <p className="text-gray-400 max-w-xl mx-auto">
+                El programa es <strong className="text-white">por postulación</strong>. Revisamos cada solicitud para asegurar que los aliados aporten valor a nuestra comunidad.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              {steps.map((s, i) => (
+                <div key={i} className="relative flex flex-col items-center text-center p-6">
+                  {i < steps.length - 1 && (
+                    <div className="hidden md:block absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-px bg-white/10" />
+                  )}
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-black text-lg mb-4 relative z-10">
+                    {s.n}
+                  </div>
+                  <h4 className="font-bold mb-1">{s.title}</h4>
+                  <p className="text-xs text-gray-400">{s.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-white tracking-tight font-outfit uppercase">Panel de Aliados</h1>
-          <p className="text-gray-400">
-            Accede a tu panel de afiliado para gestionar tus enlaces, cupones y ver tus resultados.
-          </p>
-          <Button 
-            onClick={handleLogin} 
-            disabled={isLoggingIn}
-            className="w-full py-6 text-lg font-bold rounded-xl bg-primary text-black"
-          >
-            {isLoggingIn ? 'Iniciando sesión...' : 'Iniciar Sesión con Google'}
+        </section>
+
+        {/* CTA / FORM */}
+        <section id="postular" className="py-24 container mx-auto px-4">
+          <div className="max-w-xl mx-auto">
+            {cta}
+          </div>
+        </section>
+
+      </main>
+      <Footer />
+    </div>
+  );
+
+  if (!user) {
+    return (
+      <AliadoLandingPage cta={
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          className="p-8 md:p-10 rounded-3xl bg-white/5 border border-white/10 text-center space-y-6">
+          <div className="p-4 bg-primary/10 rounded-full border border-primary/20 w-fit mx-auto">
+            <ShieldCheck className="w-12 h-12 text-primary" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold mb-2">¿Listo para postularte?</h3>
+            <p className="text-gray-400 text-sm">Inicia sesión con Google para completar tu postulación. Es rápido y sin costo.</p>
+          </div>
+          <Button onClick={handleLogin} disabled={isLoggingIn}
+            className="w-full py-6 text-lg font-bold rounded-xl bg-primary text-black hover:scale-[1.02] transition-transform">
+            {isLoggingIn ? 'Iniciando sesión...' : 'Iniciar Sesión con Google para Postularse'}
           </Button>
+          <p className="text-xs text-gray-600">Tu solicitud será revisada por nuestro equipo antes de ser activada.</p>
         </motion.div>
-      </div>
+      } />
     );
   }
 
   if (!partner) {
     return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full text-center space-y-8"
-        >
-          <div className="flex justify-center">
-            <div className="p-4 bg-primary/10 rounded-full border border-primary/20">
-              <Users className="w-16 h-16 text-primary" />
-            </div>
+      <AliadoLandingPage cta={
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          className="p-8 md:p-10 rounded-3xl bg-white/5 border border-white/10 space-y-6">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold mb-1">Completa tu Postulación</h3>
+            <p className="text-gray-400 text-sm">Hola, <strong className="text-white">{user.displayName}</strong>. Cuéntanos sobre tu organización.</p>
           </div>
-          <h1 className="text-4xl font-bold text-white tracking-tight font-outfit uppercase">Completar Perfil</h1>
-          <p className="text-gray-400">
-            Hola {user.displayName}. Activa tu cuenta de aliado para empezar a generar cupones y enlaces de referido.
-          </p>
-          
-          <div className="space-y-4 text-left">
+
+          <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Nombre Completo</label>
-                <input 
-                  type="text" 
-                  disabled
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-gray-400 cursor-not-allowed"
-                  value={user.displayName || ''}
-                />
+                <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Nombre</label>
+                <input type="text" disabled value={user.displayName || ''}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-gray-400 cursor-not-allowed text-sm" />
               </div>
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Correo Electrónico</label>
-                <input 
-                  type="text" 
-                  disabled
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-gray-400 cursor-not-allowed"
-                  value={user.email || ''}
-                />
+                <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email</label>
+                <input type="text" disabled value={user.email || ''}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-gray-400 cursor-not-allowed text-sm" />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Empresa / Organización</label>
-              <input 
-                type="text" 
-                placeholder="Nombre de tu empresa u organización"
-                className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium"
-                value={orgName}
-                onChange={(e) => setOrgName(e.target.value)}
-              />
+              <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Empresa / Organización <span className="text-red-400">*</span></label>
+              <input type="text" placeholder="Nombre de tu empresa u organización"
+                className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
+                value={orgName} onChange={(e) => setOrgName(e.target.value)} />
             </div>
-            <div className="pt-2">
-              <Button 
-                onClick={handleApply} 
-                disabled={applying}
-                className="w-full py-6 text-lg font-bold rounded-xl bg-primary text-black hover:scale-[1.02] transition-transform"
-              >
-                {applying ? 'Activando...' : 'Activar mi Cuenta'}
-              </Button>
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Página Web</label>
+              <input type="url" placeholder="https://tu-sitio.com"
+                className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
+                value={website} onChange={(e) => setWebsite(e.target.value)} />
             </div>
-            <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-500 hover:text-white">
-              Cerrar Sesión
-            </Button>
           </div>
+
+          <Button onClick={handleApply} disabled={applying}
+            className="w-full py-5 text-base font-bold rounded-xl bg-primary text-black hover:scale-[1.02] transition-transform">
+            {applying ? 'Enviando postulación...' : 'Enviar Postulación'}
+          </Button>
+          <p className="text-xs text-gray-600 text-center">
+            Tu solicitud será revisada en 2–3 días hábiles. Te notificaremos por email.
+          </p>
+          <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
+            Cerrar Sesión
+          </Button>
         </motion.div>
-      </div>
+      } />
+    );
+  }
+
+  if (partner.status === 'pending') {
+    return (
+      <AliadoLandingPage cta={
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+          className="p-8 md:p-10 rounded-3xl bg-yellow-500/5 border border-yellow-500/20 text-center space-y-6">
+          <div className="p-4 bg-yellow-500/10 rounded-full border border-yellow-500/20 w-fit mx-auto">
+            <Clock className="w-12 h-12 text-yellow-400" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold mb-2 text-yellow-300">Solicitud en Revisión</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Hola <strong className="text-white">{user.displayName}</strong>, recibimos tu postulación como aliado de <strong className="text-white">{partner.organization}</strong>.<br /><br />
+              Nuestro equipo la está revisando. Te notificaremos por correo en <strong className="text-white">2–3 días hábiles</strong>.
+            </p>
+          </div>
+          <a href="https://api.whatsapp.com/send?phone=4367761735010&text=Hola,%20acabo%20de%20postularme%20como%20aliado%20de%20Pro-Latam%20Awards"
+            target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-xl font-bold hover:scale-105 transition-transform text-sm">
+            <MessageCircle className="w-4 h-4" /> Contactar por WhatsApp
+          </a>
+          <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
+            Cerrar Sesión
+          </Button>
+        </motion.div>
+      } />
     );
   }
 

@@ -10,7 +10,8 @@ import {
   Mail,
   Building2,
   Trash2,
-  Ban
+  Ban,
+  ExternalLink,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,6 +26,7 @@ interface Partner {
   name: string;
   email: string;
   organization: string;
+  website?: string;
   referralCode: string;
   status: 'active' | 'suspended' | 'pending';
   clickCount: number;
@@ -174,7 +176,7 @@ function AdminPartnersContent() {
               <thead>
                 <tr className="bg-white/5 text-gray-400 text-xs uppercase tracking-widest font-bold">
                   <th className="px-8 py-5">Socio</th>
-                  <th className="px-8 py-5">Organización</th>
+                  <th className="px-8 py-5">Organización / Web</th>
                   <th className="px-8 py-5">Referido / Código</th>
                   <th className="px-8 py-5">Clicks</th>
                   <th className="px-8 py-5">Estado</th>
@@ -202,6 +204,12 @@ function AdminPartnersContent() {
                         <Building2 className="w-4 h-4 text-gray-500" />
                         {p.organization}
                       </div>
+                      {p.website && (
+                        <a href={p.website} target="_blank" rel="noopener noreferrer"
+                          className="text-xs text-primary hover:underline flex items-center gap-1 mt-1">
+                          <ExternalLink className="w-3 h-3" /> {p.website.replace(/^https?:\/\//, '')}
+                        </a>
+                      )}
                     </td>
                     <td className="px-8 py-6">
                        <span className="font-mono text-xs bg-black/40 px-2 py-1 rounded text-primary">
