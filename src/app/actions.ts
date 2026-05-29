@@ -412,6 +412,7 @@ export async function addFreeRegistrationAction(data: {
   participationStatus: string;
   whatsapp: string;
   comments?: string;
+  venues?: string;
 }): Promise<{ success: boolean; message: string }> {
   try {
     const registrationData = {

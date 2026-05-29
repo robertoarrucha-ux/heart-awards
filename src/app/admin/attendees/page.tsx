@@ -3,8 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import { db, auth } from '@/lib/firebase';
-import { collection, query, orderBy, onSnapshot, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { updateFreeRegistrationStatusAction } from '@/app/actions';
 import AdminHeader from '@/components/admin-header';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -80,16 +81,20 @@ export default function AdminAttendeesPage() {
 
   const handleStatusUpdate = async (id: string, status: 'approved' | 'rejected') => {
     try {
-      await updateDoc(doc(db, 'free_registrations', id), { status });
-      toast({
-        title: `Registro ${status === 'approved' ? 'aprobado' : 'rechazado'}`,
-        description: "El estado se ha actualizado correctamente.",
-      });
-    } catch (error) {
+      const result = await updateFreeRegistrationStatusAction(id, status);
+      if (result.success) {
+        toast({
+          title: `Registro ${status === 'approved' ? 'aprobado' : 'rechazado'}`,
+          description: "El estado se ha actualizado correctamente.",
+        });
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "No se pudo actualizar el estado.",
+        description: error.message || "No se pudo actualizar el estado.",
       });
     }
   };

@@ -82,6 +82,12 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // --- Free Registrations ---
+    match /free_registrations/{regId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
     match /test/connection {
       allow read: if true;
     }
