@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '@/lib/firebase';
 import { 
-  collection, 
-  query, 
-  where, 
-  onSnapshot, 
-  getDoc, 
-  doc, 
-  addDoc, 
+  collection,
+  query,
+  where,
+  limit,
+  onSnapshot,
+  getDoc,
+  doc,
+  addDoc,
   setDoc,
   serverTimestamp,
   deleteDoc,
@@ -289,9 +290,24 @@ export default function AliadoDashboard() {
       return;
     }
 
+    const normalizedCode = newCouponCode.toUpperCase().replace(/\s/g, '');
+
     try {
+      // Check for duplicate code across ALL partners before creating
+      const duplicateCheck = await getDocs(
+        query(collection(db, 'coupons'), where('code', '==', normalizedCode), limit(1))
+      );
+      if (!duplicateCheck.empty) {
+        toast({
+          variant: 'destructive',
+          title: 'Código no disponible',
+          description: `El código "${normalizedCode}" ya está en uso. Elige otro.`,
+        });
+        return;
+      }
+
       await addDoc(collection(db, 'coupons'), {
-        code: newCouponCode.toUpperCase().replace(/\s/g, ''),
+        code: normalizedCode,
         discount: newCouponDiscount,
         partnerId: partner.id,
         status: 'active',
