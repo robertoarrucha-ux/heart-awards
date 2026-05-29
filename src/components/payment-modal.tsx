@@ -219,15 +219,14 @@ export function PaymentModal({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="buyerParticipationStatus">Estatus de Participación <span className="text-red-500">*</span></Label>
+                <Label htmlFor="buyerParticipationStatus">Estatus de Participación</Label>
                 <select
                   id="buyerParticipationStatus"
                   name="buyerParticipationStatus"
-                  required
                   defaultValue=""
                   className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-sm text-white focus:outline-none focus:border-primary"
                 >
-                  <option value="" disabled>Selecciona tu estatus</option>
+                  <option value="">Selecciona tu estatus (opcional)</option>
                   {participationStatuses.map(s => (
                     <option key={s} value={s} className="bg-[#0a0a0a]">{s}</option>
                   ))}
@@ -235,12 +234,11 @@ export function PaymentModal({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="buyerWhatsapp">WhatsApp <span className="text-red-500">*</span></Label>
+                <Label htmlFor="buyerWhatsapp">WhatsApp</Label>
                 <Input
                   id="buyerWhatsapp"
                   name="buyerWhatsapp"
-                  placeholder="+1234567890"
-                  required
+                  placeholder="+1234567890 (opcional)"
                   className="bg-white/5 border-white/10 focus:border-primary"
                 />
               </div>
