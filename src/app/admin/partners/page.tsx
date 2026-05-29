@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot, getDoc, doc, updateDoc, deleteDoc, setDoc } from 'firebase/firestore';
+import { updatePartnerStatusAction } from '@/app/actions';
 import {
   Users,
   CheckCircle2,
@@ -12,6 +13,8 @@ import {
   Trash2,
   Ban,
   ExternalLink,
+  XCircle,
+  Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,7 +31,7 @@ interface Partner {
   organization: string;
   website?: string;
   referralCode: string;
-  status: 'active' | 'suspended' | 'pending';
+  status: 'active' | 'suspended' | 'pending' | 'rejected';
   clickCount: number;
   createdAt: any;
 }
@@ -36,6 +39,7 @@ interface Partner {
 function AdminPartnersContent() {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const { toast } = useToast();
@@ -49,30 +53,34 @@ function AdminPartnersContent() {
     return () => unsubscribe();
   }, []);
 
-  const handleUpdateStatus = async (partnerId: string, newStatus: 'active' | 'suspended' | 'pending') => {
+  // Aprobar o rechazar postulaciones pendientes — usa server action para enviar email
+  const handleDecision = async (partner: Partner, decision: 'active' | 'rejected') => {
+    const key = `${partner.id}-${decision}`;
+    setActionLoading(key);
+    try {
+      const result = await updatePartnerStatusAction(partner.id, decision, {
+        name: partner.name,
+        email: partner.email,
+        organization: partner.organization,
+      });
+      if (result.success) {
+        toast({ title: decision === 'active' ? '✅ Aliado aprobado' : '❌ Solicitud rechazada', description: result.message });
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error: any) {
+      toast({ variant: 'destructive', title: 'Error', description: error.message || 'No se pudo actualizar el estado.' });
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  // Suspender / reactivar aliados activos — sin email, directo en Firestore
+  const handleToggleSuspend = async (partnerId: string, newStatus: 'active' | 'suspended') => {
     try {
       await updateDoc(doc(db, 'partners', partnerId), { status: newStatus });
-
-      // If approved, also sync user role
-      if (newStatus === 'active') {
-        const userRef = doc(db, 'users', partnerId);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          await updateDoc(userRef, { role: 'partner' });
-        } else {
-           // Create user record if missing
-           const partnerSnap = await getDoc(doc(db, 'partners', partnerId));
-           const pData = partnerSnap.data();
-           await setDoc(userRef, {
-             email: pData?.email,
-             role: 'partner'
-           });
-        }
-      }
-
-      toast({ title: 'Estado actualizado', description: `Socio marcado como ${newStatus}.` });
+      toast({ title: 'Estado actualizado', description: `Aliado marcado como ${newStatus}.` });
     } catch (error) {
-      console.error('Error updating status:', error);
       toast({ variant: 'destructive', title: 'Error', description: 'No se pudo actualizar el estado.' });
     }
   };
@@ -221,40 +229,65 @@ function AdminPartnersContent() {
                     </td>
                     <td className="px-8 py-6">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${
-                        p.status === 'active' ? 'bg-green-500/10 text-green-400' :
-                        p.status === 'pending' ? 'bg-yellow-500/10 text-yellow-400 animate-pulse' :
-                        'bg-red-500/10 text-red-400'
+                        p.status === 'active'    ? 'bg-green-500/10 text-green-400' :
+                        p.status === 'pending'   ? 'bg-yellow-500/10 text-yellow-400 animate-pulse' :
+                        p.status === 'rejected'  ? 'bg-red-500/10 text-red-400' :
+                        /* suspended */             'bg-orange-500/10 text-orange-400'
                       }`}>
-                        {p.status}
+                        {p.status === 'active' ? 'Activo' : p.status === 'pending' ? 'Pendiente' : p.status === 'rejected' ? 'Rechazado' : 'Suspendido'}
                       </span>
                     </td>
                     <td className="px-8 py-6">
-                      <div className="flex items-center gap-2">
-                        {p.status === 'pending' && (
+                      <div className="flex items-center gap-2 flex-wrap">
+
+                        {/* Pending: Approve + Reject buttons with email notification */}
+                        {p.status === 'pending' && (<>
                           <Button
-                            onClick={() => handleUpdateStatus(p.id, 'active')}
+                            onClick={() => handleDecision(p, 'active')}
+                            disabled={actionLoading !== null}
                             size="sm"
-                            className="bg-green-600 hover:bg-green-700 text-white h-8"
+                            className="bg-green-600 hover:bg-green-700 text-white h-8 gap-1"
                           >
-                            <CheckCircle2 className="w-4 h-4 mr-1" /> Aprobar
+                            {actionLoading === `${p.id}-active`
+                              ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                              : <CheckCircle2 className="w-3.5 h-3.5" />}
+                            Aprobar
                           </Button>
-                        )}
+                          <Button
+                            onClick={() => handleDecision(p, 'rejected')}
+                            disabled={actionLoading !== null}
+                            size="sm"
+                            variant="ghost"
+                            className="text-red-400 hover:bg-red-500/10 h-8 gap-1 border border-red-500/20"
+                          >
+                            {actionLoading === `${p.id}-rejected`
+                              ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                              : <XCircle className="w-3.5 h-3.5" />}
+                            Rechazar
+                          </Button>
+                        </>)}
+
+                        {/* Active: Suspend button */}
                         {p.status === 'active' && (
                           <Button
-                            onClick={() => handleUpdateStatus(p.id, 'suspended')}
+                            onClick={() => handleToggleSuspend(p.id, 'suspended')}
                             size="sm" variant="ghost" className="text-yellow-500 hover:bg-yellow-500/10 h-8"
                           >
                             <Ban className="w-4 h-4 mr-1" /> Suspender
                           </Button>
                         )}
+
+                        {/* Suspended: Reactivate button */}
                         {p.status === 'suspended' && (
                           <Button
-                            onClick={() => handleUpdateStatus(p.id, 'active')}
+                            onClick={() => handleToggleSuspend(p.id, 'active')}
                             size="sm" variant="ghost" className="text-green-500 hover:bg-green-500/10 h-8"
                           >
                             <CheckCircle2 className="w-4 h-4 mr-1" /> Reactivar
                           </Button>
                         )}
+
+                        {/* Delete always visible */}
                         <Button
                           onClick={() => handleDeletePartner(p.id)}
                           size="sm" variant="ghost" className="text-red-500 hover:bg-red-500/10 h-8"

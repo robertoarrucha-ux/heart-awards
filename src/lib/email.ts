@@ -281,6 +281,143 @@ export async function sendTestEmail(to: string) {
   return await mailTransporter.sendMail(mailOptions);
 }
 
+export async function sendPartnerApprovalEmail(to: string, name: string, organization: string) {
+  const mailTransporter = getTransporter();
+  if (!mailTransporter) return;
+
+  const fromEmail = process.env.ACUMBAMAIL_FROM_EMAIL || process.env.EMAIL_FROM || 'awards@pro-latam.org';
+  const dashboardUrl = 'https://awards.pro-latam.org/aliado/dashboard';
+
+  const mailOptions = {
+    from: `"Latin American Leaders Awards" <${fromEmail}>`,
+    to,
+    replyTo: fromEmail,
+    subject: '¡Bienvenido al Programa de Aliados! - Latin American Leaders Awards',
+    headers: {
+      'List-Unsubscribe': `<mailto:${fromEmail}?subject=unsubscribe>`,
+      'List-Id': `"Latin American Leaders Awards" <awards.pro-latam.org>`,
+      'X-Entity-Ref-ID': Date.now().toString(),
+    },
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+        <h2 style="color: #192A56; text-align: center;">Latin American Leaders Awards 2026</h2>
+        <p>¡Hola <strong>${name}</strong>!</p>
+        <p>Nos complace informarte que tu postulación como aliado de <strong>${organization}</strong> ha sido <strong>aprobada</strong>. ¡Bienvenido al Programa de Aliados de los Latin American Leaders Awards!</p>
+
+        <div style="background-color: #f0f9ff; border-left: 4px solid #192A56; padding: 16px; border-radius: 6px; margin: 20px 0;">
+          <p style="margin: 0 0 8px 0; font-weight: bold; color: #192A56;">🤝 Como aliado oficial, tienes acceso a:</p>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #333; line-height: 1.8;">
+            <li>Lugares especiales y visibilidad de marca en las sedes de Madrid y Viena</li>
+            <li>Cupones de descuento personalizados para tu comunidad (hasta 30%)</li>
+            <li>Tu enlace de referido para generar comisiones por ventas</li>
+            <li>Espacio de presentación ante 200–300 líderes latinoamericanos y europeos</li>
+            <li>Acceso a la red exclusiva de aliados Pro-Latam</li>
+          </ul>
+        </div>
+
+        <p>Ya puedes acceder a tu panel de aliado para gestionar tus cupones y enlace de referido:</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${dashboardUrl}"
+             style="background-color: #192A56; color: #FFD700; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
+            🚀 Acceder a mi Panel de Aliado
+          </a>
+        </div>
+        <p>Si tienes preguntas, contáctanos por WhatsApp: <a href="https://wa.me/4367761735010" style="color: #192A56;">+43 677 61 73 5010</a></p>
+        <p>¡Bienvenido a bordo!</p>
+        <p><strong>Equipo Latin American Leaders Awards.</strong></p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <p style="font-size: 12px; color: #666; text-align: center;">
+          Si no deseas recibir más comunicaciones, responde a este correo solicitando la baja.
+        </p>
+      </div>
+    `,
+    text: `
+      ¡Hola ${name}!
+
+      Tu postulación como aliado de ${organization} ha sido APROBADA.
+
+      Ya puedes acceder a tu panel para gestionar cupones y enlace de referido:
+      ${dashboardUrl}
+
+      Como aliado tienes acceso a: lugares especiales en el evento, cupones de descuento, enlace de referido con comisiones, espacio de presentación y red de alianzas.
+
+      ¿Preguntas? WhatsApp: +43 677 61 73 5010
+
+      ¡Bienvenido a bordo!
+      Equipo Latin American Leaders Awards.
+    `,
+  };
+
+  try {
+    await mailTransporter.sendMail(mailOptions);
+    console.log(`Partner approval email sent to ${to}`);
+  } catch (error) {
+    console.error('Error sending partner approval email:', error);
+  }
+}
+
+export async function sendPartnerRejectionEmail(to: string, name: string, organization: string) {
+  const mailTransporter = getTransporter();
+  if (!mailTransporter) return;
+
+  const fromEmail = process.env.ACUMBAMAIL_FROM_EMAIL || process.env.EMAIL_FROM || 'awards@pro-latam.org';
+
+  const mailOptions = {
+    from: `"Latin American Leaders Awards" <${fromEmail}>`,
+    to,
+    replyTo: fromEmail,
+    subject: 'Sobre tu postulación como aliado - Latin American Leaders Awards',
+    headers: {
+      'List-Unsubscribe': `<mailto:${fromEmail}?subject=unsubscribe>`,
+      'List-Id': `"Latin American Leaders Awards" <awards.pro-latam.org>`,
+      'X-Entity-Ref-ID': Date.now().toString(),
+    },
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+        <h2 style="color: #192A56; text-align: center;">Latin American Leaders Awards 2026</h2>
+        <p>Hola <strong>${name}</strong>,</p>
+        <p>Gracias por tu interés en el Programa de Aliados de los Latin American Leaders Awards y por postular a <strong>${organization}</strong>.</p>
+        <p>Tras revisar tu solicitud, en esta ocasión no hemos podido incorporarte al programa. Seleccionamos a nuestros aliados cuidadosamente para garantizar una red de alto valor para todos los participantes.</p>
+        <p>Sin embargo, ¡las puertas del evento siguen abiertas para ti! Te invitamos a acompañarnos como asistente en Madrid (Noviembre 2026) o Viena (Diciembre 2026), donde podrás hacer networking con 200–300 líderes latinoamericanos y europeos.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://awards.pro-latam.org/tickets"
+             style="background-color: #192A56; color: #FFD700; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
+            🎟️ Ver Entradas Disponibles
+          </a>
+        </div>
+        <p>Si tienes alguna pregunta o deseas conocer más sobre el programa, contáctanos:</p>
+        <p>📱 WhatsApp: <a href="https://wa.me/4367761735010" style="color: #192A56;">+43 677 61 73 5010</a></p>
+        <p>¡Gracias de nuevo y esperamos verte en el evento!</p>
+        <p><strong>Equipo Latin American Leaders Awards.</strong></p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <p style="font-size: 12px; color: #666; text-align: center;">
+          Si no deseas recibir más comunicaciones, responde a este correo solicitando la baja.
+        </p>
+      </div>
+    `,
+    text: `
+      Hola ${name},
+
+      Gracias por postular a ${organization} al Programa de Aliados de los Latin American Leaders Awards.
+
+      En esta ocasión no hemos podido incorporarte al programa. Sin embargo, te invitamos a asistir al evento como participante:
+      https://awards.pro-latam.org/tickets
+
+      ¿Preguntas? WhatsApp: +43 677 61 73 5010
+
+      ¡Gracias y esperamos verte en el evento!
+      Equipo Latin American Leaders Awards.
+    `,
+  };
+
+  try {
+    await mailTransporter.sendMail(mailOptions);
+    console.log(`Partner rejection email sent to ${to}`);
+  } catch (error) {
+    console.error('Error sending partner rejection email:', error);
+  }
+}
+
 function getAccessDays(participationStatus: string, venues: string): string {
   const hasMadrid = venues?.toLowerCase().includes('madrid');
   const hasViena = venues?.toLowerCase().includes('viena') || venues?.toLowerCase().includes('viena');

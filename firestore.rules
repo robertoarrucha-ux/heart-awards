@@ -22,7 +22,7 @@ service cloud.firestore {
              data.email is string && data.email.size() <= 200 &&
              data.organization is string && data.organization.size() <= 200 &&
              data.referralCode is string && data.referralCode.size() <= 20 &&
-             data.status in ['active', 'suspended', 'pending'];
+             data.status in ['active', 'suspended', 'pending', 'rejected'];
     }
 
     function isValidCoupon(data) {

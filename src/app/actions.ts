@@ -7,7 +7,7 @@ import { addNominee, getNominees, getNomineeById, updateVoteCountForNominee, get
 import type { Nominee, NominationRequest, Vote } from '@/lib/data';
 import { getTimestampMillis, parseFirestoreError } from '@/lib/utils';
 import { addNominationRequest, getNominationRequestsByStatus, updateNominationRequestStatus, getNominationRequestById } from '@/lib/nomination-request-store';
-import { sendRejectionEmail, sendApprovalEmail, sendTestEmail, sendConfirmationEmail, sendFreeRegistrationApprovalEmail, sendFreeRegistrationRejectionEmail } from '@/lib/email';
+import { sendRejectionEmail, sendApprovalEmail, sendTestEmail, sendConfirmationEmail, sendFreeRegistrationApprovalEmail, sendFreeRegistrationRejectionEmail, sendPartnerApprovalEmail, sendPartnerRejectionEmail } from '@/lib/email';
 import { db } from '@/lib/firebase';
 import { adminDb } from '@/lib/firebase-admin';
 import { collection, query, where, getCountFromServer, getDocs, getDoc, orderBy, doc, deleteDoc, setDoc, updateDoc, writeBatch, addDoc } from 'firebase/firestore';
@@ -631,5 +631,36 @@ export async function trackReferralAction(referralCode: string) {
   } catch (error) {
     console.error("Error in trackReferralAction:", error);
     return { success: false };
+  }
+}
+
+export async function updatePartnerStatusAction(
+  partnerId: string,
+  newStatus: 'active' | 'rejected',
+  partnerData: { name: string; email: string; organization: string }
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const partnerRef = adminDb.collection('partners').doc(partnerId);
+
+    await partnerRef.update({ status: newStatus });
+
+    if (newStatus === 'active') {
+      // Sync user role
+      const userRef = adminDb.collection('users').doc(partnerId);
+      const userSnap = await userRef.get();
+      if (userSnap.exists) {
+        await userRef.update({ role: 'partner' });
+      } else {
+        await userRef.set({ email: partnerData.email, role: 'partner' });
+      }
+      await sendPartnerApprovalEmail(partnerData.email, partnerData.name, partnerData.organization);
+      return { success: true, message: `Aliado aprobado. Correo enviado a ${partnerData.email}.` };
+    } else {
+      await sendPartnerRejectionEmail(partnerData.email, partnerData.name, partnerData.organization);
+      return { success: true, message: `Solicitud rechazada. Correo enviado a ${partnerData.email}.` };
+    }
+  } catch (error: any) {
+    console.error('Error in updatePartnerStatusAction:', error);
+    return { success: false, message: error.message || 'No se pudo actualizar el estado del aliado.' };
   }
 }

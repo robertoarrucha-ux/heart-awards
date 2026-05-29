@@ -98,7 +98,7 @@ interface Partner {
   referralCode: string;
   organization: string;
   website?: string;
-  status: 'active' | 'suspended' | 'pending';
+  status: 'active' | 'suspended' | 'pending' | 'rejected';
   clickCount?: number;
 }
 
@@ -583,28 +583,56 @@ export default function AliadoDashboard() {
     );
   }
 
-  if (partner.status === 'suspended') {
+  if (partner.status === 'rejected') {
     return (
-      <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full text-center space-y-8"
-        >
-          <div className="flex justify-center">
-            <div className="p-4 bg-red-500/10 rounded-full border border-red-500/20">
-              <AlertCircle className="w-16 h-16 text-red-500" />
-            </div>
+      <AliadoLandingPage cta={
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+          className="p-8 md:p-10 rounded-3xl bg-red-500/5 border border-red-500/20 text-center space-y-6">
+          <div className="p-4 bg-red-500/10 rounded-full border border-red-500/20 w-fit mx-auto">
+            <AlertCircle className="w-12 h-12 text-red-400" />
           </div>
-          <h1 className="text-4xl font-bold text-white tracking-tight font-outfit uppercase">Cuenta Suspendida</h1>
-          <p className="text-gray-400">
-            Tu acceso al panel de aliados ha sido temporalmente suspendido. Por favor, contacta con soporte si crees que esto es un error.
-          </p>
-          <Button variant="outline" onClick={handleLogout} className="w-full border-white/10 text-white">
+          <div>
+            <h3 className="text-2xl font-bold mb-2 text-red-300">Solicitud No Aprobada</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Hola <strong className="text-white">{user.displayName}</strong>, hemos revisado tu postulación y en esta ocasión no hemos podido incorporarte al programa de aliados.<br /><br />
+              Revisaremos futuras postulaciones. Mientras tanto, te invitamos a asistir al evento como participante.
+            </p>
+          </div>
+          <a href="https://awards.pro-latam.org/tickets" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-xl font-bold hover:scale-105 transition-transform text-sm">
+            🎟️ Ver Entradas Disponibles
+          </a>
+          <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
             Cerrar Sesión
           </Button>
         </motion.div>
-      </div>
+      } />
+    );
+  }
+
+  if (partner.status === 'suspended') {
+    return (
+      <AliadoLandingPage cta={
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+          className="p-8 md:p-10 rounded-3xl bg-orange-500/5 border border-orange-500/20 text-center space-y-6">
+          <div className="p-4 bg-orange-500/10 rounded-full border border-orange-500/20 w-fit mx-auto">
+            <AlertCircle className="w-12 h-12 text-orange-400" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold mb-2 text-orange-300">Cuenta Suspendida</h3>
+            <p className="text-gray-400 text-sm">
+              Tu acceso al panel de aliados ha sido temporalmente suspendido. Contacta con nuestro equipo si crees que es un error.
+            </p>
+          </div>
+          <a href="https://wa.me/4367761735010" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-xl font-bold hover:scale-105 transition-transform text-sm">
+            <MessageCircle className="w-4 h-4" /> Contactar por WhatsApp
+          </a>
+          <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
+            Cerrar Sesión
+          </Button>
+        </motion.div>
+      } />
     );
   }
 
