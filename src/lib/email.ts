@@ -280,3 +280,121 @@ export async function sendTestEmail(to: string) {
 
   return await mailTransporter.sendMail(mailOptions);
 }
+
+export async function sendFreeRegistrationApprovalEmail(to: string, firstName: string) {
+  const mailTransporter = getTransporter();
+  if (!mailTransporter) return;
+
+  const fromEmail = process.env.ACUMBAMAIL_FROM_EMAIL || process.env.EMAIL_FROM || 'awards@pro-latam.org';
+
+  const mailOptions = {
+    from: `"Latin American Leaders Awards" <${fromEmail}>`,
+    to,
+    replyTo: fromEmail,
+    subject: '¡Tu registro ha sido aprobado! - Latin American Leaders Awards',
+    headers: {
+      'List-Unsubscribe': `<mailto:${fromEmail}?subject=unsubscribe>`,
+      'List-Id': `"Latin American Leaders Awards" <awards.pro-latam.org>`,
+      'X-Entity-Ref-ID': Date.now().toString(),
+    },
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+        <h2 style="color: #192A56; text-align: center;">Latin American Leaders Awards 2026</h2>
+        <p>¡Hola <strong>${firstName}</strong>!</p>
+        <p>Nos complace informarte que tu solicitud de registro gratuito ha sido <strong>aprobada</strong>. ¡Estamos muy felices de contarte entre nuestros asistentes!</p>
+        <p>Para estar al tanto de todas las novedades, horarios y detalles del evento, únete a nuestro grupo oficial de WhatsApp:</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn"
+             style="background-color: #25D366; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
+            📱 Unirme al Grupo de WhatsApp
+          </a>
+        </div>
+        <p>Ahí recibirás información sobre el programa, logística y todo lo que necesitas saber como asistente.</p>
+        <p>¡Nos vemos pronto!</p>
+        <p><strong>Equipo Latin American Leaders Awards.</strong></p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <p style="font-size: 12px; color: #666; text-align: center;">
+          Si no deseas recibir más comunicaciones, responde a este correo solicitando la baja.
+        </p>
+      </div>
+    `,
+    text: `
+      ¡Hola ${firstName}!
+
+      Tu solicitud de registro gratuito ha sido APROBADA para los Latin American Leaders Awards 2026.
+
+      Únete a nuestro grupo de WhatsApp para recibir todas las novedades:
+      https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn
+
+      ¡Nos vemos pronto!
+      Equipo Latin American Leaders Awards.
+    `,
+  };
+
+  try {
+    await mailTransporter.sendMail(mailOptions);
+    console.log(`Free registration approval email sent to ${to}`);
+  } catch (error) {
+    console.error('Error sending free registration approval email:', error);
+  }
+}
+
+export async function sendFreeRegistrationRejectionEmail(to: string, firstName: string) {
+  const mailTransporter = getTransporter();
+  if (!mailTransporter) return;
+
+  const fromEmail = process.env.ACUMBAMAIL_FROM_EMAIL || process.env.EMAIL_FROM || 'awards@pro-latam.org';
+
+  const mailOptions = {
+    from: `"Latin American Leaders Awards" <${fromEmail}>`,
+    to,
+    replyTo: fromEmail,
+    subject: 'Sobre tu solicitud de registro - Latin American Leaders Awards',
+    headers: {
+      'List-Unsubscribe': `<mailto:${fromEmail}?subject=unsubscribe>`,
+      'List-Id': `"Latin American Leaders Awards" <awards.pro-latam.org>`,
+      'X-Entity-Ref-ID': Date.now().toString(),
+    },
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+        <h2 style="color: #192A56; text-align: center;">Latin American Leaders Awards 2026</h2>
+        <p>Hola <strong>${firstName}</strong>,</p>
+        <p>Gracias por tu interés en asistir a los Latin American Leaders Awards 2026. Hemos revisado tu solicitud de acceso gratuito y en esta ocasión no ha podido ser aprobada.</p>
+        <p>Sin embargo, ¡las puertas del evento siguen abiertas para ti! Puedes adquirir tu entrada y vivir una experiencia única de networking, alianzas y reconocimientos con líderes de toda América Latina y Europa.</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://awards.pro-latam.org/tickets"
+             style="background-color: #192A56; color: #FFD700; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
+            🎟️ Ver Entradas Disponibles
+          </a>
+        </div>
+        <p>Si tienes alguna pregunta, puedes contactarnos por WhatsApp: <a href="https://wa.me/4367761735010" style="color: #192A56;">+43 677 61 73 5010</a></p>
+        <p>¡Esperamos verte en el evento!</p>
+        <p><strong>Equipo Latin American Leaders Awards.</strong></p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <p style="font-size: 12px; color: #666; text-align: center;">
+          Si no deseas recibir más comunicaciones, responde a este correo solicitando la baja.
+        </p>
+      </div>
+    `,
+    text: `
+      Hola ${firstName},
+
+      Hemos revisado tu solicitud de acceso gratuito a los Latin American Leaders Awards 2026 y en esta ocasión no ha podido ser aprobada.
+
+      Sin embargo, puedes adquirir tu entrada en:
+      https://awards.pro-latam.org/tickets
+
+      ¿Tienes preguntas? Contáctanos por WhatsApp: +43 677 61 73 5010
+
+      ¡Esperamos verte en el evento!
+      Equipo Latin American Leaders Awards.
+    `,
+  };
+
+  try {
+    await mailTransporter.sendMail(mailOptions);
+    console.log(`Free registration rejection email sent to ${to}`);
+  } catch (error) {
+    console.error('Error sending free registration rejection email:', error);
+  }
+}

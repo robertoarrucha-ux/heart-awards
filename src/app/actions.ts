@@ -7,7 +7,7 @@ import { addNominee, getNominees, getNomineeById, updateVoteCountForNominee, get
 import type { Nominee, NominationRequest, Vote } from '@/lib/data';
 import { getTimestampMillis, parseFirestoreError } from '@/lib/utils';
 import { addNominationRequest, getNominationRequestsByStatus, updateNominationRequestStatus, getNominationRequestById } from '@/lib/nomination-request-store';
-import { sendRejectionEmail, sendApprovalEmail, sendTestEmail, sendConfirmationEmail } from '@/lib/email';
+import { sendRejectionEmail, sendApprovalEmail, sendTestEmail, sendConfirmationEmail, sendFreeRegistrationApprovalEmail, sendFreeRegistrationRejectionEmail } from '@/lib/email';
 import { db } from '@/lib/firebase';
 import { adminDb } from '@/lib/firebase-admin';
 import { collection, query, where, getCountFromServer, getDocs, getDoc, orderBy, doc, deleteDoc, setDoc, updateDoc, writeBatch, addDoc } from 'firebase/firestore';
@@ -445,9 +445,22 @@ export async function getFreeRegistrationsAction(): Promise<any[]> {
 
 export async function updateFreeRegistrationStatusAction(id: string, status: 'approved' | 'rejected'): Promise<{ success: boolean; message: string }> {
   try {
+    const docSnap = await adminDb.collection('free_registrations').doc(id).get();
+    const data = docSnap.data();
+
     await adminDb.collection('free_registrations').doc(id).update({ status });
     revalidatePath('/admin/attendees');
-    return { success: true, message: `Registro ${status === 'approved' ? 'aprobado' : 'rechazado'} correctamente.` };
+
+    // Enviar email de notificación
+    if (data?.email && data?.firstName) {
+      if (status === 'approved') {
+        await sendFreeRegistrationApprovalEmail(data.email, data.firstName);
+      } else {
+        await sendFreeRegistrationRejectionEmail(data.email, data.firstName);
+      }
+    }
+
+    return { success: true, message: `Registro ${status === 'approved' ? 'aprobado' : 'rechazado'} correctamente. Email enviado.` };
   } catch (error: any) {
     console.error("Error updating free registration status:", error);
     return { success: false, message: `Error: ${error.message}` };
