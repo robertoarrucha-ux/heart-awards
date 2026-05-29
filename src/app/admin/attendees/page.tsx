@@ -10,13 +10,12 @@ import AdminHeader from '@/components/admin-header';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import {
   Users, Check, X, Mail, Globe, MessageCircle,
-  ExternalLink, Search, Filter, CreditCard, Tag
+  ExternalLink, Search, Filter, CreditCard, Tag, Handshake
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
@@ -41,6 +40,7 @@ interface PaidRegistration {
   email: string;
   country?: string;
   whatsapp?: string;
+  participationStatus?: string;
   amount: number;
   currency: string;
   ticketType: string;
@@ -53,9 +53,17 @@ interface PaidRegistration {
   createdAt: any;
 }
 
+interface Partner {
+  id: string;
+  name: string;
+  organization: string;
+  referralCode: string;
+}
+
 export default function AdminAttendeesPage() {
   const [freeRegs, setFreeRegs] = useState<FreeRegistration[]>([]);
   const [paidRegs, setPaidRegs] = useState<PaidRegistration[]>([]);
+  const [partnersMap, setPartnersMap] = useState<Record<string, Partner>>({});
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [freeSearch, setFreeSearch] = useState('');
@@ -93,6 +101,19 @@ export default function AdminAttendeesPage() {
     return () => unsubscribe();
   }, [isAdmin]);
 
+  // Partners (for coupon attribution)
+  useEffect(() => {
+    if (!isAdmin) return;
+    const unsubscribe = onSnapshot(collection(db, 'partners'), (snapshot) => {
+      const map: Record<string, Partner> = {};
+      snapshot.docs.forEach(doc => {
+        map[doc.id] = { id: doc.id, ...doc.data() } as Partner;
+      });
+      setPartnersMap(map);
+    });
+    return () => unsubscribe();
+  }, [isAdmin]);
+
   const handleStatusUpdate = async (id: string, status: 'approved' | 'rejected') => {
     try {
       const result = await updateFreeRegistrationStatusAction(id, status);
@@ -113,7 +134,7 @@ export default function AdminAttendeesPage() {
   });
 
   const filteredPaid = paidRegs.filter(reg =>
-    `${reg.name} ${reg.email}`.toLowerCase().includes(paidSearch.toLowerCase())
+    `${reg.name} ${reg.email} ${reg.country || ''} ${reg.participationStatus || ''}`.toLowerCase().includes(paidSearch.toLowerCase())
   );
 
   if (loading) {
@@ -243,7 +264,7 @@ export default function AdminAttendeesPage() {
           <TabsContent value="paid">
             <div className="relative mb-6">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input placeholder="Buscar por nombre o email..." className="pl-10 bg-background/50" value={paidSearch} onChange={e => setPaidSearch(e.target.value)} />
+              <Input placeholder="Buscar por nombre, email, país o estatus..." className="pl-10 bg-background/50" value={paidSearch} onChange={e => setPaidSearch(e.target.value)} />
             </div>
 
             <div className="space-y-4">
@@ -252,44 +273,84 @@ export default function AdminAttendeesPage() {
                   <CreditCard className="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-20" />
                   <p className="text-muted-foreground">No hay compras de tickets registradas.</p>
                 </div>
-              ) : filteredPaid.map(reg => (
-                <div key={reg.id} className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-green-500/30 transition-all">
-                  <div className="flex flex-col md:flex-row justify-between gap-4">
-                    <div className="flex-grow">
-                      <div className="flex items-center gap-3 mb-2 flex-wrap">
-                        <h3 className="text-lg font-bold">{reg.name || 'Sin nombre'}</h3>
-                        <Badge className="bg-green-500/10 text-green-400 border-green-500/20">PAGADO</Badge>
-                        <Badge variant="outline" className="text-xs capitalize">{reg.ticketType}</Badge>
-                        <Badge variant="outline" className="text-xs">{reg.edition}</Badge>
-                        <span className="text-xs text-muted-foreground">
-                          {new Date(reg.createdAt?.toDate?.() || reg.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-2 text-sm">
-                        <div className="flex items-center gap-2 text-muted-foreground"><Mail className="w-4 h-4" /> {reg.email}</div>
-                        {reg.country && (
-                          <div className="flex items-center gap-2 text-muted-foreground"><Globe className="w-4 h-4" /> {reg.country}</div>
-                        )}
-                        {reg.whatsapp && (
-                          <div className="flex items-center gap-2 text-muted-foreground"><MessageCircle className="w-4 h-4" /> {reg.whatsapp}</div>
-                        )}
-                        <div className="flex items-center gap-2 font-semibold text-green-400">
-                          💳 {reg.amount?.toFixed(2)} {reg.currency?.toUpperCase()}
-                          {reg.discountPercent ? <span className="text-xs text-yellow-400 font-normal">(-{reg.discountPercent}%)</span> : null}
+              ) : filteredPaid.map(reg => {
+                const partner = reg.partnerId ? partnersMap[reg.partnerId] : null;
+                return (
+                  <div key={reg.id} className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-green-500/30 transition-all">
+                    <div className="flex flex-col md:flex-row justify-between gap-4">
+                      <div className="flex-grow">
+
+                        {/* Header row */}
+                        <div className="flex items-center gap-3 mb-3 flex-wrap">
+                          <h3 className="text-lg font-bold">{reg.name || 'Sin nombre'}</h3>
+                          <Badge className="bg-green-500/10 text-green-400 border-green-500/20">PAGADO</Badge>
+                          <Badge variant="outline" className="text-xs capitalize">{reg.ticketType}</Badge>
+                          <Badge variant="outline" className="text-xs">{reg.edition}</Badge>
+                          {reg.participationStatus && (
+                            <Badge className="bg-primary/10 text-primary border-primary/20 text-xs">
+                              {reg.participationStatus}
+                            </Badge>
+                          )}
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(reg.createdAt?.toDate?.() || reg.createdAt).toLocaleDateString()}
+                          </span>
                         </div>
-                        {reg.couponCode && (
-                          <div className="flex items-center gap-2 text-muted-foreground"><Tag className="w-4 h-4" /> Cupón: {reg.couponCode}</div>
-                        )}
+
+                        {/* Contact info */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-2 text-sm mb-3">
+                          <div className="flex items-center gap-2 text-muted-foreground"><Mail className="w-4 h-4" /> {reg.email}</div>
+                          {reg.country && (
+                            <div className="flex items-center gap-2 text-muted-foreground"><Globe className="w-4 h-4" /> {reg.country}</div>
+                          )}
+                          {reg.whatsapp && (
+                            <div className="flex items-center gap-2 text-muted-foreground"><MessageCircle className="w-4 h-4" /> {reg.whatsapp}</div>
+                          )}
+                        </div>
+
+                        {/* Payment info row */}
+                        <div className="flex flex-wrap items-center gap-3">
+                          {/* Amount */}
+                          <div className="flex items-center gap-2 font-semibold text-green-400">
+                            💳 {reg.amount?.toFixed(2)} {reg.currency?.toUpperCase()}
+                            {reg.discountPercent ? (
+                              <span className="text-xs text-yellow-400 font-normal bg-yellow-500/10 px-1.5 py-0.5 rounded">
+                                -{reg.discountPercent}% desc.
+                              </span>
+                            ) : null}
+                          </div>
+
+                          {/* Coupon */}
+                          {reg.couponCode && (
+                            <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg">
+                              <Tag className="w-3.5 h-3.5 text-yellow-400" />
+                              <span className="text-xs font-mono font-bold text-yellow-300">{reg.couponCode}</span>
+                            </div>
+                          )}
+
+                          {/* Partner attribution */}
+                          {partner ? (
+                            <div className="flex items-center gap-1.5 bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-lg">
+                              <Handshake className="w-3.5 h-3.5 text-primary" />
+                              <span className="text-xs text-primary font-medium">
+                                Aliado: <strong>{partner.name}</strong>
+                                {partner.organization && <span className="font-normal opacity-70"> · {partner.organization}</span>}
+                              </span>
+                            </div>
+                          ) : reg.couponCode ? (
+                            <span className="text-xs text-muted-foreground italic">Sin aliado asociado</span>
+                          ) : null}
+                        </div>
+
                       </div>
-                    </div>
-                    <div className="flex md:flex-col gap-2 justify-center shrink-0">
-                      <Button size="sm" variant="secondary" onClick={() => window.location.href = `mailto:${reg.email}`} className="gap-2">
-                        <Mail className="w-4 h-4" /> Email
-                      </Button>
+                      <div className="flex md:flex-col gap-2 justify-center shrink-0">
+                        <Button size="sm" variant="secondary" onClick={() => window.location.href = `mailto:${reg.email}`} className="gap-2">
+                          <Mail className="w-4 h-4" /> Email
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </TabsContent>
         </Tabs>

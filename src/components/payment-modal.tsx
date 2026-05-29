@@ -23,10 +23,18 @@ const countries = [
   "Uruguay", "Venezuela", "Austria", "Alemania", "Suiza", "Otro"
 ];
 
+const participationStatuses = [
+  "Asistente",
+  "Premiado / Nominado",
+  "Aliado",
+  "Medio",
+];
+
 interface BuyerInfo {
   name: string;
   country: string;
   whatsapp: string;
+  participationStatus: string;
 }
 
 interface PaymentModalProps {
@@ -65,7 +73,7 @@ export function PaymentModal({
   metadata
 }: PaymentModalProps) {
   const [step, setStep] = useState<'info' | 'payment'>('info');
-  const [buyerInfo, setBuyerInfo] = useState<BuyerInfo>({ name: '', country: '', whatsapp: '' });
+  const [buyerInfo, setBuyerInfo] = useState<BuyerInfo>({ name: '', country: '', whatsapp: '', participationStatus: '' });
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -82,7 +90,7 @@ export function PaymentModal({
   useEffect(() => {
     if (!isOpen) {
       setStep('info');
-      setBuyerInfo({ name: '', country: '', whatsapp: '' });
+      setBuyerInfo({ name: '', country: '', whatsapp: '', participationStatus: '' });
       setClientSecret(null);
       setAppliedCoupon(null);
       setDiscountedPrice(null);
@@ -106,6 +114,7 @@ export function PaymentModal({
             name: buyer.name,
             country: buyer.country,
             whatsapp: buyer.whatsapp,
+            participationStatus: buyer.participationStatus,
           },
           couponCode: code,
           partnerId: localStorage.getItem('affiliate_ref') || undefined
@@ -140,6 +149,7 @@ export function PaymentModal({
       name: (form.elements.namedItem('buyerName') as HTMLInputElement).value.trim(),
       country: (form.elements.namedItem('buyerCountry') as HTMLSelectElement).value,
       whatsapp: (form.elements.namedItem('buyerWhatsapp') as HTMLInputElement).value.trim(),
+      participationStatus: (form.elements.namedItem('buyerParticipationStatus') as HTMLSelectElement).value,
     };
     setBuyerInfo(buyer);
     setStep('payment');
@@ -209,6 +219,22 @@ export function PaymentModal({
               </div>
 
               <div className="space-y-2">
+                <Label htmlFor="buyerParticipationStatus">Estatus de Participación <span className="text-red-500">*</span></Label>
+                <select
+                  id="buyerParticipationStatus"
+                  name="buyerParticipationStatus"
+                  required
+                  defaultValue=""
+                  className="w-full bg-white/5 border border-white/10 rounded-md px-3 py-2 text-sm text-white focus:outline-none focus:border-primary"
+                >
+                  <option value="" disabled>Selecciona tu estatus</option>
+                  {participationStatuses.map(s => (
+                    <option key={s} value={s} className="bg-[#0a0a0a]">{s}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
                 <Label htmlFor="buyerWhatsapp">WhatsApp <span className="text-red-500">*</span></Label>
                 <Input
                   id="buyerWhatsapp"
@@ -236,6 +262,7 @@ export function PaymentModal({
                 <span>👤 {buyerInfo.name}</span>
                 <span>🌍 {buyerInfo.country}</span>
                 <span>📱 {buyerInfo.whatsapp}</span>
+                {buyerInfo.participationStatus && <span>🏷️ {buyerInfo.participationStatus}</span>}
                 <button
                   type="button"
                   onClick={() => { setStep('info'); setClientSecret(null); }}

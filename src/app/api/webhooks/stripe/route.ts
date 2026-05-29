@@ -56,6 +56,7 @@ export async function POST(req: Request) {
                     '';
 
     const whatsapp = metadata.whatsapp || '';
+    const participationStatus = metadata.participationStatus || '';
     
     let discountPercent = 0;
     if (metadata.discount_detail && metadata.discount_detail !== 'none') {
@@ -75,6 +76,7 @@ export async function POST(req: Request) {
       name: name,
       country: country,
       whatsapp: whatsapp,
+      participationStatus: participationStatus,
       amount: ((obj.amount_total ?? obj.amount) ?? 0) / 100,
       currency: obj.currency,
       ticketType: metadata.ticketType || metadata.method || 'general',
