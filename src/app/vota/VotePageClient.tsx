@@ -9,7 +9,7 @@ import { db } from '@/lib/firebase';
 import { collection, query, where, orderBy, limit, onSnapshot } from 'firebase/firestore';
 
 type VotePageClientProps = {
-  categories: string[];
+  categories: readonly string[];
   edition: string;
   initialNominees?: Nominee[];
 };

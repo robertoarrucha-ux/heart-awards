@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { db, auth } from '@/lib/firebase';
 import { 
   collection,
@@ -390,7 +390,7 @@ export default function AliadoDashboard() {
     { n: '04', title: 'Gestión', desc: 'Comparte, genera ventas y monitorea tus resultados en tiempo real.' },
   ];
 
-  const AliadoLandingPage = ({ cta }: { cta: React.ReactNode }) => (
+  const AliadoLandingPage = ({ cta }: { cta: ReactNode }) => (
     <div className="flex flex-col min-h-screen bg-[#050505] text-white">
       <Header />
       <main className="flex-grow">

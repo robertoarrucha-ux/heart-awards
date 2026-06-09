@@ -1,5 +1,6 @@
 import firebaseRulesPlugin from '@firebase/eslint-plugin-security-rules';
 import js from '@eslint/js';
+import nextPlugin from '@next/eslint-plugin-next';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import globals from 'globals';
@@ -27,8 +28,11 @@ export default [
     },
     plugins: {
       '@typescript-eslint': typescriptEslint,
+      '@next/next': nextPlugin,
     },
     rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       'no-undef': 'error',

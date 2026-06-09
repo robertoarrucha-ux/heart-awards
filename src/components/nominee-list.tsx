@@ -21,7 +21,7 @@ import { db } from '@/lib/firebase';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
 interface NomineeListProps {
-  categories: string[];
+  categories: readonly string[];
   yearLabel: string;
   allowVoting?: boolean;
   initialNominees?: Nominee[];
