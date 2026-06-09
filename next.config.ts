@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     workerThreads: false,
     webpackBuildWorker: false,
   },
-  serverExternalPackages: ['firebase-admin', 'genkit', '@genkit-ai/googleai', '@genkit-ai/next'],
+  serverExternalPackages: ['firebase-admin'],
   images: {
     remotePatterns: [
       {

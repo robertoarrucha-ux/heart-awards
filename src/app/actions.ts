@@ -12,7 +12,6 @@ import { db } from '@/lib/firebase';
 import { adminDb } from '@/lib/firebase-admin';
 import { collection, query, where, getCountFromServer, getDocs, getDoc, orderBy, doc, deleteDoc, setDoc, updateDoc, writeBatch, addDoc } from 'firebase/firestore';
 import { FieldValue } from 'firebase-admin/firestore';
-import { summarizeNominee } from '@/ai/flows/summarize-nominee';
 
 const ADMIN_EMAIL = 'roberto@pro-latam.org';
 const WHATSAPP_SUPPORT_URL = 'https://api.whatsapp.com/send/?phone=4367761735010&text&type=%20Quiero%20Nominarme%20a%20los%20LatamAwards';
@@ -563,22 +562,6 @@ export async function getVotesByCountryAction(edition: string = '2026'): Promise
   }
 }
 
-export async function generateNomineeAIContentAction(nomineeId: string, language: 'es' | 'en' = 'es'): Promise<{ success: boolean, message: string }> {
-  try {
-    const nominee = await getNomineeById(nomineeId);
-    if (!nominee) {
-      return { success: false, message: "Nominado no encontrado." };
-    }
-    const { summary, headline } = await summarizeNominee({ bio: nominee.bio, language });
-    await updateNominee(nomineeId, { aiSummary: summary, aiHeadline: headline });
-    revalidatePath(`/nominados/${nomineeId}`);
-    revalidatePath('/vota');
-    return { success: true, message: "Contenido de IA generado y actualizado exitosamente." };
-  } catch (error) {
-    console.error("Error generating AI content:", error);
-    return { success: false, message: "Error al generar contenido con IA." };
-  }
-}
 
 export async function getVoteTrendsAction(): Promise<{ date: string; votes: number }[]> {
   try {

@@ -7,16 +7,12 @@
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--max-old-space-size=1280' next dev -p 3000",
-    "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
-    "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "build": "NODE_OPTIONS='--max-old-space-size=1280' next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@genkit-ai/googleai": "~1.14.1",
-    "@genkit-ai/next": "~1.14.1",
     "@hookform/resolvers": "^4.1.3",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -50,7 +46,6 @@
     "embla-carousel-react": "^8.6.0",
     "firebase": "^11.9.1",
     "firebase-admin": "^13.8.0",
-    "genkit": "~1.14.1",
     "lucide-react": "^0.475.0",
     "motion": "^12.38.0",
     "next": "15.4.10",
@@ -74,7 +69,6 @@
     "@typescript-eslint/parser": "^8.59.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "15.0.0",
-    "genkit-cli": "^1.14.1",
     "globals": "^17.5.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",

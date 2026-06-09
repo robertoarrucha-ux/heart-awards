@@ -18,8 +18,6 @@ export type Nominee = {
   youtubeVideoUrl?: string;
   edition: string; // e.g., '2025', '2026'
   email?: string;
-  aiSummary?: string;
-  aiHeadline?: string;
 };
 
 export type NominationRequest = {
