@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const stripe = getStripe();
 
   // Basic logging
-  console.log(`[Webhook] Incoming request: ${req.method}`);
+  console.log(`[Webhook] Incoming: sig=${sig ? 'present' : 'MISSING'}, secret=${webhookSecret ? `set (${webhookSecret.slice(0, 10)}...)` : 'MISSING'}, bodyLen=${body.length}`);
 
   if (!sig || !webhookSecret) {
     console.error('[Webhook] Missing Stripe signature or webhook secret');
