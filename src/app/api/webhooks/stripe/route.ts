@@ -3,14 +3,17 @@ import { getStripe } from '@/lib/stripe';
 import { adminDb } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
-  const body = await req.text();
+  const rawBody = await req.arrayBuffer();
+  const body = Buffer.from(rawBody);
   const sig = req.headers.get('stripe-signature');
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET?.trim();
   const stripe = getStripe();
 
   // Basic logging
-  console.log(`[Webhook] Incoming: sig=${sig ? 'present' : 'MISSING'}, secret=${webhookSecret ? `set (${webhookSecret.slice(0, 10)}...)` : 'MISSING'}, bodyLen=${body.length}`);
+  console.log(`[Webhook] Incoming: sig=${sig ? 'present' : 'MISSING'}, secret=${webhookSecret ? `set (${webhookSecret.slice(0, 10)}..., len=${webhookSecret.length})` : 'MISSING'}, bodyLen=${body.length}`);
 
   if (!sig || !webhookSecret) {
     console.error('[Webhook] Missing Stripe signature or webhook secret');
