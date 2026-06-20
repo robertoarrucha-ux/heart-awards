@@ -51,6 +51,8 @@ Two separate flows coexist — do not mix them:
 
 2. **Checkout Session flow** (`/api/checkout`): Redirects to Stripe-hosted checkout page. Legacy flow, less used.
 
+**Webhook body handling**: The route uses `Buffer.from(await req.arrayBuffer())` — **never change this to `req.text()` or `req.json()`**. Stripe's HMAC-SHA256 verification requires the exact raw bytes. UTF-8 decoding via `req.text()` subtly alters the payload and breaks signature verification with "no signatures found matching."
+
 **Coupon resolution order** (in `/api/create-payment-intent`):
 1. Firestore `coupons` collection (custom, partner-linked, max 30% discount hard-coded)
 2. Stripe promotion codes
