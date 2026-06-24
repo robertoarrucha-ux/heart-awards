@@ -331,7 +331,7 @@ export default function TicketsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {[
-                  { icon: <Users className="w-8 h-8" />, title: "200-300 Líderes", desc: "De Gobierno y Empresa de Europa y América Latina." },
+                  { icon: <Users className="w-8 h-8" />, title: "300-400 Líderes", desc: "De Gobierno y Empresa de Europa y América Latina." },
                   { icon: <Handshake className="w-8 h-8" />, title: "Alianzas Estratégicas", desc: "2 Reuniones de alianzas exclusivas por sede." },
                   { icon: <Award className="w-8 h-8" />, title: "20 Charlas", desc: "Inspiración pura de los líderes más influyentes." },
                   { icon: <Heart className="w-8 h-8" />, title: "La Gran Fiesta", desc: "La fiesta hispanoamericana más grande de Europa Central." },
@@ -370,40 +370,72 @@ export default function TicketsPage() {
 
             {/* PARTICIPANT PROFILE */}
             <div className="mb-32 bg-gradient-to-r from-primary/10 to-transparent p-8 md:p-16 rounded-[3rem] border border-primary/20">
+              {/* Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 pb-12 border-b border-white/10 text-center">
+                <div>
+                  <div className="text-4xl md:text-5xl font-black text-primary mb-2 tracking-tighter">300–400</div>
+                  <div className="text-sm text-muted-foreground">Líderes de Gobierno y Empresa de Europa y América Latina</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-black text-primary mb-2 tracking-tighter">1,000</div>
+                  <div className="text-sm text-muted-foreground">Asistentes en línea</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-black text-primary mb-2 tracking-tighter">1M+</div>
+                  <div className="text-sm text-muted-foreground">Alcance & Impacto a través de Redes Sociales y Prensa</div>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <h2 className="text-3xl md:text-5xl font-bold mb-6">
                     {language === 'es' ? 'Perfil del Participante' : 'Participant Profile'}
                   </h2>
-                  <p className="text-lg text-muted-foreground mb-8">
-                    {language === 'es' 
-                      ? 'Únete a una red selecta de profesionales y visionarios.' 
-                      : 'Join a select network of professionals and visionaries.'}
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                     {[
                       "Gerentes / Directores",
                       "Emprendedores",
                       "Oficiales de Gobierno",
                       "Cuerpo Diplomático",
-                      "Estudiantes de Maestría y Doctorado"
                     ].map((profile, i) => (
                       <div key={i} className="flex items-center gap-3 text-white font-medium">
-                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
                         {profile}
                       </div>
                     ))}
                   </div>
+
+                  <div className="mb-8">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Provenientes de</p>
+                    <div className="space-y-3">
+                      {[
+                        { pct: "30%", label: "Empresas y Gobiernos de América Latina" },
+                        { pct: "30%", label: "Latinoamericanos en Europa" },
+                        { pct: "40%", label: "Europeos invirtiendo o buscando invertir en América Latina" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-4">
+                          <span className="text-2xl font-black text-primary w-14 shrink-0">{item.pct}</span>
+                          <span className="text-sm text-muted-foreground">{item.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10">
+                    <span className="text-3xl font-black text-primary">42</span>
+                    <span className="text-sm text-muted-foreground">años de edad promedio</span>
+                  </div>
                 </div>
+
                 <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10">
-                  <Image 
-                    src="https://picsum.photos/seed/networking/800/600" 
-                    alt="Networking" 
-                    fill 
-                    className="object-cover opacity-60"
-                    referrerPolicy="no-referrer"
+                  <Image
+                    src="https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/public%2FPhoto%20Slider%2FLatin%20American%20Leaders%20Awards%2029.webp?alt=media&token=bf9790c6-2b81-42e7-b3a9-b74c30cb0727"
+                    alt="Latin American Leaders Awards"
+                    fill
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6">
                     <p className="text-sm italic text-gray-300">
                       "La mejor plataforma de alianzas entre Europa y América Latina."
