@@ -8,6 +8,7 @@ import ErrorBoundary from '@/components/error-boundary';
 import { LanguageProvider } from '@/context/LanguageContext';
 import AnalyticsTracker from '@/components/analytics-tracker';
 import AffiliateTracker from '@/components/affiliate-tracker';
+import GATracker from '@/components/ga-tracker';
 import { Suspense } from 'react';
 
 const inter = Inter({
@@ -86,6 +87,7 @@ export default function RootLayout({
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZN6G6ZBZX1" />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
+        <GATracker />
         <ErrorBoundary>
           <LanguageProvider>
             {children}
