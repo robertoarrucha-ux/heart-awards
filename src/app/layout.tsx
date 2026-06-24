@@ -82,13 +82,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
         <link rel="preconnect" href="https://i.ytimg.com" />
         {/* Google Analytics */}
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZN6G6ZBZX1');` }} />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZN6G6ZBZX1" />
-        <script dangerouslySetInnerHTML={{ __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-ZN6G6ZBZX1');
-        `}} />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <ErrorBoundary>
