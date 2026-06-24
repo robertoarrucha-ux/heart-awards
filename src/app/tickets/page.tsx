@@ -354,12 +354,13 @@ export default function TicketsPage() {
             </div>
 
             {/* IMPACT NUMBERS */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-32 py-16 border-y border-white/10">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 mb-32 py-16 border-y border-white/10">
               {[
                 { label: "Países Representados", value: "12" },
-                { label: "Asistentes en Línea", value: "10,000+" },
+                { label: "Líderes Presenciales", value: "300–400" },
+                { label: "Asistentes en Línea", value: "1,000" },
                 { label: "Aliados Oficiales", value: "20" },
-                { label: "Alcance en Redes", value: "18M+" },
+                { label: "Alcance & Impacto", value: "1M+" },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
                   <div className="text-4xl md:text-6xl font-black text-primary mb-2 tracking-tighter">{stat.value}</div>
@@ -370,22 +371,6 @@ export default function TicketsPage() {
 
             {/* PARTICIPANT PROFILE */}
             <div className="mb-32 bg-gradient-to-r from-primary/10 to-transparent p-8 md:p-16 rounded-[3rem] border border-primary/20">
-              {/* Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 pb-12 border-b border-white/10 text-center">
-                <div>
-                  <div className="text-4xl md:text-5xl font-black text-primary mb-2 tracking-tighter">300–400</div>
-                  <div className="text-sm text-muted-foreground">Líderes de Gobierno y Empresa de Europa y América Latina</div>
-                </div>
-                <div>
-                  <div className="text-4xl md:text-5xl font-black text-primary mb-2 tracking-tighter">1,000</div>
-                  <div className="text-sm text-muted-foreground">Asistentes en línea</div>
-                </div>
-                <div>
-                  <div className="text-4xl md:text-5xl font-black text-primary mb-2 tracking-tighter">1M+</div>
-                  <div className="text-sm text-muted-foreground">Alcance & Impacto a través de Redes Sociales y Prensa</div>
-                </div>
-              </div>
-
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <h2 className="text-3xl md:text-5xl font-bold mb-6">
