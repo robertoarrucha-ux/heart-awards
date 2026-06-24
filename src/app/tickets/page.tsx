@@ -28,6 +28,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { trackReferralAction } from '@/app/actions';
 import { PaymentModal } from '@/components/payment-modal';
+import YouTubeBackground from '@/components/youtube-background';
 
 export default function TicketsPage() {
   const { t, language } = useLanguage();
@@ -226,8 +227,9 @@ export default function TicketsPage() {
         {/* HERO */}
         <section className="relative py-32 overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-background to-background" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(var(--primary-rgb),0.1)_0%,transparent_70%)]" />
+            <div className="absolute inset-0 bg-[#0a0a0a]" />
+            <YouTubeBackground />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-background" />
           </div>
           
           <div className="container mx-auto px-4 relative z-10 text-center">

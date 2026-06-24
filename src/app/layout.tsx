@@ -78,6 +78,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`dark scroll-smooth ${inter.variable} ${outfit.variable} ${cormorant.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+        <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
+        <link rel="preconnect" href="https://i.ytimg.com" />
+      </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <ErrorBoundary>
           <LanguageProvider>

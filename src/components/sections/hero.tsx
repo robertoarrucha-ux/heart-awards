@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { motion } from 'motion/react';
+import YouTubeBackground from '@/components/youtube-background';
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -14,17 +15,8 @@ export default function Hero() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[#0a0a0a]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/40 to-background" />
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px]" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]" 
-        />
+        <YouTubeBackground />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-background" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10 text-center">
