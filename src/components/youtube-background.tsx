@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 const VIDEO_ID = 'hcFg1XqGXvE';
 const EMBED_URL =
   `https://www.youtube-nocookie.com/embed/${VIDEO_ID}` +
-  `?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}` +
+  `?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&start=21` +
   `&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&disablekb=1&fs=0`;
 
 export default function YouTubeBackground() {
