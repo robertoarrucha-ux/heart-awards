@@ -3,7 +3,6 @@ import React from 'react';
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import Script from 'next/script';
 import { Inter, Outfit, Cormorant_Garamond } from 'next/font/google';
 import ErrorBoundary from '@/components/error-boundary';
 import { LanguageProvider } from '@/context/LanguageContext';
@@ -82,21 +81,16 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.youtube-nocookie.com" />
         <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
         <link rel="preconnect" href="https://i.ytimg.com" />
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZN6G6ZBZX1" />
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-ZN6G6ZBZX1');
+        `}} />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-ZN6G6ZBZX1"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ZN6G6ZBZX1');
-          `}
-        </Script>
         <ErrorBoundary>
           <LanguageProvider>
             {children}
