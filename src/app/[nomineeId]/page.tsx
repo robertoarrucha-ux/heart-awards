@@ -23,7 +23,7 @@ export async function generateMetadata(
 
   const title = `Vota por ${nominee.name} | Latin American Leaders Awards 2026`;
   const description = `Apoya a ${nominee.name} en los Latin American Leaders Awards 2026. ${nominee.bio?.substring(0, 160) ?? ''}`.trim();
-  const imageUrl = nominee.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/public%2FLatin-American-Leaders-Awards-1.webp?alt=media';
+  const imageUrl = nominee.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2FLatin-American-Leaders-Awards-1.webp?alt=media';
 
   return {
     title,

@@ -119,7 +119,7 @@ export default function NomineeCard({
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src =
-                  'https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/public%2Flogo.png?alt=media';
+                  'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2Flogo.png?alt=media';
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">

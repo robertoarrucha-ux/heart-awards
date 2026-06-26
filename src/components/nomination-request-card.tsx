@@ -145,7 +145,7 @@ export default function NominationRequestCard({
             <div className="flex gap-4 items-start mb-2">
                 <div className="shrink-0">
                   <Image
-                    src={request.profilePhotoUrl || (request as any).imageUrl || 'https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/public%2Flogo.png?alt=media'}
+                    src={request.profilePhotoUrl || (request as any).imageUrl || 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2Flogo.png?alt=media'}
                     alt={nomineeName}
                     width={80}
                     height={80}

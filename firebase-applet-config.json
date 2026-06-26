@@ -1,10 +1,10 @@
 {
-  "projectId": "apex-vote",
-  "appId": "1:1000187502600:web:360e1df4071b8c1011f1bd",
-  "apiKey": "AIzaSyAcOCdZ9600v_BSnaouZtfBsYwoAvlWyNA",
-  "authDomain": "apex-vote.firebaseapp.com",
+  "projectId": "gen-lang-client-0540534404",
+  "appId": "1:390496971708:web:5541c8cb961a8d2eadd9b9",
+  "apiKey": "AIzaSyD1Dc-cDmX82n_pvkctjJRYdu0AyZF6Zgc",
+  "authDomain": "gen-lang-client-0540534404.firebaseapp.com",
   "firestoreDatabaseId": "(default)",
-  "storageBucket": "apex-vote.firebasestorage.app",
-  "messagingSenderId": "1000187502600",
+  "storageBucket": "gen-lang-client-0540534404.firebasestorage.app",
+  "messagingSenderId": "390496971708",
   "measurementId": ""
 }

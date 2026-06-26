@@ -417,7 +417,7 @@ export default function TicketsPage() {
 
                 <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10">
                   <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/public%2FPhoto%20Slider%2FLatin%20American%20Leaders%20Awards%2029.webp?alt=media&token=bf9790c6-2b81-42e7-b3a9-b74c30cb0727"
+                    src="https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2FPhoto%20Slider%2FLatin%20American%20Leaders%20Awards%2029.webp?alt=media&token=bf9790c6-2b81-42e7-b3a9-b74c30cb0727"
                     alt="Latin American Leaders Awards"
                     fill
                     className="object-cover"

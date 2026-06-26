@@ -211,7 +211,7 @@ export async function approveNominationRequestAction(request: any): Promise<{ su
       youtubeVideoUrl: normalizedRequest.youtubeVideoUrl || "",
       imageUrl: normalizedRequest.profilePhotoUrl && !normalizedRequest.profilePhotoUrl.includes('placeholder.png')
         ? normalizedRequest.profilePhotoUrl
-        : `https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/public%2Flogo.png?alt=media`,
+        : `https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2Flogo.png?alt=media`,
       edition: normalizedRequest.edition,
     };
 

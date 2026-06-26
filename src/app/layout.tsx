@@ -32,7 +32,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 const siteUrl = 'https://heart.awards-global.org';
-const faviconUrl = 'https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/favicon.ico?alt=media&token=68df8661-eda9-45b1-82ae-ebd30be0e5cd';
+const faviconUrl = 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/favicon.ico?alt=media&token=68df8661-eda9-45b1-82ae-ebd30be0e5cd';
 
 export const metadata: Metadata = {
   title: 'Heart-Led Summit & Awards 2026 — Vienna',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     description: 'Recognizing leaders who integrate compassion into decisions across sectors and geographies. Inaugural edition, Vienna, December 3–5, 2026.',
     images: [
       {
-        url: 'https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/Latin-American-Leaders-Awards-Viena%202.webp?alt=media',
+        url: 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/Latin-American-Leaders-Awards-Viena%202.webp?alt=media',
         width: 1200,
         height: 630,
         alt: 'Heart-Led Summit & Awards 2026 — Vienna',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Heart-Led Summit & Awards 2026 — Vienna',
     description: 'Recognizing leaders who integrate compassion into decisions across sectors and geographies. Inaugural edition, Vienna, December 3–5, 2026.',
-    images: ['https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/Latin-American-Leaders-Awards-Viena%202.webp?alt=media'],
+    images: ['https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/Latin-American-Leaders-Awards-Viena%202.webp?alt=media'],
     creator: '@globschool',
   },
   icons: {

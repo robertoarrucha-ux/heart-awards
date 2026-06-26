@@ -99,7 +99,7 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
 setIsSubmitting(true);
 
 try {
-let photoDataUri = `https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/public%2Flogo.png?alt=media`;
+let photoDataUri = `https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2Flogo.png?alt=media`;
 if (values.profilePhoto && values.profilePhoto.length > 0) {
 let photoFile = values.profilePhoto[0];
 
