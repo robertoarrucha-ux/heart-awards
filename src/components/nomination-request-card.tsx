@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Facebook, Check, Loader2, Link as LinkIcon, Linkedin, Instagram, X, User, Flag, Mail, Briefcase, Building, BookOpen, Sparkles, MessageSquare, ExternalLink, Shield, CalendarClock, Bot, Edit2, Save } from 'lucide-react';
 import type { NominationRequest } from '@/lib/data';
-import { viennaCategories2026, madridCategories2026, categories2025 } from '@/lib/data';
+import { heartLedCategories2026 } from '@/lib/data';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -100,11 +100,8 @@ export default function NominationRequestCard({
     }
   };
 
-  // Get relevant categories based on edition
   const getAvailableCategories = () => {
-    if (request.edition === '2025') return Array.from(categories2025);
-    // Combine 2026 categories
-    return [...Array.from(madridCategories2026), ...Array.from(viennaCategories2026)];
+    return Array.from(heartLedCategories2026);
   };
 
   // Normalización defensiva para renderizado seguro

@@ -28,7 +28,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass mb-8"
           >
             <Award className="w-4 h-4 text-primary" />
-            <span className="text-xs font-bold tracking-widest uppercase text-foreground/80">Edición 2026</span>
+            <span className="text-xs font-bold tracking-widest uppercase text-foreground/80">Inaugural Edition 2026</span>
           </motion.div>
           
           <motion.h1 

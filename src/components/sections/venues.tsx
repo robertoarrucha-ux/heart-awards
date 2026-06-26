@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Check, ChevronRight, Heart, Building } from 'lucide-react';
+import { Check, ChevronRight, Heart, Trophy } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -73,11 +73,11 @@ export default function Venues() {
           >
             <Card className="group relative overflow-hidden glass border-white/5 h-full flex flex-col p-8 md:p-12 hover:border-primary/30 transition-colors">
               <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Building className="w-32 h-32 text-primary" />
+                <Trophy className="w-32 h-32 text-primary" />
               </div>
               <div className="mb-8">
                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                  <Building className="w-8 h-8 text-primary" />
+                  <Trophy className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-4xl font-bold mb-2">{t.venues_section.madrid.title}</h3>
                 <p className="text-primary font-medium tracking-wide uppercase text-sm">{t.venues_section.madrid.date}</p>

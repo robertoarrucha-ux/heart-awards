@@ -28,10 +28,10 @@ export default function Impact() {
         </motion.p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-5xl mx-auto">
           {[
-            { label: t.impact.impressions, value: "18", suffix: "+" },
-            { label: t.impact.attendees, value: "300", suffix: "+" },
-            { label: t.impact.countries, value: "12", suffix: "+" },
-            { label: t.impact.awarded, value: "20", suffix: "+" }
+            { label: t.impact.impressions, value: "70", suffix: "%" },
+            { label: t.impact.attendees, value: "4", suffix: "×" },
+            { label: t.impact.countries, value: "21", suffix: "%" },
+            { label: t.impact.awarded, value: "87", suffix: "%" }
           ].map((stat, i) => (
             <motion.div 
               key={i}

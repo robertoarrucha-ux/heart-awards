@@ -56,27 +56,10 @@ export type Vote = {
   createdAt: any; // Firestore Timestamp
 };
 
-export const categories2025 = [
-  "Líderes en América Latina",
-  "Diáspora Latinoamericana",
-  "Empresas Extranjeras invirtiendo en América Latina",
-  "Jóvenes Promesas (Menores a 29 años)"
+export const heartLedCategories2026 = [
+  "Global Heart-Led Leaders",
+  "Latin Heart-Led Award",
+  "Local Heart-Led Leaders (Austria)"
 ] as const;
 
-export const viennaCategories2026 = [
-  "Mujeres Auténticas de América Latina",
-  "Causas Sociales con Impacto",
-  "Políticas Públicas para la Innovación Social",
-  "Jóvenes Promesas del Sector Social"
-] as const;
-
-export const madridCategories2026 = [
-  "Empresarios que Transforman América Latina",
-  "Emprendedores con Visión de Futuro",
-  "Inversionistas y Promotores de Inversión Pro América Latina",
-  "Políticas Públicas para el Desarrollo Económico",
-  "Jóvenes Promesas de los Negocios",
-  "Diáspora Latinoamericana que Impulsa Oportunidades"
-] as const;
-
-export const categories = [...viennaCategories2026, ...madridCategories2026] as const;
+export const categories = [...heartLedCategories2026] as const;

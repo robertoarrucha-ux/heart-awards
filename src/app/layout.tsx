@@ -31,15 +31,13 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 });
 
-const siteUrl = 'https://awards.pro-latam.org';
+const siteUrl = 'https://heart.awards-global.org';
 const faviconUrl = 'https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/favicon.ico?alt=media&token=68df8661-eda9-45b1-82ae-ebd30be0e5cd';
 
-import { getAssetUrl } from '@/lib/assets';
-
 export const metadata: Metadata = {
-  title: 'Latin American Leaders Awards 2026',
-  description: 'En 2026, los Latin American Leaders Awards se celebrarán en Viena y Madrid para reconocer a líderes que impulsan el desarrollo social, económico e institucional de América Latina con impacto global.',
-  keywords: ['Latin American Leaders Awards', 'Premios Pro-Latam', 'líderes de América Latina', 'nominación líderes', 'Pro-Latam', 'Viena', 'Madrid', 'liderazgo social', 'liderazgo empresarial'],
+  title: 'Heart-Led Summit & Awards 2026 — Vienna',
+  description: 'The inaugural Heart-Led Summit & Awards recognizes outstanding leaders who integrate compassion, purpose, and excellence across sectors and geographies. Vienna, December 3–5, 2026.',
+  keywords: ['Heart-Led Summit', 'Heart-Led Awards', 'compassionate leadership', 'leadership awards Vienna', 'heart-led leaders', 'Vienna 2026', 'social impact', 'ESG leadership'],
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
@@ -47,23 +45,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: siteUrl,
-    title: 'Latin American Leaders Awards 2026: Viena y Madrid',
-    description: 'Participa en los Latin American Leaders Awards, con dos sedes en 2026 para reconocer el liderazgo que transforma América Latina desde lo social, público y económico.',
+    title: 'Heart-Led Summit & Awards 2026 — Vienna',
+    description: 'Recognizing leaders who integrate compassion into decisions across sectors and geographies. Inaugural edition, Vienna, December 3–5, 2026.',
     images: [
       {
-        url: getAssetUrl('Latin-American-Leaders-Awards-Viena 2.webp'),
+        url: 'https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/Latin-American-Leaders-Awards-Viena%202.webp?alt=media',
         width: 1200,
         height: 630,
-        alt: 'Latin American Leaders Awards 2026',
+        alt: 'Heart-Led Summit & Awards 2026 — Vienna',
       },
     ],
-    siteName: 'Latin American Leaders Awards',
+    siteName: 'Heart-Led Summit & Awards',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Latin American Leaders Awards 2026: Viena y Madrid',
-    description: 'Participa en los Latin American Leaders Awards, con dos sedes en 2026 para reconocer el liderazgo que transforma América Latina desde lo social, público y económico.',
-    images: [getAssetUrl('Latin-American-Leaders-Awards-Viena 2.webp')],
+    title: 'Heart-Led Summit & Awards 2026 — Vienna',
+    description: 'Recognizing leaders who integrate compassion into decisions across sectors and geographies. Inaugural edition, Vienna, December 3–5, 2026.',
+    images: ['https://firebasestorage.googleapis.com/v0/b/apex-vote.firebasestorage.app/o/Latin-American-Leaders-Awards-Viena%202.webp?alt=media'],
     creator: '@globschool',
   },
   icons: {
@@ -77,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`dark scroll-smooth ${inter.variable} ${outfit.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`dark scroll-smooth ${inter.variable} ${outfit.variable} ${cormorant.variable}`}>
       <head>
         <link rel="preconnect" href="https://www.youtube-nocookie.com" />
         <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />

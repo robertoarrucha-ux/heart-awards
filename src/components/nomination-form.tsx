@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDes
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { categories, viennaCategories2026, madridCategories2026 } from '@/lib/data';
+import { categories, heartLedCategories2026 } from '@/lib/data';
 import { countries } from '@/lib/countries';
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Send, Upload } from 'lucide-react';
@@ -260,16 +260,8 @@ render={({ field }) => (
 </FormControl>
 <SelectContent>
 <SelectGroup>
-<SelectLabel className="text-primary">Viena: Liderazgo social e innovación pública</SelectLabel>
-{viennaCategories2026.map((category) => (
-<SelectItem key={category} value={category}>
-{category}
-</SelectItem>
-))}
-</SelectGroup>
-<SelectGroup>
-<SelectLabel className="text-primary">Madrid: Negocios, inversión y desarrollo económico</SelectLabel>
-{madridCategories2026.map((category) => (
+<SelectLabel className="text-primary">Award Categories · Vienna 2026</SelectLabel>
+{heartLedCategories2026.map((category) => (
 <SelectItem key={category} value={category}>
 {category}
 </SelectItem>

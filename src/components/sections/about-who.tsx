@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Heart, Building } from 'lucide-react';
+import { Globe, MapPin } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { motion } from 'motion/react';
 
@@ -33,7 +33,7 @@ export default function AboutWho() {
             <ul className="space-y-8">
               <li className="flex items-start gap-6">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Heart className="w-6 h-6 text-primary" />
+                  <Globe className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h4 className="text-xl font-bold mb-1">{t.who.vienna_title}</h4>
@@ -42,7 +42,7 @@ export default function AboutWho() {
               </li>
               <li className="flex items-start gap-6">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Building className="w-6 h-6 text-primary" />
+                  <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h4 className="text-xl font-bold mb-1">{t.who.madrid_title}</h4>

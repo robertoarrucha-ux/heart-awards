@@ -3,8 +3,8 @@ import { TranslationType } from './types';
 
 export const en: TranslationType = {
   nav: {
-    venues: "Venues",
-    voting: "Voting",
+    venues: "The Event",
+    voting: "Nominees",
     edition2025: "2025 Edition",
     edition2024: "2024 Edition",
     edition2023: "2023 Edition",
@@ -16,99 +16,97 @@ export const en: TranslationType = {
     partners: "Partners",
   },
   hero: {
-    title: "The Most Important European Recognition for Latin American Leaders",
-    subtitle: "The Latin American Leaders Awards celebrate the excellence, innovation, economic and social development of the most influential leaders in our region.",
-    ctaNominate: "Nominate Now",
+    title: "The World Needs Heart-Led Leaders.",
+    subtitle: "Join us in Vienna for the inaugural Heart-Led Summit & Awards — recognizing leaders who integrate compassion, purpose, and excellence across sectors and geographies.",
+    ctaNominate: "Nominate a Leader",
     ctaVote: "View Nominees",
   },
   stats: {
     countries: "Participating Countries",
     leaders: "Nominated Leaders",
-    impact: "Regional Impact",
+    impact: "Global Impact",
   },
   venues_section: {
-    title: "Official Venues 2026",
-    subtitle: "Two global cities, one purpose: celebrating Latin American leadership.",
+    title: "Vienna, December 3–5, 2026",
+    subtitle: "An award ceremony that changes the conversation on leadership.",
     vienna: {
       title: "Vienna, Austria",
-      date: "December 3, 4 & 5",
+      date: "December 3, 4 & 5, 2026",
       focus: [
-        "Social leaders and activists",
-        "Foundations and NGOs",
-        "Public institutions",
-        "Social innovation and sustainability"
+        "Day 1 — Welcome reception & institutional visit (UN Vienna)",
+        "Day 2 — Summit: keynotes, panels, case studies & Awards Ceremony",
+        "Day 3 — Strategic networking brunch & collaboration conversations",
       ],
     },
     madrid: {
-      title: "Madrid, Spain",
-      date: "November 19, 20 & 21",
+      title: "Award Categories",
+      date: "Inaugural Edition · Vienna 2026",
       focus: [
-        "Business owners and entrepreneurs",
-        "Investors and VCs",
-        "Global corporations",
-        "Business alliances and trade"
+        "Global Heart-Led Leaders — cross-border initiatives with international impact",
+        "Latin Heart-Led Award — measurable social impact across Latin America",
+        "Local Heart-Led Leaders (Austria) — meaningful change within Austria",
       ],
     },
   },
   footer: {
     rights: "All rights reserved.",
     links: {
-      alliances: "Request Alliances",
-      tickets: "Check Tickets",
+      alliances: "Become a Partner",
+      tickets: "Get Tickets",
     },
   },
   event_invitation: {
-    title: "Join the Event of the Year",
-    subtitle: "Since 2017, the Most Important European Recognition for Latin American Leaders.",
+    title: "Join the Inaugural Heart-Led Summit & Awards",
+    subtitle: "Vienna, December 3–5, 2026 — where compassionate leadership is recognized and celebrated.",
     date_label: "Date",
-    date_value: "November & December 2026",
+    date_value: "December 3–5, 2026",
     location_label: "Location",
-    location_value: "Vienna & Madrid",
+    location_value: "Vienna, Austria",
     cta: "I Want to Attend",
   },
   about: {
-    title: "What are the Latin American Leaders Awards?",
-    description: "Since 2017, the Latin American Leaders Awards have been the most important international platform in Europe for alliances, business, and recognition for Latin American Leaders.",
+    title: "What is the Heart-Led Summit & Awards?",
+    description: "An award ceremony that changes the conversation on leadership. We recognize outstanding leaders who integrate compassion into decisions across sectors and geographies — because organizations that lead with heart don't just do good, they outperform.",
   },
   who: {
-    title: "Who participates?",
-    vienna_title: "Vienna",
-    vienna_desc: "Social leaders, public institutions, and social innovators.",
-    madrid_title: "Madrid",
-    madrid_desc: "Business owners, entrepreneurs, and global investors.",
+    title: "Who Qualifies?",
+    vienna_title: "International Leaders",
+    vienna_desc: "Leaders whose initiatives span multiple countries or create measurable impact across Latin America and beyond — from social innovation to responsible business.",
+    madrid_title: "Leaders in Austria",
+    madrid_desc: "Leaders driving meaningful change within Austria across sectors — business, public institutions, civil society, and culture.",
   },
   impact: {
-    title: "Global Impact",
-    subtitle: "The Largest Hispanic-American Celebration in Central Europe",
-    impressions: "Millions of Impressions",
-    attendees: "Attendees",
-    countries: "Countries",
-    awarded: "Awarded",
+    title: "The Business Case for Heart",
+    subtitle: "Sources: Gallup · McKinsey & Company · Harvard Business Review",
+    impressions: "of employees disengaged globally",
+    attendees: "higher employee retention rate",
+    countries: "greater profitability vs peers",
+    awarded: "of employees want empathetic leaders",
   },
   ctas: {
     alliances: {
-      title: "Alliances",
-      desc: "Amplify your brand and connect with key leaders.",
-      label: "Request Alliance",
+      title: "Partnership",
+      desc: "Shape the inaugural Heart-Led Summit & Awards as a founding partner.",
+      label: "Become a Partner",
     },
     tickets: {
       title: "Tickets",
-      desc: "Secure your spot in Vienna, Madrid, or both.",
-      label: "Check Tickets",
+      desc: "Secure your place at Vienna's leadership event of the year.",
+      label: "Get Tickets",
     },
     winners: {
-      title: "Winners",
-      desc: "Explore the profiles of the 2025 leaders.",
-      label: "See Winners",
+      title: "Nominees",
+      desc: "Meet the leaders nominated from around the world.",
+      label: "View Nominees",
     },
   },
   tickets_page: {
     hero: {
-      title: "Your Journey to the Latin American Leaders Awards",
-      subtitle: "Everything you need to prepare for your experience in Vienna and Madrid.",
+      title: "Your Journey to the Heart-Led Summit & Awards",
+      subtitle: "Everything you need to prepare your experience in Vienna, December 3–5, 2026.",
     },
     steps: {
-      title: "Follow these 4 steps for your welcome",
+      title: "Follow these 4 steps to join us",
       step1: {
         title: "Step 1: Secure Your Ticket",
         desc: "Choose the experience that best fits your goals.",
@@ -117,125 +115,99 @@ export const en: TranslationType = {
             name: "Free",
             price: "€0",
             features: [
-              "European Companies and Investors (REGISTER, CLICK HERE)",
-              "Awardees, Finalists, Media, Allies and Professional Network (CLICK HERE)"
+              "Nominated finalists, award recipients, media, and partners (CLICK HERE)",
+              "Institutional representatives and invited guests (CLICK HERE)"
             ],
           },
           general: {
             name: "General Agenda",
             price: "€390",
             stripePriceId: "price_1TMbsx2K14FofuJ5Fgsrqltf",
-            features: ["Access Event Days", "General Networking", "Awards Ceremony"],
+            features: ["Access to event days", "General networking", "Awards Ceremony"],
           },
           vip: {
             name: "VIP Agenda",
             price: "€590",
             stripePriceId: "price_1TMbtp2K14FofuJ5Zai3fxkF",
-            features: ["Access All Days", "Exclusive Networking", "Preferential Seating", "Gala Dinner"],
+            features: ["Access to all 3 days", "Exclusive networking", "Preferential seating", "Gala dinner"],
           },
           vip_travel: {
-            name: "VIP Agenda with Travel",
+            name: "VIP with Travel",
             price: "€3,500",
             stripePriceId: "price_placeholder_travel",
-            features: ["Everything in VIP Agenda", "Flights Included", "Hotel Included", "Airport Reception"],
+            features: ["Everything in VIP", "Flights included", "Hotel included", "Airport reception"],
           },
           vip_ally: {
-            name: "VIP Ally",
+            name: "VIP Partner",
             price: "€5,900",
             stripePriceId: "price_placeholder_ally",
-            features: ["Everything in VIP Agenda with travel", "Brand Mention", "Exhibition Space", "B2B Meetings"],
+            features: ["Everything in VIP with travel", "Brand visibility", "Exhibition space", "B2B meetings"],
           },
         },
       },
       step2: {
-        title: "Step 2: Flights and Visas",
+        title: "Step 2: Flights & Visa",
         desc: "Prepare your arrival in advance.",
         tips: [
-            "Book your flights to Vienna (VIE) or Madrid (MAD) at least 3 months in advance.",
-            "Check if you need a Schengen visa to enter the European Union.",
-            "Get international travel insurance (mandatory for the visa)."
+          "Book your flights to Vienna (VIE) at least 3 months in advance.",
+          "Check if you need a Schengen visa to enter the European Union.",
+          "Get international travel insurance (required for Schengen visa)."
         ],
       },
       step3: {
-        title: "Step 3: Logistics and Preparation",
-        desc: "Once your ticket is secured, you will receive our complete logistics guide.",
+        title: "Step 3: Logistics & Preparation",
+        desc: "Once your ticket is confirmed, you will receive our complete logistics guide with hotel recommendations and local transport.",
         hotels: [],
       },
       step4: {
         title: "Step 4: Welcome to the Experience!",
-        desc: "Agendas in Development (to be confirmed before the event). Get ready to connect with the most influential leaders.",
+        desc: "Three days of leadership, connection, and recognition in Vienna. Full agenda to be confirmed before the event.",
         agenda_highlights: [
-            "Welcome Cocktail",
-            "Innovation and Business Panels",
-            "Gala Night and Awards",
-            "Cultural Networking Tours"
+          "Welcome Reception",
+          "Keynote: The Future of Compassionate Leadership",
+          "Awards Ceremony",
+          "Strategic Networking Brunch"
         ],
         agenda_highlights_madrid: [
-            "Welcome Cocktail",
-            "Activities at Impact Hub Madrid",
-            "Visits to Business Chambers",
-            "Gala Night and Awards"
+          "Welcome Reception",
+          "Leadership Summit",
+          "Awards Ceremony",
+          "Strategic Networking"
         ],
         full_agenda_vienna: [
           {
-            day: "Day 1 - Casual Attire",
+            day: "Day 1 — Welcome (Casual Attire)",
             events: [
-              "17:00 – Meeting point",
-              "17:10 – Special Welcome Toast",
-              "17:30 – Reception and networking with the Vienna Business Agency",
-              "20:00 – Tour of Christmas markets and photo session"
+              "17:00 – Private welcome reception for nominees, speakers & partners",
+              "18:00 – Curated networking experience",
+              "19:00 – Institutional visit (UN Vienna offices or Vienna Business Agency)",
+              "20:30 – Informal dialogue on global challenges and leadership"
             ]
           },
           {
-            day: "Day 2 - Formal Attire",
+            day: "Day 2 — Summit & Awards (Formal Attire)",
             events: [
-              "12:00 – Reception at UN Vienna Headquarters (UN)",
-              "13:00 – Tour and talks in English",
-              "16:00 – Transfer to Impact Hub Vienna",
-              "17:00 – 10-minute talks (TEDx Style)",
-              "19:00 – Networking with 1MillionStartups and investors",
-              "22:00 – Party Night"
+              "10:00 – Opening keynote: The Future of Compassionate Leadership",
+              "11:30 – Expert panels & case studies from shortlisted leaders",
+              "14:00 – Interactive cross-sector discussions",
+              "18:00 – Awards Ceremony: recognition across all three categories",
+              "19:30 – High-level networking reception"
             ]
           },
           {
-            day: "Day 3 - Formal Attire",
+            day: "Day 3 — Strategic Networking (Smart Casual)",
             events: [
-              "15:30 – Registration and Welcome at Impact Hub Vienna",
-              "16:10 – More than 10 10-minute talks (TEDx Style)",
-              "18:30 – Awards Ceremony (Free access for nominees)",
-              "19:00 – Cocktail & Closing Party"
+              "10:00 – Intimate networking brunch",
+              "11:00 – Facilitated conversations for collaboration and partnerships",
+              "13:00 – Reflection: translating inspiration into concrete initiatives",
+              "14:00 – Farewell & closing"
             ]
           }
         ],
         full_agenda_madrid: [
           {
-            day: "Day 1 - Casual Attire",
-            events: [
-              "17:00 – Meeting point",
-              "17:10 – Special Welcome Toast",
-              "17:30 – Reception and networking with Business Chambers",
-              "20:00 – City tour and photo session"
-            ]
-          },
-          {
-            day: "Day 2 - Formal Attire",
-            events: [
-              "12:00 – Reception at Madrid Allied Institution",
-              "13:00 – Tour and talks",
-              "16:00 – Transfer to Impact Hub Madrid",
-              "17:00 – 10-minute talks (TEDx Style)",
-              "19:00 – Networking with investors and allies",
-              "22:00 – Party Night"
-            ]
-          },
-          {
-            day: "Day 3 - Formal Attire",
-            events: [
-              "15:30 – Registration and Welcome at Impact Hub Madrid",
-              "16:10 – More than 10 10-minute talks (TEDx Style)",
-              "18:30 – Awards Ceremony (Free access for nominees)",
-              "19:00 – Cocktail & Closing Party"
-            ]
+            day: "Day 1",
+            events: []
           }
         ],
       },
@@ -245,11 +217,11 @@ export const en: TranslationType = {
       whatsapp: "Contact us on WhatsApp",
     },
     vienna_label: "Vienna Edition",
-    madrid_label: "Madrid Edition",
+    madrid_label: "Vienna Edition",
     buy_now: "Buy Now",
   },
   media_section: {
-    title: "Media Presence & Partnerships",
-    subtitle: "Organizations and media outlets that have highlighted the impact of the Latin American Leaders Awards in Vienna.",
+    title: "Media & Partners",
+    subtitle: "Organizations and media supporting the Heart-Led Summit & Awards inaugural edition in Vienna.",
   },
 };

@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import NomineeCard from '@/components/nominee-card';
 import { castVoteAction } from '@/app/actions';
-import { type Nominee, viennaCategories2026, madridCategories2026 } from '@/lib/data';
+import { type Nominee } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import {
   Select,
@@ -145,19 +145,7 @@ export default function NomineeList({
       const matchesCountry = countryFilter === 'all' || country === countryFilter;
       const matchesSearch = !q || name.includes(q) || org.includes(q);
 
-      let matchesLocation = true;
-      if (is2026 && locationFilter !== 'all') {
-        const vienaCats = viennaCategories2026 as unknown as string[];
-        const madridCats = madridCategories2026 as unknown as string[];
-
-        if (locationFilter === 'viena') {
-          matchesLocation = vienaCats.includes(category);
-        } else if (locationFilter === 'madrid') {
-          matchesLocation = madridCats.includes(category);
-        }
-      }
-
-      return matchesCategory && matchesCountry && matchesSearch && matchesLocation;
+      return matchesCategory && matchesCountry && matchesSearch;
     });
   }, [allNominees, categoryFilter, countryFilter, searchQuery, locationFilter, is2026]);
 
@@ -265,12 +253,7 @@ export default function NomineeList({
     router.push(url, { scroll: false });
   };
 
-  const displayedCategories = useMemo(() => {
-    if (!is2026 || locationFilter === 'all') return categories;
-    const vienaCats = viennaCategories2026 as unknown as string[];
-    const madridCats = madridCategories2026 as unknown as string[];
-    return locationFilter === 'viena' ? vienaCats : madridCats;
-  }, [is2026, locationFilter, categories]);
+  const displayedCategories = useMemo(() => categories, [categories]);
 
   return (
     <div className="space-y-8">

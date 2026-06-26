@@ -13,10 +13,10 @@ export default function Footer() {
       <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 text-center md:text-left">
               <div>
-                  <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Sedes Mundiales</h3>
+                  <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Venue</h3>
                   <div className="space-y-4 text-muted-foreground text-sm font-light">
-                      <p>Vienna: Lindengasse 56, 1070 Vienna, Austria.</p>
-                      <p>Madrid: C. del Capitan Blanco Argibay, 69, 28029 Madrid, Spain.</p>
+                      <p>Vienna, Austria</p>
+                      <p>December 3–5, 2026</p>
                   </div>
               </div>
               
@@ -41,17 +41,17 @@ export default function Footer() {
               <div className="text-center md:text-right">
                   <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Legal</h3>
                   <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 text-xs font-bold text-foreground/40 uppercase tracking-tighter">
-                      <a href="https://pro-latam.org/privacy-use-impressum/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Privacidad</a>
-                      <a href="https://pro-latam.org/privacy-use-impressum/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Términos</a>
+                      <a href="https://pro-latam.org/privacy-use-impressum/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Privacy</a>
+                      <a href="https://pro-latam.org/privacy-use-impressum/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Terms</a>
                       <a href="https://pro-latam.org/privacy-use-impressum/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Impressum</a>
-                      <Link href="/terminos-convocatoria" className="hover:text-primary transition-colors">Bases</Link>
+                      <Link href="/terminos-convocatoria" className="hover:text-primary transition-colors">Rules</Link>
                   </div>
               </div>
           </div>
           
           <div className="pt-8 border-t border-white/5 text-center">
               <p className="text-muted-foreground text-xs font-light tracking-wide italic">
-                  © 2026 Pro Latam & The New Global School. {t.footer.rights}
+                  © 2026 The Mompreneurs Society & Pro Latam. {t.footer.rights}
               </p>
           </div>
       </div>
