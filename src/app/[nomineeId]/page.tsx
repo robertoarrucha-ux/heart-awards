@@ -17,12 +17,12 @@ export async function generateMetadata(
 
   if (!nominee) {
     return {
-      title: 'Nominado no encontrado | Latin American Leaders Awards',
+      title: 'Nominee not found | Heart-Led Summit & Awards',
     };
   }
 
-  const title = `Vota por ${nominee.name} | Latin American Leaders Awards 2026`;
-  const description = `Apoya a ${nominee.name} en los Latin American Leaders Awards 2026. ${nominee.bio?.substring(0, 160) ?? ''}`.trim();
+  const title = `Vote for ${nominee.name} | Heart-Led Summit & Awards 2026`;
+  const description = `Support ${nominee.name} at the Heart-Led Summit & Awards 2026. ${nominee.bio?.substring(0, 160) ?? ''}`.trim();
   const imageUrl = nominee.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2FLatin-American-Leaders-Awards-1.webp?alt=media';
 
   return {
@@ -33,7 +33,7 @@ export async function generateMetadata(
       description,
       images: [imageUrl],
       type: 'profile',
-      url: `https://awards.pro-latam.org/${nomineeId}`,
+      url: `https://heart.awards-global.org/${nomineeId}`,
     },
     twitter: {
       card: 'summary_large_image',

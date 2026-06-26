@@ -133,13 +133,13 @@ const result = await addNominationRequestAction(requestData);
 
 if (result.success) {
 toast({
-title: "¡Nominación Recibida!",
+title: "Nomination Received!",
 description: (
 <div>
-<p>Gracias por tu nominación, la hemos recibido exitosamente.</p>
-<p>Puedes unirte a nuestro grupo de WhatsApp para seguir todas las noticias.
+<p>Thank you for your nomination — we have received it successfully.</p>
+<p>Join our WhatsApp group to follow all the news.{" "}
 <a href="https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn" target="_blank" rel="noopener noreferrer" className="underline font-bold text-primary">
-Click aqui
+Click here
 </a>
 </p>
 </div>
@@ -150,19 +150,19 @@ form.reset();
 } else {
 toast({
 variant: "destructive",
-title: "Error al Enviar",
+title: "Submission Error",
 description: (
 <div className="space-y-2">
 <p>{result.message}</p>
 <p className="text-sm font-medium">
-Si tienes problemas nominándote, hazlo vía Whatsapp en este enlace,{" "}
+If you have trouble nominating, do it via WhatsApp at this link:{" "}
 <a
-href="https://api.whatsapp.com/send/?phone=4367761735010&text&type=%20Quiero%20Nominarme%20a%20los%20LatamAwards"
+href="https://api.whatsapp.com/send/?phone=4367761735010&text&type=%20I%20want%20to%20nominate%20for%20HeartLedAwards"
 target="_blank"
 rel="noopener noreferrer"
 className="underline font-bold text-white hover:text-white/80"
 >
-click aqui
+click here
 </a>
 </p>
 </div>
@@ -174,19 +174,19 @@ duration: 10000,
 console.error("Error submitting nomination form:", error);
 toast({
 variant: "destructive",
-title: "Error inesperado",
+title: "Unexpected error",
 description: (
 <div className="space-y-2">
-<p>Ocurrió un error inesperado al procesar tu solicitud.</p>
+<p>An unexpected error occurred while processing your request.</p>
 <p className="text-sm font-medium">
-Si tienes problemas nominándote, hazlo vía Whatsapp en este enlace,{" "}
+If you have trouble nominating, do it via WhatsApp at this link:{" "}
 <a
-href="https://api.whatsapp.com/send/?phone=4367761735010&text&type=%20Quiero%20Nominarme%20a%20los%20LatamAwards"
+href="https://api.whatsapp.com/send/?phone=4367761735010&text&type=%20I%20want%20to%20nominate%20for%20HeartLedAwards"
 target="_blank"
 rel="noopener noreferrer"
 className="underline font-bold text-white hover:text-white/80"
 >
-click aqui
+click here
 </a>
 </p>
 </div>
@@ -531,7 +531,7 @@ onCheckedChange={field.onChange}
 </FormControl>
 <div className="space-y-1 leading-none">
 <FormLabel>
-Estoy de acuerdo con las <a href="https://awards.pro-latam.org/terminos-convocatoria" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">políticas y términos</a>.
+Estoy de acuerdo con las <a href="https://heart.awards-global.org/terminos-convocatoria" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">policies & terms</a>.
 </FormLabel>
 <FormMessage />
 </div>
@@ -541,7 +541,7 @@ Estoy de acuerdo con las <a href="https://awards.pro-latam.org/terminos-convocat
 
 <Button type="submit" className="w-full md:col-span-2" disabled={isSubmitting}>
 {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
-{isSubmitting ? 'Enviando Nominación...' : 'Enviar Nominación'}
+{isSubmitting ? 'Sending Nomination...' : 'Submit Nomination'}
 </Button>
 </form>
 </Form>

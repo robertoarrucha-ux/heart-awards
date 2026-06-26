@@ -14,7 +14,7 @@ import { collection, query, where, getCountFromServer, getDocs, getDoc, orderBy,
 import { FieldValue } from 'firebase-admin/firestore';
 
 const ADMIN_EMAIL = 'roberto@pro-latam.org';
-const WHATSAPP_SUPPORT_URL = 'https://api.whatsapp.com/send/?phone=4367761735010&text&type=%20Quiero%20Nominarme%20a%20los%20LatamAwards';
+const WHATSAPP_SUPPORT_URL = 'https://api.whatsapp.com/send/?phone=4367761735010&text&type=%20I%20want%20to%20nominate%20for%20Heart-Led%20Summit%20Awards';
 
 function whatsappSuffix(): string {
   return `\n\nSi el problema persiste, contáctanos vía WhatsApp: ${WHATSAPP_SUPPORT_URL}`;

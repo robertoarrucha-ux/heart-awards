@@ -410,7 +410,7 @@ export default function AliadoDashboard() {
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
               className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-              El programa de aliados de <strong className="text-white">Pro-Latam Awards</strong> está diseñado para organizaciones y líderes que quieren ser parte activa del movimiento latinoamericano en Europa.
+              The partner program of <strong className="text-white">Heart-Led Summit & Awards</strong> is designed for organizations and leaders who want to be active participants in heart-led leadership across Europe and Latin America.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <a href="#postular" className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-black font-bold px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">
@@ -598,7 +598,7 @@ export default function AliadoDashboard() {
               Revisaremos futuras postulaciones. Mientras tanto, te invitamos a asistir al evento como participante.
             </p>
           </div>
-          <a href="https://awards.pro-latam.org/tickets" target="_blank" rel="noopener noreferrer"
+          <a href="https://heart.awards-global.org/tickets" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-xl font-bold hover:scale-105 transition-transform text-sm">
             🎟️ Ver Entradas Disponibles
           </a>

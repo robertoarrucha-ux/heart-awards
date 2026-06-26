@@ -94,16 +94,15 @@ export default function VoteModal({
       <DialogContent className="w-[95%] rounded-lg border-primary/50 bg-card sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-2xl text-primary">
-            Confirmar voto para {nominee?.name}
+            Confirm your vote for {nominee?.name}
           </DialogTitle>
           <DialogDescription className="space-y-1 text-sm">
             <p>
-              Estás a punto de registrar tu voto para este líder en los Latin American Leaders
-              Awards.
+              You are about to cast your vote for this leader at the Heart-Led Summit & Awards.
             </p>
             <p>
-              Antes de confirmar, te invitamos a visitar nuestros canales oficiales. Esto nos ayuda
-              a amplificar el reconocimiento al liderazgo latino.
+              Before confirming, we invite you to visit our official channels. This helps us
+              amplify recognition for heart-led leadership worldwide.
             </p>
           </DialogDescription>
         </DialogHeader>
@@ -111,8 +110,7 @@ export default function VoteModal({
         <div className="space-y-6 py-4">
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Da clic en cada botón para visitar nuestras páginas oficiales y habilitar la
-              confirmación de tu voto:
+              Click each button to visit our official pages and enable your vote confirmation:
             </p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               <Button
@@ -129,7 +127,7 @@ export default function VoteModal({
                 ) : (
                   <TwitterIcon className="mr-2 h-4 w-4" />
                 )}
-                {followed.twitter ? 'Visita registrada' : 'Visitar X'}
+                {followed.twitter ? 'Visited' : 'Visit X'}
               </Button>
 
               <Button
@@ -146,7 +144,7 @@ export default function VoteModal({
                 ) : (
                   <Instagram className="mr-2 h-4 w-4" />
                 )}
-                {followed.instagram ? 'Visita registrada' : 'Visitar Instagram'}
+                {followed.instagram ? 'Visited' : 'Visit Instagram'}
               </Button>
 
               <Button
@@ -163,7 +161,7 @@ export default function VoteModal({
                 ) : (
                   <MessageCircle className="mr-2 h-4 w-4" />
                 )}
-                {followed.whatsapp ? 'Visita registrada' : 'Unirse a WhatsApp'}
+                {followed.whatsapp ? 'Joined' : 'Join WhatsApp'}
               </Button>
 
               <Button
@@ -180,22 +178,22 @@ export default function VoteModal({
                 ) : (
                   <Youtube className="mr-2 h-4 w-4" />
                 )}
-                {followed.youtube ? 'Visita registrada' : 'Visitar YouTube'}
+                {followed.youtube ? 'Visited' : 'Visit YouTube'}
               </Button>
             </div>
           </div>
 
           <div className="space-y-1 pt-2 text-center text-xs text-muted-foreground">
-            <p>Cada persona solo puede votar una vez por edición.</p>
+            <p>Each person may vote only once per edition.</p>
             <p>
-              Al votar, aceptas las{' '}
+              By voting, you accept the{' '}
               <a
                 href="https://es.theglobal.school/politicas/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-primary"
               >
-                políticas de uso, privacidad y participación
+                usage, privacy, and participation policies
               </a>
               .
             </p>
@@ -210,7 +208,7 @@ export default function VoteModal({
             disabled={isVoting}
             className="w-full sm:w-auto"
           >
-            Cancelar
+            Cancel
           </Button>
           <Button
             type="button"
@@ -219,7 +217,7 @@ export default function VoteModal({
             className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90"
           >
             {isVoting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {isVoting ? 'Registrando voto...' : 'Confirmar mi voto'}
+            {isVoting ? 'Registering vote...' : 'Confirm my vote'}
           </Button>
         </DialogFooter>
       </DialogContent>

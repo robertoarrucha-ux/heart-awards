@@ -418,14 +418,14 @@ export default function TicketsPage() {
                 <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10">
                   <Image
                     src="https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0540534404.firebasestorage.app/o/public%2FPhoto%20Slider%2FLatin%20American%20Leaders%20Awards%2029.webp?alt=media&token=bf9790c6-2b81-42e7-b3a9-b74c30cb0727"
-                    alt="Latin American Leaders Awards"
+                    alt="Heart-Led Summit & Awards"
                     fill
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6">
                     <p className="text-sm italic text-gray-300">
-                      "La mejor plataforma de alianzas entre Europa y América Latina."
+                      "The best platform for alliances between Europe and Latin America."
                     </p>
                   </div>
                 </div>
@@ -748,7 +748,7 @@ export default function TicketsPage() {
               <MessageCircle className="w-16 h-16 text-primary mx-auto mb-8" />
               <h2 className="text-4xl font-bold mb-6">{tp.contact.title}</h2>
               <Button asChild size="lg" className="bg-green-600 hover:bg-green-700 text-white font-bold px-10 py-8 text-xl rounded-full">
-                <Link href={`https://api.whatsapp.com/send?phone=4367761735010&text=Voy%20a%20los%20Latam%20Awards%20en%20${selectedEdition === 'vienna' ? 'Viena' : 'Madrid'},%20necesito%20informacion%20sobre`} target="_blank">
+                <Link href={`https://api.whatsapp.com/send?phone=4367761735010&text=I'm%20attending%20the%20Heart-Led%20Summit%20%26%20Awards%20in%20${selectedEdition === 'vienna' ? 'Vienna' : 'Madrid'},%20I%20need%20information%20about`} target="_blank">
                   {tp.contact.whatsapp}
                 </Link>
               </Button>

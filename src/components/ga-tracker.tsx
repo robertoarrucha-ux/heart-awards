@@ -11,17 +11,17 @@ declare global {
 
 // Maps pathnames to readable page titles for GA reporting
 const PAGE_TITLES: Record<string, string> = {
-  '/': 'Home — Latin American Leaders Awards',
-  '/tickets': 'Entradas — Latin American Leaders Awards',
-  '/nominate': 'Nominación — Latin American Leaders Awards',
-  '/vota': 'Vota — Latin American Leaders Awards',
-  '/registro-gratuito': 'Registro Gratuito — Latin American Leaders Awards',
-  '/aliado/dashboard': 'Dashboard Aliado — Latin American Leaders Awards',
-  '/edicion-2022': 'Edición 2022 — Latin American Leaders Awards',
-  '/edicion-2023': 'Edición 2023 — Latin American Leaders Awards',
-  '/edicion-2024': 'Edición 2024 — Latin American Leaders Awards',
-  '/edicion-2025': 'Edición 2025 — Latin American Leaders Awards',
-  '/admin': 'Admin — Latin American Leaders Awards',
+  '/': 'Home — Heart-Led Summit & Awards',
+  '/tickets': 'Tickets — Heart-Led Summit & Awards',
+  '/nominate': 'Nominate — Heart-Led Summit & Awards',
+  '/vota': 'Vote — Heart-Led Summit & Awards',
+  '/registro-gratuito': 'Free Registration — Heart-Led Summit & Awards',
+  '/aliado/dashboard': 'Partner Dashboard — Heart-Led Summit & Awards',
+  '/edicion-2022': 'Edition 2022 — Latin American Leaders Awards',
+  '/edicion-2023': 'Edition 2023 — Latin American Leaders Awards',
+  '/edicion-2024': 'Edition 2024 — Latin American Leaders Awards',
+  '/edicion-2025': 'Edition 2025 — Latin American Leaders Awards',
+  '/admin': 'Admin — Heart-Led Summit & Awards',
 };
 
 export default function GATracker() {

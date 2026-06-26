@@ -45,7 +45,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
       if (error.code === 'auth/popup-closed-by-user') {
         message = "La ventana de inicio de sesión se cerró antes de completar el proceso.";
       } else if (error.code === 'auth/unauthorized-domain') {
-        message = "Este dominio (awards.pro-latam.org) no está autorizado en la consola de Firebase. Por favor, añádelo en la sección de Dominios Autorizados de Firebase Auth.";
+        message = "This domain (heart.awards-global.org) is not authorized in the Firebase console. Please add it in the Authorized Domains section of Firebase Auth.";
       } else if (error.code === 'auth/operation-not-allowed') {
         message = "El inicio de sesión con Google no está habilitado en Firebase.";
       }

@@ -8,13 +8,13 @@ import { getAssetUrl } from '@/lib/assets';
 import VotePageClient from './VotePageClient';
 
 export const metadata: Metadata = {
-  title: 'Votaciones 2026 | Latin American Leaders Awards',
+  title: 'Voting 2026 | Heart-Led Summit & Awards',
   description:
-    'Apoya a los líderes que están transformando América Latina. Tu voto reconoce su impacto, visión y trayectoria en la edición 2026.',
+    'Support the leaders transforming the world. Your vote recognizes their impact, vision, and track record in the 2026 edition.',
   openGraph: {
-    title: 'Votaciones 2026 | Latin American Leaders Awards',
+    title: 'Voting 2026 | Heart-Led Summit & Awards',
     description:
-      'Apoya a los líderes que están transformando América Latina. Tu voto reconoce su impacto, visión y trayectoria en la edición 2026.',
+      'Support the leaders transforming the world. Your vote recognizes their impact, vision, and track record in the 2026 edition.',
     type: 'website',
     images: [getAssetUrl('Latin-American-Leaders-Awards-Viena 2.webp')],
   },
@@ -33,16 +33,16 @@ export default function VotaPage() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-2 text-center text-xs font-bold text-red-500 shadow-sm animate-pulse">
               <Calendar className="h-4 w-4" />
               <span>
-                Puedes nominarte y recibir votos hasta 1 día antes del evento de premiación.
+                You can nominate and receive votes until 1 day before the awards ceremony.
               </span>
             </div>
             <VoteIcon className="mb-4 h-16 w-16 animate-pulse text-primary" />
             <h2 className="mb-4 text-center text-5xl font-extrabold tracking-tight text-primary">
-              Votaciones 2026
+              Voting 2026
             </h2>
             <p className="max-w-2xl text-center text-lg text-muted-foreground">
-              Apoya a los líderes que están transformando América Latina. Tu voto reconoce su
-              impacto, visión y trayectoria.
+              Support the heart-led leaders making a difference. Your vote recognizes their
+              impact, vision, and track record.
             </p>
           </div>
 

@@ -74,7 +74,7 @@ export default function MediaPartners() {
               >
                 <Image
                   src={partner.logo}
-                  alt={`Logo de ${partner.name} - Latin American Leaders Awards Media Partner`}
+                  alt={`Logo de ${partner.name} - Heart-Led Summit & Awards Media Partner`}
                   fill
                   className="object-contain transition-all grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100"
                   referrerPolicy="no-referrer"

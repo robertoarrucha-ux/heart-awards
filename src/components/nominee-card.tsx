@@ -109,7 +109,7 @@ export default function NomineeCard({
           <Link href={`/nominados/${nominee.id}`} className="relative shrink-0 group">
             <Image
               src={nominee.imageUrl}
-              alt={`Retrato de ${nominee.name}, nominado a los Latin American Leaders Awards`}
+              alt={`Portrait of ${nominee.name}, Heart-Led Summit & Awards nominee`}
               width={100}
               height={100}
               className="rounded-full border-4 border-primary/50 object-cover transition-colors group-hover:border-primary"
@@ -128,7 +128,7 @@ export default function NomineeCard({
             {isUserChoice && (
               <div className="absolute -bottom-1 -right-1 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground shadow-lg">
                 <Star className="h-3 w-3" />
-                Tu voto
+                Your vote
               </div>
             )}
           </Link>
@@ -148,7 +148,7 @@ export default function NomineeCard({
                   variant={nominee.nomineeType === 'persona' ? 'outline' : 'default'}
                   className="h-5 w-fit text-[10px] uppercase tracking-wider"
                 >
-                  {nominee.nomineeType === 'persona' ? 'Persona Física' : 'Entidad / Proyecto'}
+                  {nominee.nomineeType === 'persona' ? 'Individual' : 'Organization / Project'}
                 </Badge>
               </div>
               <Badge
@@ -191,7 +191,7 @@ export default function NomineeCard({
         <CardContent className="flex-grow space-y-4 px-6 pb-4">
           <div>
             <h3 className="flex items-center gap-2 font-semibold text-foreground">
-              <BookOpen size={16} className="text-primary" /> Reseña
+              <BookOpen size={16} className="text-primary" /> Bio
             </h3>
             <ExpandableText text={nominee.bio} />
           </div>
@@ -199,7 +199,7 @@ export default function NomineeCard({
           {nominee.leadershipLesson && (
             <div>
               <h3 className="flex items-center gap-2 font-semibold text-foreground">
-                <Sparkles size={16} className="text-primary" /> Lección de Liderazgo
+                <Sparkles size={16} className="text-primary" /> Leadership Lesson
               </h3>
               <ExpandableText text={nominee.leadershipLesson} />
             </div>
@@ -209,7 +209,7 @@ export default function NomineeCard({
             <div className="flex items-center gap-4">
               <BarChart className="h-6 w-6 text-primary" />
               <span className="text-lg font-semibold text-foreground">
-                {nominee.votes.toLocaleString()} votos del público
+                {nominee.votes.toLocaleString()} public votes
               </span>
             </div>
             <Progress value={progressValue} className="mt-2 h-2 [&>div]:bg-primary" />
@@ -285,12 +285,12 @@ export default function NomineeCard({
               {isVoteLoading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Registrando voto...
+                  Registering vote...
                 </>
               ) : (
                 <>
                   <Vote className="mr-2 h-5 w-5" />
-                  Votar por este líder
+                  Vote for this leader
                 </>
               )}
             </Button>

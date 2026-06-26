@@ -23,11 +23,11 @@ export default function FreeRegistrationPage() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold mb-6">
                <Star className="w-4 h-4" />
-               Acceso Exclusivo
+               Exclusive Access
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Registro de Acceso Gratuito</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Free Access Registration</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Formulario exclusivo para Empresas e Inversionistas Europeos, Premiadas, Nominados, Medios, Aliados y Red Profesional.
+              Exclusive form for European Companies & Investors, Award Winners, Nominees, Media, Partners, and Professional Network.
             </p>
           </motion.div>
 
@@ -42,23 +42,23 @@ export default function FreeRegistrationPage() {
             <div className="space-y-8">
               <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
                 <Calendar className="w-8 h-8 text-primary mb-4" />
-                <h3 className="font-bold mb-2">Fechas Importantes</h3>
+                <h3 className="font-bold mb-2">Important Dates</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Puedes registrarte y recibir votos hasta 1 día antes del evento de premiación.
+                  You can register and receive votes until 1 day before the awards ceremony.
                 </p>
               </div>
 
               <div className="p-8 rounded-3xl bg-white/5 border border-white/10 font-bold">
                  <ShieldCheck className="w-8 h-8 text-green-500 mb-4" />
-                 <h3 className="font-bold mb-2">Proceso de Validación</h3>
+                 <h3 className="font-bold mb-2">Validation Process</h3>
                  <p className="text-sm font-normal text-muted-foreground leading-relaxed">
-                    Tu solicitud será revisada por nuestro equipo. Una vez aprobada, recibirás tus credenciales de acceso vía correo electrónico.
+                    Your request will be reviewed by our team. Once approved, you will receive your access credentials via email.
                  </p>
               </div>
 
               <div className="p-8 rounded-3xl bg-primary/10 border border-primary/20">
                 <p className="text-sm font-medium italic">
-                  "Unimos el talento latinoamericano con el ecosistema europeo de innovación y negocios."
+                  "We connect heart-led talent with the European ecosystem of innovation and business."
                 </p>
               </div>
             </div>

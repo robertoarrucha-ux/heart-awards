@@ -22,13 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!nominee) {
     return {
-      title: 'Nominado no encontrado | Latin American Leaders Awards',
+      title: 'Nominee not found | Heart-Led Summit & Awards',
     };
   }
 
-  const title = `${nominee.name} - Nominado Latin American Leaders Awards 2026`;
-  const description = `${nominee.name} es nominado en la categoría ${nominee.category} representando a ${nominee.country}. Conoce su trayectoria y apóyalo con tu voto.`;
-  const siteUrl = 'https://awards.pro-latam.org';
+  const title = `${nominee.name} - Heart-Led Summit & Awards 2026 Nominee`;
+  const description = `${nominee.name} is nominated in the ${nominee.category} category representing ${nominee.country}. Learn about their journey and support them with your vote.`;
+  const siteUrl = 'https://heart.awards-global.org';
 
   return {
     title,
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url: `${siteUrl}/nominados/${id}`,
-      siteName: 'Latin American Leaders Awards',
+      siteName: 'Heart-Led Summit & Awards',
       images: [
         {
           url: nominee.imageUrl,
@@ -89,7 +89,7 @@ export default async function NomineePage({ params }: Props) {
       "@type": "PostalAddress",
       "addressCountry": nominee.country
     },
-    "award": `Nominado Latin American Leaders Awards 2026 - ${nominee.category}`
+    "award": `Heart-Led Summit & Awards 2026 Nominee - ${nominee.category}`
   };
 
   return (
@@ -103,7 +103,7 @@ export default async function NomineePage({ params }: Props) {
         <Suspense fallback={
           <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            <p className="text-muted-foreground">Cargando perfil del nominado...</p>
+            <p className="text-muted-foreground">Loading nominee profile...</p>
           </div>
         }>
           <NomineePageClient 
