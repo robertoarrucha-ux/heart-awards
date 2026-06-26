@@ -65,7 +65,7 @@ function AdminDashboardContent() {
   const handleSyncVotes = async () => {
     if (
       !confirm(
-        '¿Estás seguro de que quieres sincronizar los votos desde los logs? Esto recalculará el total de cada nominado basándose en los registros individuales.'
+        'Are you sure you want to sync votes from the logs? This will recalculate the total for each nominee based on individual records.'
       )
     )
       return;
@@ -75,13 +75,13 @@ function AdminDashboardContent() {
       const result = await syncVotesAction();
       if (result.success) {
         toast({
-          title: 'Sincronización Exitosa',
+          title: 'Sync Successful',
           description: result.message,
         });
       } else {
         toast({
           variant: 'destructive',
-          title: 'Error en Sincronización',
+          title: 'Sync Error',
           description: result.message,
         });
       }
@@ -90,7 +90,7 @@ function AdminDashboardContent() {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Ocurrió un error inesperado al sincronizar.',
+        description: 'An unexpected error occurred while syncing.',
       });
     } finally {
       setIsSyncing(false);
@@ -116,37 +116,37 @@ function AdminDashboardContent() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <AdminHeader title="Dashboard & Registros" icon={LayoutDashboard} />
+        <AdminHeader title="Dashboard & Registrations" icon={LayoutDashboard} />
 
         {/* Stats + accesos clave */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Ingresos Totales</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Total Revenue</CardTitle>
               <DollarSign className="w-4 h-4 text-green-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">€{stats.totalRevenue.toLocaleString()}</div>
               <p className="text-xs text-gray-500 mt-1 flex items-center">
-                <TrendingUp className="w-3 h-3 mr-1" /> +12% vs mes anterior
+                <TrendingUp className="w-3 h-3 mr-1" /> +12% vs previous month
               </p>
             </CardContent>
           </Card>
 
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Total Registros</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Total Registrations</CardTitle>
               <Users className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.totalRegistrations}</div>
-              <p className="text-xs text-gray-500 mt-1">Asistentes confirmados</p>
+              <p className="text-xs text-gray-500 mt-1">Confirmed attendees</p>
             </CardContent>
           </Card>
 
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Visitas Generales</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">General Visits</CardTitle>
               <Search className="w-4 h-4 text-blue-500" />
             </CardHeader>
             <CardContent>
@@ -161,30 +161,30 @@ function AdminDashboardContent() {
                   )
                 }
               >
-                Ver más en Google Analytics <ExternalLink className="w-3 h-3 ml-1" />
+                View more in Google Analytics <ExternalLink className="w-3 h-3 ml-1" />
               </Button>
             </CardContent>
           </Card>
 
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Sede Viena</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Vienna Venue</CardTitle>
               <MapPin className="w-4 h-4 text-blue-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.viennaCount}</div>
-              <p className="text-xs text-gray-500 mt-1">Registros para Viena</p>
+              <p className="text-xs text-gray-500 mt-1">Registrations for Vienna</p>
             </CardContent>
           </Card>
 
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Sede Madrid</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Madrid Venue</CardTitle>
               <MapPin className="w-4 h-4 text-red-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.madridCount}</div>
-              <p className="text-xs text-gray-500 mt-1">Registros para Madrid</p>
+              <p className="text-xs text-gray-500 mt-1">Registrations for Madrid</p>
             </CardContent>
           </Card>
 
@@ -194,12 +194,12 @@ function AdminDashboardContent() {
             onClick={() => (window.location.href = '/admin/partners')}
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Gestión de Aliados</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Partner Management</CardTitle>
               <Users className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Ver Panel</div>
-              <p className="text-xs text-primary mt-1">Aprobar y gestionar socios</p>
+              <div className="text-2xl font-bold">View Panel</div>
+              <p className="text-xs text-primary mt-1">Approve and manage partners</p>
             </CardContent>
           </Card>
 
@@ -209,12 +209,12 @@ function AdminDashboardContent() {
             onClick={() => (window.location.href = '/admin/requests')}
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Nominaciones</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Nominations</CardTitle>
               <Ticket className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Ver solicitudes</div>
-              <p className="text-xs text-primary mt-1">Aprobar o rechazar nominaciones</p>
+              <div className="text-2xl font-bold">View requests</div>
+              <p className="text-xs text-primary mt-1">Approve or reject nominations</p>
             </CardContent>
           </Card>
 
@@ -224,12 +224,12 @@ function AdminDashboardContent() {
             onClick={() => (window.location.href = '/admin/payments')}
           >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Pagos</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Payments</CardTitle>
               <DollarSign className="w-4 h-4 text-green-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Ver pagos</div>
-              <p className="text-xs text-primary mt-1">Historial y estado de pagos</p>
+              <div className="text-2xl font-bold">View payments</div>
+              <p className="text-xs text-primary mt-1">Payment history and status</p>
             </CardContent>
           </Card>
         </div>
@@ -238,20 +238,19 @@ function AdminDashboardContent() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <Card className="bg-white/5 border-white/10 text-white">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-400">Recuperación de Votos</CardTitle>
+              <CardTitle className="text-sm font-medium text-gray-400">Vote Recovery</CardTitle>
               <TrendingUp className={`w-4 h-4 text-primary ${isSyncing ? 'animate-spin' : ''}`} />
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-gray-400">
-                Sincroniza el conteo de votos de los nominados con los registros individuales (logs) para recuperar
-                votos perdidos por errores técnicos.
+                Syncs nominee vote counts with individual records (logs) to recover votes lost due to technical errors.
               </p>
               <Button
                 onClick={handleSyncVotes}
                 disabled={isSyncing}
                 className="w-full bg-primary hover:bg-primary/90 text-white font-bold"
               >
-                {isSyncing ? 'Sincronizando...' : 'Ejecutar Sincronización de Votos'}
+                {isSyncing ? 'Syncing...' : 'Run Vote Sync'}
               </Button>
             </CardContent>
           </Card>
@@ -262,13 +261,13 @@ function AdminDashboardContent() {
           <div className="p-6 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <h2 className="text-xl font-bold flex items-center">
               <Ticket className="w-5 h-5 mr-2 text-primary" />
-              Listado de Asistentes
+              Attendee List
             </h2>
             <div className="relative max-w-sm w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="text"
-                placeholder="Buscar por nombre, email..."
+                placeholder="Search by name, email..."
                 className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -280,11 +279,11 @@ function AdminDashboardContent() {
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-white/5 text-gray-400 text-sm uppercase tracking-wider">
-                  <th className="px-6 py-4 font-medium">Asistente</th>
+                  <th className="px-6 py-4 font-medium">Attendee</th>
                   <th className="px-6 py-4 font-medium">Ticket</th>
-                  <th className="px-6 py-4 font-medium">Sede</th>
-                  <th className="px-6 py-4 font-medium">Monto</th>
-                  <th className="px-6 py-4 font-medium">Fecha</th>
+                  <th className="px-6 py-4 font-medium">Venue</th>
+                  <th className="px-6 py-4 font-medium">Amount</th>
+                  <th className="px-6 py-4 font-medium">Date</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -302,19 +301,19 @@ function AdminDashboardContent() {
                     <td className="px-6 py-4">
                       <div className="flex items-center text-sm">
                         <MapPin className="w-3 h-3 mr-1 text-gray-500" />
-                        {reg.edition === 'vienna' ? 'Viena' : 'Madrid'}
+                        {reg.edition === 'vienna' ? 'Vienna' : 'Madrid'}
                       </div>
                     </td>
                     <td className="px-6 py-4 font-mono text-sm">€{reg.amount}</td>
                     <td className="px-6 py-4 text-sm text-gray-500">
-                      {reg.createdAt?.toDate ? reg.createdAt.toDate().toLocaleDateString() : 'Reciente'}
+                      {reg.createdAt?.toDate ? reg.createdAt.toDate().toLocaleDateString('en-US') : 'Recent'}
                     </td>
                   </tr>
                 ))}
                 {filteredRegistrations.length === 0 && (
                   <tr>
                     <td colSpan={5} className="px-6 py-12 text-center text-gray-500 italic">
-                      No se encontraron registros que coincidan con la búsqueda.
+                      No records found matching your search.
                     </td>
                   </tr>
                 )}

@@ -245,10 +245,10 @@ export default function AliadoDashboard() {
     } catch (error: any) {
       console.error('Login error:', error);
       if (error.code !== 'auth/cancelled-popup-request' && error.code !== 'auth/popup-closed-by-user') {
-        toast({ 
-          variant: 'destructive', 
-          title: 'Error de inicio de sesión', 
-          description: error.message 
+        toast({
+          variant: 'destructive',
+          title: 'Login error',
+          description: error.message
         });
       }
     } finally {
@@ -261,14 +261,14 @@ export default function AliadoDashboard() {
   const handleApply = async () => {
     if (!user) return;
     if (!orgName || orgName.length < 2) {
-      toast({ variant: 'destructive', title: 'Empresa requerida', description: 'Por favor ingresa el nombre de tu organización.' });
+      toast({ variant: 'destructive', title: 'Organization required', description: 'Please enter the name of your organization.' });
       return;
     }
 
     setApplying(true);
     try {
       const partnerData = {
-        name: user.displayName || 'Aliado',
+        name: user.displayName || 'Partner',
         email: user.email || '',
         organization: orgName.trim(),
         website: website.trim(),
@@ -283,7 +283,7 @@ export default function AliadoDashboard() {
 
       setPartner({ id: user.uid, ...partnerData } as any);
 
-      toast({ title: '¡Solicitud enviada!', description: 'Revisaremos tu postulación y te notificaremos en 2-3 días hábiles.' });
+      toast({ title: 'Application submitted!', description: 'We will review your application and notify you within 2–3 business days.' });
     } catch (error: any) {
       console.error('Detailed Application Error:', error);
       handleFirestoreError(error, OperationType.WRITE, `partners/${user.uid}`);
@@ -295,11 +295,11 @@ export default function AliadoDashboard() {
   const handleCreateCoupon = async () => {
     if (!partner) return;
     if (!newCouponCode || newCouponCode.length < 3) {
-      toast({ variant: 'destructive', title: 'Código inválido', description: 'El código debe tener al menos 3 caracteres.' });
+      toast({ variant: 'destructive', title: 'Invalid code', description: 'The code must have at least 3 characters.' });
       return;
     }
     if (newCouponDiscount > 30) {
-      toast({ variant: 'destructive', title: 'Tope excedido', description: 'El descuento máximo permitido es 30%.' });
+      toast({ variant: 'destructive', title: 'Limit exceeded', description: 'The maximum allowed discount is 30%.' });
       return;
     }
 
@@ -313,8 +313,8 @@ export default function AliadoDashboard() {
       if (!duplicateCheck.empty) {
         toast({
           variant: 'destructive',
-          title: 'Código no disponible',
-          description: `El código "${normalizedCode}" ya está en uso. Elige otro.`,
+          title: 'Code unavailable',
+          description: `The code "${normalizedCode}" is already in use. Please choose another.`,
         });
         return;
       }
@@ -329,26 +329,26 @@ export default function AliadoDashboard() {
       });
       setIsCreatingCoupon(false);
       setNewCouponCode('');
-      toast({ title: 'Cupón creado', description: 'El cupón ya está disponible para su uso.' });
+      toast({ title: 'Coupon created', description: 'The coupon is now available for use.' });
     } catch (error) {
       console.error('Error creating coupon:', error);
-      toast({ variant: 'destructive', title: 'Error', description: 'No se pudo crear el cupón.' });
+      toast({ variant: 'destructive', title: 'Error', description: 'Could not create the coupon.' });
     }
   };
 
   const handleDeleteCoupon = async (id: string) => {
-    if (!confirm('¿Estás seguro de eliminar este cupón?')) return;
+    if (!confirm('Are you sure you want to delete this coupon?')) return;
     try {
       await deleteDoc(doc(db, 'coupons', id));
-      toast({ title: 'Cupón eliminado' });
+      toast({ title: 'Coupon deleted' });
     } catch (error) {
-      toast({ variant: 'destructive', title: 'Error al eliminar' });
+      toast({ variant: 'destructive', title: 'Error deleting coupon' });
     }
   };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast({ title: 'Copiado al portapapeles' });
+    toast({ title: 'Copied to clipboard' });
   };
 
   if (loading) {
@@ -363,31 +363,31 @@ export default function AliadoDashboard() {
   const benefits = [
     {
       icon: <MapPin className="w-7 h-7" />,
-      title: 'Lugares Especiales en el Evento',
-      desc: 'Tus invitados tendrán espacios VIP reservados en las sedes de Madrid y Viena. Visibilidad de marca frente a 200–300 líderes de gobierno y empresa.',
+      title: 'Special Event Spots',
+      desc: 'Your guests will have reserved VIP spaces at the Vienna venue. Brand visibility in front of 200–300 government and business leaders.',
     },
     {
       icon: <Tag className="w-7 h-7" />,
-      title: 'Cupones de Descuento Exclusivos',
-      desc: 'Crea códigos personalizados de hasta 30% de descuento para tu comunidad. Cada venta generada a través de tu enlace te genera una comisión directa.',
+      title: 'Exclusive Discount Coupons',
+      desc: 'Create custom codes with up to 30% discount for your community. Every sale generated through your link earns you a direct commission.',
     },
     {
       icon: <Award className="w-7 h-7" />,
-      title: 'Espacio de Presentación',
-      desc: 'Oportunidad de presentar tu organización o proyecto ante una audiencia selecta de líderes latinoamericanos y europeos. Networking de alto nivel.',
+      title: 'Presentation Stage',
+      desc: 'Opportunity to present your organization or project to a select audience of heart-led leaders. High-level networking.',
     },
     {
       icon: <Handshake className="w-7 h-7" />,
-      title: 'Red de Alianzas Estratégicas',
-      desc: 'Acceso a la red Pro-Latam de más de 20 aliados activos. Reuniones de alianzas exclusivas durante el evento para conectar con socios clave.',
+      title: 'Strategic Alliance Network',
+      desc: 'Access to the Pro-Latam network of over 20 active partners. Exclusive alliance meetings during the event to connect with key partners.',
     },
   ];
 
   const steps = [
-    { n: '01', title: 'Postulación', desc: 'Completa el formulario con tu información y página web.' },
-    { n: '02', title: 'Revisión', desc: 'Nuestro equipo analiza cada candidatura en 2–3 días hábiles.' },
-    { n: '03', title: 'Activación', desc: 'Recibirás acceso a tu panel, cupones y enlace de referido.' },
-    { n: '04', title: 'Gestión', desc: 'Comparte, genera ventas y monitorea tus resultados en tiempo real.' },
+    { n: '01', title: 'Application', desc: 'Complete the form with your information and website.' },
+    { n: '02', title: 'Review', desc: 'Our team evaluates each application within 2–3 business days.' },
+    { n: '03', title: 'Activation', desc: 'You will receive access to your dashboard, coupons, and referral link.' },
+    { n: '04', title: 'Management', desc: 'Share, generate sales, and monitor your results in real time.' },
   ];
 
   const AliadoLandingPage = ({ cta }: { cta: ReactNode }) => (
@@ -402,11 +402,11 @@ export default function AliadoDashboard() {
           <div className="container mx-auto px-4 relative z-10 text-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold mb-8 uppercase tracking-widest">
-              <Star className="w-4 h-4" /> Programa de Aliados
+              <Star className="w-4 h-4" /> Partner Program
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               className="text-5xl md:text-7xl font-black mb-6 max-w-4xl mx-auto leading-tight">
-              Impulsa líderes.<br /><span className="text-primary">Crece con nosotros.</span>
+              Elevate leaders.<br /><span className="text-primary">Grow with us.</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
               className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
@@ -414,7 +414,7 @@ export default function AliadoDashboard() {
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <a href="#postular" className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-black font-bold px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">
-                Quiero ser Aliado <ArrowRight className="w-5 h-5" />
+                Become a Partner <ArrowRight className="w-5 h-5" />
               </a>
             </motion.div>
           </div>
@@ -423,8 +423,8 @@ export default function AliadoDashboard() {
         {/* BENEFITS */}
         <section className="py-20 container mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Beneficios del Programa</h2>
-            <p className="text-gray-400 max-w-xl mx-auto">Seleccionamos a nuestros aliados cuidadosamente para garantizar una red de alto valor para todos.</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Program Benefits</h2>
+            <p className="text-gray-400 max-w-xl mx-auto">We carefully select our partners to ensure a high-value network for everyone.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((b, i) => (
@@ -445,11 +445,11 @@ export default function AliadoDashboard() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-14">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-4">
-                <Clock className="w-3.5 h-3.5" /> Por Postulación
+                <Clock className="w-3.5 h-3.5" /> By Application
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-3">Proceso de Selección</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-3">Selection Process</h2>
               <p className="text-gray-400 max-w-xl mx-auto">
-                El programa es <strong className="text-white">por postulación</strong>. Revisamos cada solicitud para asegurar que los aliados aporten valor a nuestra comunidad.
+                The program is <strong className="text-white">by application</strong>. We review each submission to ensure partners bring value to our community.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -490,14 +490,14 @@ export default function AliadoDashboard() {
             <ShieldCheck className="w-12 h-12 text-primary" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold mb-2">¿Listo para postularte?</h3>
-            <p className="text-gray-400 text-sm">Inicia sesión con Google para completar tu postulación. Es rápido y sin costo.</p>
+            <h3 className="text-2xl font-bold mb-2">Ready to apply?</h3>
+            <p className="text-gray-400 text-sm">Sign in with Google to complete your application. It's quick and free.</p>
           </div>
           <Button onClick={handleLogin} disabled={isLoggingIn}
             className="w-full py-6 text-lg font-bold rounded-xl bg-primary text-black hover:scale-[1.02] transition-transform">
-            {isLoggingIn ? 'Iniciando sesión...' : 'Iniciar Sesión con Google para Postularse'}
+            {isLoggingIn ? 'Signing in...' : 'Sign in with Google to Apply'}
           </Button>
-          <p className="text-xs text-gray-600">Tu solicitud será revisada por nuestro equipo antes de ser activada.</p>
+          <p className="text-xs text-gray-600">Your application will be reviewed by our team before activation.</p>
         </motion.div>
       } />
     );
@@ -509,14 +509,14 @@ export default function AliadoDashboard() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           className="p-8 md:p-10 rounded-3xl bg-white/5 border border-white/10 space-y-6">
           <div className="text-center">
-            <h3 className="text-2xl font-bold mb-1">Completa tu Postulación</h3>
-            <p className="text-gray-400 text-sm">Hola, <strong className="text-white">{user.displayName}</strong>. Cuéntanos sobre tu organización.</p>
+            <h3 className="text-2xl font-bold mb-1">Complete Your Application</h3>
+            <p className="text-gray-400 text-sm">Hello, <strong className="text-white">{user.displayName}</strong>. Tell us about your organization.</p>
           </div>
 
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Nombre</label>
+                <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Name</label>
                 <input type="text" disabled value={user.displayName || ''}
                   className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-gray-400 cursor-not-allowed text-sm" />
               </div>
@@ -527,14 +527,14 @@ export default function AliadoDashboard() {
               </div>
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Empresa / Organización <span className="text-red-400">*</span></label>
-              <input type="text" placeholder="Nombre de tu empresa u organización"
+              <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Company / Organization <span className="text-red-400">*</span></label>
+              <input type="text" placeholder="Name of your company or organization"
                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
                 value={orgName} onChange={(e) => setOrgName(e.target.value)} />
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Página Web</label>
-              <input type="url" placeholder="https://tu-sitio.com"
+              <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Website</label>
+              <input type="url" placeholder="https://your-site.com"
                 className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
                 value={website} onChange={(e) => setWebsite(e.target.value)} />
             </div>
@@ -542,13 +542,13 @@ export default function AliadoDashboard() {
 
           <Button onClick={handleApply} disabled={applying}
             className="w-full py-5 text-base font-bold rounded-xl bg-primary text-black hover:scale-[1.02] transition-transform">
-            {applying ? 'Enviando postulación...' : 'Enviar Postulación'}
+            {applying ? 'Submitting application...' : 'Submit Application'}
           </Button>
           <p className="text-xs text-gray-600 text-center">
-            Tu solicitud será revisada en 2–3 días hábiles. Te notificaremos por email.
+            Your application will be reviewed within 2–3 business days. We will notify you by email.
           </p>
           <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
-            Cerrar Sesión
+            Sign Out
           </Button>
         </motion.div>
       } />
@@ -564,19 +564,19 @@ export default function AliadoDashboard() {
             <Clock className="w-12 h-12 text-yellow-400" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold mb-2 text-yellow-300">Solicitud en Revisión</h3>
+            <h3 className="text-2xl font-bold mb-2 text-yellow-300">Application Under Review</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Hola <strong className="text-white">{user.displayName}</strong>, recibimos tu postulación como aliado de <strong className="text-white">{partner.organization}</strong>.<br /><br />
-              Nuestro equipo la está revisando. Te notificaremos por correo en <strong className="text-white">2–3 días hábiles</strong>.
+              Hello <strong className="text-white">{user.displayName}</strong>, we received your partner application for <strong className="text-white">{partner.organization}</strong>.<br /><br />
+              Our team is reviewing it. We will notify you by email within <strong className="text-white">2–3 business days</strong>.
             </p>
           </div>
-          <a href="https://api.whatsapp.com/send?phone=4367761735010&text=Hola,%20acabo%20de%20postularme%20como%20aliado%20de%20Pro-Latam%20Awards"
+          <a href="https://api.whatsapp.com/send?phone=4367761735010&text=Hello,%20I%20just%20applied%20as%20a%20partner%20for%20Heart-Led%20Awards"
             target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-xl font-bold hover:scale-105 transition-transform text-sm">
-            <MessageCircle className="w-4 h-4" /> Contactar por WhatsApp
+            <MessageCircle className="w-4 h-4" /> Contact via WhatsApp
           </a>
           <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
-            Cerrar Sesión
+            Sign Out
           </Button>
         </motion.div>
       } />
@@ -592,18 +592,18 @@ export default function AliadoDashboard() {
             <AlertCircle className="w-12 h-12 text-red-400" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold mb-2 text-red-300">Solicitud No Aprobada</h3>
+            <h3 className="text-2xl font-bold mb-2 text-red-300">Application Not Approved</h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Hola <strong className="text-white">{user.displayName}</strong>, hemos revisado tu postulación y en esta ocasión no hemos podido incorporarte al programa de aliados.<br /><br />
-              Revisaremos futuras postulaciones. Mientras tanto, te invitamos a asistir al evento como participante.
+              Hello <strong className="text-white">{user.displayName}</strong>, we have reviewed your application and unfortunately we were unable to include you in the partner program at this time.<br /><br />
+              We will review future applications. In the meantime, we invite you to attend the event as a participant.
             </p>
           </div>
           <a href="https://heart.awards-global.org/tickets" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-xl font-bold hover:scale-105 transition-transform text-sm">
-            🎟️ Ver Entradas Disponibles
+            🎟️ View Available Tickets
           </a>
           <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
-            Cerrar Sesión
+            Sign Out
           </Button>
         </motion.div>
       } />
@@ -619,17 +619,17 @@ export default function AliadoDashboard() {
             <AlertCircle className="w-12 h-12 text-orange-400" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold mb-2 text-orange-300">Cuenta Suspendida</h3>
+            <h3 className="text-2xl font-bold mb-2 text-orange-300">Account Suspended</h3>
             <p className="text-gray-400 text-sm">
-              Tu acceso al panel de aliados ha sido temporalmente suspendido. Contacta con nuestro equipo si crees que es un error.
+              Your access to the partner dashboard has been temporarily suspended. Contact our team if you believe this is an error.
             </p>
           </div>
           <a href="https://wa.me/4367761735010" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-xl font-bold hover:scale-105 transition-transform text-sm">
-            <MessageCircle className="w-4 h-4" /> Contactar por WhatsApp
+            <MessageCircle className="w-4 h-4" /> Contact via WhatsApp
           </a>
           <Button variant="ghost" onClick={handleLogout} className="w-full text-gray-600 hover:text-white text-xs">
-            Cerrar Sesión
+            Sign Out
           </Button>
         </motion.div>
       } />
@@ -669,20 +669,20 @@ export default function AliadoDashboard() {
            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
            <div className="relative z-10">
              <div className="flex items-center gap-3 text-primary text-sm font-bold uppercase tracking-widest mb-2">
-                <LayoutDashboard className="w-4 h-4" /> {isAdminUser ? 'Panel de Administración' : 'Panel de Control'}
+                <LayoutDashboard className="w-4 h-4" /> {isAdminUser ? 'Admin Panel' : 'Dashboard'}
              </div>
              <h1 className="text-4xl font-black font-outfit uppercase">
-               Bienvenido, <span className="text-primary">{partner.name}</span>
+               Welcome, <span className="text-primary">{partner.name}</span>
              </h1>
              <p className="text-gray-400 mt-2 font-medium">({partner.organization})</p>
            </div>
            <div className="flex items-center gap-4 relative z-10">
               <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-xs font-bold uppercase tracking-wider">Estado: Activo</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Status: Active</span>
               </div>
               <Button onClick={handleLogout} variant="ghost" className="text-gray-400 hover:text-white hover:bg-white/5">
-                <LogOut className="w-4 h-4 mr-2" /> Salir
+                <LogOut className="w-4 h-4 mr-2" /> Sign Out
               </Button>
            </div>
         </div>
@@ -694,20 +694,20 @@ export default function AliadoDashboard() {
               <CardHeader className="p-8 border-b border-white/10">
                 <CardTitle className="text-2xl font-bold flex items-center gap-3">
                   <ShieldCheck className="w-6 h-6 text-primary" />
-                  Listado Maestro de Aliados (Admin)
+                  Master Partner List (Admin)
                 </CardTitle>
-                <p className="text-gray-500 text-sm">Visualización global de todos los aliados registrados.</p>
+                <p className="text-gray-500 text-sm">Global view of all registered partners.</p>
               </CardHeader>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
                     <thead>
                       <tr className="bg-white/5 text-gray-400 text-xs uppercase tracking-widest font-bold">
-                        <th className="px-8 py-4">Aliado / Organización</th>
-                        <th className="px-8 py-4">Correo</th>
+                        <th className="px-8 py-4">Partner / Organization</th>
+                        <th className="px-8 py-4">Email</th>
                         <th className="px-8 py-4">Referral Code</th>
                         <th className="px-8 py-4">Clicks</th>
-                        <th className="px-8 py-4">Estado</th>
+                        <th className="px-8 py-4">Status</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -748,8 +748,8 @@ export default function AliadoDashboard() {
                   <Target className="w-12 h-12 text-primary" />
                 </div>
                 <div className="flex-grow space-y-2">
-                  <h3 className="text-2xl font-bold">Tu Enlace de Afiliado</h3>
-                  <p className="text-gray-400 text-sm">Cualquier compra realizada a través de este enlace será atribuida a tu cuenta.</p>
+                  <h3 className="text-2xl font-bold">Your Affiliate Link</h3>
+                  <p className="text-gray-400 text-sm">Any purchase made through this link will be attributed to your account.</p>
                   <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
                     <div className="flex-grow w-full bg-black/40 border border-white/10 p-4 rounded-xl text-primary font-mono text-sm break-all">
                       {referralUrl}
@@ -758,7 +758,7 @@ export default function AliadoDashboard() {
                       onClick={() => copyToClipboard(referralUrl)}
                       className="bg-primary text-black font-bold h-full py-4 px-8 rounded-xl shrink-0"
                     >
-                      <Copy className="w-4 h-4 mr-2" /> Copiar Enlace
+                      <Copy className="w-4 h-4 mr-2" /> Copy Link
                     </Button>
                   </div>
                 </div>
@@ -773,37 +773,37 @@ export default function AliadoDashboard() {
           <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="bg-white/5 border-white/10 text-white rounded-3xl">
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-gray-400">Ventas Generadas</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-400">Sales Generated</CardTitle>
                 <Ticket className="w-4 h-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-black">{totalSales}</div>
                 <p className="text-xs text-green-400 mt-2 flex items-center">
-                  <CheckCircle2 className="w-3 h-3 mr-1" /> Entradas vendidas
+                  <CheckCircle2 className="w-3 h-3 mr-1" /> Tickets sold
                 </p>
               </CardContent>
             </Card>
 
             <Card className="bg-white/5 border-white/10 text-white rounded-3xl">
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-gray-400">Tráfico (Clicks)</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-400">Traffic (Clicks)</CardTitle>
                 <TrendingUp className="w-4 h-4 text-blue-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-black">{partner.clickCount || 0}</div>
-                <p className="text-xs text-gray-400 mt-2">Visitas únicas por enlace</p>
+                <p className="text-xs text-gray-400 mt-2">Unique link visits</p>
               </CardContent>
             </Card>
 
             <Card className="bg-white/5 border-white/10 text-white rounded-3xl">
               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium text-gray-400">Total Ganancias</CardTitle>
+                <CardTitle className="text-sm font-medium text-gray-400">Total Earnings</CardTitle>
                 <DollarSign className="w-4 h-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-4xl font-black">€{totalEarnings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 <p className="text-xs text-green-400 mt-2 flex items-center">
-                  <TrendingUp className="w-3 h-3 mr-1" /> Tu margen neto (30% - desc)
+                  <TrendingUp className="w-3 h-3 mr-1" /> Your net margin (30% - discount)
                 </p>
               </CardContent>
             </Card>
@@ -811,20 +811,20 @@ export default function AliadoDashboard() {
             {/* Coupons Management */}
             <Card className="bg-white/5 border-white/10 text-white rounded-3xl md:col-span-3">
               <CardHeader className="flex flex-row items-center justify-between border-b border-white/10 pb-4">
-                <CardTitle className="text-lg font-bold">Tus Cupones de Descuento</CardTitle>
-                <Button 
+                <CardTitle className="text-lg font-bold">Your Discount Coupons</CardTitle>
+                <Button
                   onClick={() => setIsCreatingCoupon(true)}
                   className="bg-primary/20 text-primary border border-primary/30 hover:bg-primary/30 rounded-xl"
                   size="sm"
                 >
-                  <Plus className="w-4 h-4 mr-2" /> Nuevo Cupón
+                  <Plus className="w-4 h-4 mr-2" /> New Coupon
                 </Button>
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="space-y-4">
                   {coupons.length === 0 ? (
                     <div className="text-center py-8 text-gray-500 italic text-sm">
-                      No has creado ningún cupón todavía.
+                      You haven't created any coupons yet.
                     </div>
                   ) : (
                     coupons.map((coupon) => (
@@ -840,7 +840,7 @@ export default function AliadoDashboard() {
                                  {coupon.status}
                                </span>
                             </div>
-                            <p className="text-xs text-gray-500 mt-1">Válido para agendas General y VIP</p>
+                            <p className="text-xs text-gray-500 mt-1">Valid for General and VIP tickets</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -870,30 +870,30 @@ export default function AliadoDashboard() {
             <Card className="bg-primary/5 border-primary/20 text-white rounded-3xl p-4">
               <CardHeader>
                 <CardTitle className="text-lg font-bold flex items-center gap-2">
-                  <AlertCircle className="w-5 h-5 text-primary" /> Reglas del Cupón
+                  <AlertCircle className="w-5 h-5 text-primary" /> Coupon Rules
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex gap-3 text-sm text-gray-400">
                   <ChevronRight className="w-4 h-4 text-primary shrink-0" />
-                  <p>Máximo de 30% de descuento permitido.</p>
+                  <p>Maximum of 30% discount allowed.</p>
                 </div>
                 <div className="flex gap-3 text-sm text-gray-400">
                   <ChevronRight className="w-4 h-4 text-primary shrink-0" />
-                  <p>Solo aplicable a entradas de Agenda General y VIP.</p>
+                  <p>Only applicable to General and VIP tickets.</p>
                 </div>
                 <div className="flex gap-3 text-sm text-gray-400">
                   <ChevronRight className="w-4 h-4 text-primary shrink-0" />
-                  <p>Las entradas para Nominados (acceso 1 día) no permiten cupones adicionales.</p>
+                  <p>Nominee tickets (1-day access) do not allow additional coupons.</p>
                 </div>
               </CardContent>
             </Card>
 
             <div className="p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-500/20 to-purple-500/10 border border-blue-500/20">
                <TrendingUp className="w-10 h-10 text-blue-400 mb-4" />
-               <h4 className="text-xl font-bold mb-2">Consejo de Aliado</h4>
+               <h4 className="text-xl font-bold mb-2">Partner Tip</h4>
                <p className="text-sm text-gray-400 leading-relaxed">
-                 Los enlaces de referido funcionan mejor cuando se comparten junto a una recomendación personal en LinkedIn o grupos de WhatsApp corporativos.
+                 Referral links work best when shared alongside a personal recommendation on LinkedIn or corporate WhatsApp groups.
                </p>
             </div>
           </div>
@@ -904,21 +904,21 @@ export default function AliadoDashboard() {
           <div className="p-8 border-b border-white/10">
             <h2 className="text-2xl font-bold flex items-center">
               <Users className="w-6 h-6 mr-3 text-primary" />
-              Ventas Atribuidas
+              Attributed Sales
             </h2>
-            <p className="text-gray-500 text-sm mt-1">Personas que usaron tu código o enlace para comprar.</p>
+            <p className="text-gray-500 text-sm mt-1">People who used your code or link to purchase.</p>
           </div>
           
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-white/5 text-gray-400 text-xs uppercase tracking-widest font-bold">
-                  <th className="px-8 py-5">Cliente</th>
-                  <th className="px-8 py-5">Agenda</th>
-                  <th className="px-8 py-5">Cupón</th>
-                  <th className="px-8 py-5">Pagado</th>
-                  <th className="px-8 py-5 text-primary">Ganancia Aliado</th>
-                  <th className="px-8 py-5">Fecha</th>
+                  <th className="px-8 py-5">Customer</th>
+                  <th className="px-8 py-5">Ticket</th>
+                  <th className="px-8 py-5">Coupon</th>
+                  <th className="px-8 py-5">Paid</th>
+                  <th className="px-8 py-5 text-primary">Partner Earnings</th>
+                  <th className="px-8 py-5">Date</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -949,7 +949,7 @@ export default function AliadoDashboard() {
                         €{earnings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="px-8 py-6 text-xs text-gray-500">
-                        {reg.createdAt?.toDate ? reg.createdAt.toDate().toLocaleDateString() : 'Reciente'}
+                        {reg.createdAt?.toDate ? reg.createdAt.toDate().toLocaleDateString() : 'Recent'}
                       </td>
                     </tr>
                   );
@@ -957,7 +957,7 @@ export default function AliadoDashboard() {
                 {registrations.length === 0 && (
                   <tr>
                     <td colSpan={6} className="px-8 py-20 text-center text-gray-500 italic">
-                      Todavía no se han registrado ventas bajo tu perfil.
+                      No sales have been recorded under your profile yet.
                     </td>
                   </tr>
                 )}
@@ -977,25 +977,25 @@ export default function AliadoDashboard() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="bg-[#111] border border-white/10 p-8 rounded-[2rem] w-full max-w-md shadow-2xl"
             >
-              <h3 className="text-2xl font-bold mb-6">Crear Nuevo Cupón</h3>
-              
+              <h3 className="text-2xl font-bold mb-6">Create New Coupon</h3>
+
               <div className="space-y-6">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Código Personalizado</label>
-                  <input 
-                    type="text" 
-                    placeholder="Ej: ALIANZA20"
+                  <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Custom Code</label>
+                  <input
+                    type="text"
+                    placeholder="E.g.: PARTNER20"
                     maxLength={15}
                     className="w-full bg-black/40 border border-white/10 rounded-xl py-4 px-4 text-lg font-black tracking-widest text-primary uppercase focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                     value={newCouponCode}
                     onChange={(e) => setNewCouponCode(e.target.value)}
                   />
-                  <p className="text-[10px] text-gray-500 mt-2 italic">Sin espacios, solo letras y números.</p>
+                  <p className="text-[10px] text-gray-500 mt-2 italic">No spaces, letters and numbers only.</p>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
-                    Descuento (%) - Máx 30%
+                    Discount (%) - Max 30%
                   </label>
                   <div className="flex items-center gap-4">
                     <input 
@@ -1012,18 +1012,18 @@ export default function AliadoDashboard() {
                 </div>
 
                 <div className="flex gap-4 pt-4">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     onClick={() => setIsCreatingCoupon(false)}
                     className="flex-1 py-6 rounded-xl border border-white/10 text-gray-400"
                   >
-                    Cancelar
+                    Cancel
                   </Button>
-                  <Button 
+                  <Button
                     onClick={handleCreateCoupon}
                     className="flex-1 py-6 rounded-xl bg-primary text-black font-black"
                   >
-                    Crear Cupón
+                    Create Coupon
                   </Button>
                 </div>
               </div>

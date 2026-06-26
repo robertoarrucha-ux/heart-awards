@@ -64,16 +64,16 @@ function ReviewRequestsContent() {
       setIsLoading(false);
     }, (error: any) => {
       console.error("Error listening to requests:", error);
-      let description = "No se pudieron cargar las solicitudes en tiempo real.";
+      let description = "Could not load requests in real time.";
       if (error.message && error.message.includes('index')) {
-        description = "Falta un índice en la base de datos. Revisa la consola para el enlace de creación.";
+        description = "A database index is missing. Check the console for the creation link.";
       } else if (error.code === 'permission-denied') {
-        description = "Permiso denegado. Verifica que tu cuenta sea administradora.";
+        description = "Permission denied. Verify that your account has admin rights.";
       }
-      
+
       toast({
         variant: "destructive",
-        title: "Error de conexión",
+        title: "Connection error",
         description,
       });
       setIsLoading(false);
@@ -88,8 +88,8 @@ function ReviewRequestsContent() {
       const result = await approveNominationRequestAction(request);
       if (result.success) {
         toast({
-          title: "¡Nominado Aprobado!",
-          description: `${request.nomineeName} ha sido agregado a la lista oficial de nominados.`,
+          title: "Nominee Approved!",
+          description: `${request.nomineeName} has been added to the official nominees list.`,
         });
         setPendingRequests(prevRequests => prevRequests.filter(r => r.id !== request.id));
         const newApprovedRequest = { ...request, status: 'approved', nomineeId: result.nomineeId } as NominationRequest;
@@ -99,7 +99,7 @@ function ReviewRequestsContent() {
       } else {
         toast({
           variant: "destructive",
-          title: "Error al Aprobar",
+          title: "Approval Error",
           description: result.message,
         });
       }
@@ -107,8 +107,8 @@ function ReviewRequestsContent() {
        console.error("Error in handleApprove:", error);
        toast({
           variant: "destructive",
-          title: "Error de Servidor",
-          description: error instanceof Error ? error.message : "Ocurrió un error inesperado al aprobar la solicitud.",
+          title: "Server Error",
+          description: error instanceof Error ? error.message : "An unexpected error occurred while approving the request.",
         });
     } finally {
         setIsApproving(null);
@@ -121,8 +121,8 @@ function ReviewRequestsContent() {
       const result = await rejectNominationRequestAction(request.id, reason);
       if (result.success) {
         toast({
-          title: "Solicitud Rechazada",
-          description: "La solicitud de nominación ha sido rechazada.",
+          title: "Request Rejected",
+          description: "The nomination request has been rejected.",
         });
         setPendingRequests(prevRequests => prevRequests.filter(r => r.id !== request.id));
         const newRejectedRequest = { ...request, status: 'rejected', rejectionReason: reason } as NominationRequest;
@@ -134,7 +134,7 @@ function ReviewRequestsContent() {
       } else {
         toast({
           variant: "destructive",
-          title: "Error al Rechazar",
+          title: "Rejection Error",
           description: result.message,
         });
       }
@@ -142,8 +142,8 @@ function ReviewRequestsContent() {
       console.error("Error in handleReject:", error);
       toast({
         variant: "destructive",
-        title: "Error de Servidor",
-        description: error instanceof Error ? error.message : "Ocurrió un error inesperado al rechazar la solicitud.",
+        title: "Server Error",
+        description: error instanceof Error ? error.message : "An unexpected error occurred while rejecting the request.",
       });
     } finally {
       setIsRejecting(null);
@@ -156,8 +156,8 @@ function ReviewRequestsContent() {
       const result = await moveNomineeToPendingAction(request.id, request.nomineeId);
       if (result.success) {
         toast({
-          title: "Movido a Pendiente",
-          description: "La solicitud ha vuelto a estado pendiente y el nominado ha sido retirado.",
+          title: "Moved to Pending",
+          description: "The request has been moved back to pending and the nominee has been removed.",
         });
         
         // Remove from current list
@@ -183,8 +183,8 @@ function ReviewRequestsContent() {
       console.error("Error in handleMoveToPending:", error);
       toast({
         variant: "destructive",
-        title: "Error de Servidor",
-        description: error instanceof Error ? error.message : "Ocurrió un error inesperado al mover el nominado a pendiente.",
+        title: "Server Error",
+        description: error instanceof Error ? error.message : "An unexpected error occurred while moving the nominee to pending.",
       });
     } finally {
       setIsMovingToPending(null);
@@ -197,10 +197,10 @@ function ReviewRequestsContent() {
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <AdminHeader title="Revisión de Solicitudes" icon={Mail} />
-          
+          <AdminHeader title="Request Review" icon={Mail} />
+
           <div className="flex items-center gap-3 bg-card p-2 rounded-lg border border-primary/10 shadow-sm">
-            <span className="text-sm font-medium text-muted-foreground">Filtrar por Edición:</span>
+            <span className="text-sm font-medium text-muted-foreground">Filter by Edition:</span>
             <Select value={selectedEdition} onValueChange={setSelectedEdition}>
               <SelectTrigger className="w-[120px]">
                 <SelectValue placeholder="Edición" />
@@ -214,7 +214,7 @@ function ReviewRequestsContent() {
         </div>
 
         <section>
-          <h2 className="text-2xl font-semibold text-primary/80 mb-6">Solicitudes Pendientes</h2>
+          <h2 className="text-2xl font-semibold text-primary/80 mb-6">Pending Requests</h2>
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(3)].map((_, i) => (
@@ -229,8 +229,8 @@ function ReviewRequestsContent() {
             </div>
           ) : pendingRequests.length === 0 ? (
               <div className="text-center py-16 border-2 border-dashed border-muted-foreground/20 rounded-lg">
-                  <h3 className="text-xl font-semibold text-muted-foreground">No hay solicitudes pendientes</h3>
-                  <p className="text-muted-foreground mt-2">Cuando alguien envíe una solicitud de nominación, aparecerá aquí.</p>
+                  <h3 className="text-xl font-semibold text-muted-foreground">No pending requests</h3>
+                  <p className="text-muted-foreground mt-2">When someone submits a nomination request, it will appear here.</p>
               </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -251,13 +251,13 @@ function ReviewRequestsContent() {
         <Separator className="my-12" />
 
         <section>
-          <h2 className="text-2xl font-semibold text-green-500/80 mb-6">Solicitudes Aprobadas (Publicadas)</h2>
+          <h2 className="text-2xl font-semibold text-green-500/80 mb-6">Approved Requests (Published)</h2>
            {isLoading ? (
-             <p className="text-muted-foreground">Cargando solicitudes aprobadas...</p>
+             <p className="text-muted-foreground">Loading approved requests...</p>
            ) : approvedRequests.length === 0 ? (
               <div className="text-center py-16 border-2 border-dashed border-muted-foreground/20 rounded-lg">
-                  <h3 className="text-xl font-semibold text-muted-foreground">No hay solicitudes aprobadas</h3>
-                  <p className="text-muted-foreground mt-2">Las solicitudes que apruebes aparecerán aquí.</p>
+                  <h3 className="text-xl font-semibold text-muted-foreground">No approved requests</h3>
+                  <p className="text-muted-foreground mt-2">Requests you approve will appear here.</p>
               </div>
            ) : (
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -281,13 +281,13 @@ function ReviewRequestsContent() {
         <Separator className="my-12" />
 
         <section>
-          <h2 className="text-2xl font-semibold text-red-500/80 mb-6">Solicitudes Rechazadas</h2>
+          <h2 className="text-2xl font-semibold text-red-500/80 mb-6">Rejected Requests</h2>
            {isLoading ? (
-             <p className="text-muted-foreground">Cargando solicitudes rechazadas...</p>
+             <p className="text-muted-foreground">Loading rejected requests...</p>
            ) : rejectedRequests.length === 0 ? (
               <div className="text-center py-16 border-2 border-dashed border-muted-foreground/20 rounded-lg">
-                  <h3 className="text-xl font-semibold text-muted-foreground">No hay solicitudes rechazadas</h3>
-                  <p className="text-muted-foreground mt-2">Las solicitudes que rechaces aparecerán aquí.</p>
+                  <h3 className="text-xl font-semibold text-muted-foreground">No rejected requests</h3>
+                  <p className="text-muted-foreground mt-2">Requests you reject will appear here.</p>
               </div>
            ) : (
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -311,14 +311,14 @@ function ReviewRequestsContent() {
 
         <section>
           <h2 className="text-2xl font-semibold text-muted-foreground mb-6 flex items-center gap-2">
-            <History size={24} /> Solicitudes Archivadas
+            <History size={24} /> Archived Requests
           </h2>
            {isLoading ? (
-             <p className="text-muted-foreground">Cargando solicitudes archivadas...</p>
+             <p className="text-muted-foreground">Loading archived requests...</p>
            ) : archivedRequests.length === 0 ? (
               <div className="text-center py-16 border-2 border-dashed border-muted-foreground/20 rounded-lg">
-                  <h3 className="text-xl font-semibold text-muted-foreground">No hay solicitudes archivadas</h3>
-                  <p className="text-muted-foreground mt-2">Las solicitudes de ediciones pasadas aparecerán aquí.</p>
+                  <h3 className="text-xl font-semibold text-muted-foreground">No archived requests</h3>
+                  <p className="text-muted-foreground mt-2">Requests from past editions will appear here.</p>
               </div>
            ) : (
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-75 grayscale-[0.5] hover:grayscale-0 hover:opacity-100 transition-all">

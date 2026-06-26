@@ -21,7 +21,7 @@ export default function Footer() {
               </div>
               
               <div className="flex flex-col items-center">
-                  <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest transition-colors hover:text-primary cursor-default">Comunidad</h3>
+                  <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-widest transition-colors hover:text-primary cursor-default">Community</h3>
                   <div className="flex gap-6">
                       <a href="https://x.com/prolatamglobal" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all hover:scale-110">
                           <TwitterIcon className="w-4 h-4" />

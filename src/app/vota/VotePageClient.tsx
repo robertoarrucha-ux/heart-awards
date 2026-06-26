@@ -34,15 +34,15 @@ function TopRanking({ topTen }: TopRankingProps) {
           </div>
           <div>
             <p className="text-sm font-semibold text-yellow-100">
-              Top 5 líderes en tiempo real
+              Top 5 leaders in real time
             </p>
             <p className="text-xs text-yellow-100/80 md:text-sm">
-              Ranking dinámico según los votos del público para la edición 2026.
+              Dynamic ranking based on public votes for the 2026 edition.
             </p>
           </div>
         </div>
         <span className="hidden text-[11px] uppercase tracking-wide text-yellow-100/70 md:block">
-          Actualizado en tiempo real
+          Updated in real time
         </span>
       </div>
 
@@ -95,7 +95,7 @@ function TopRanking({ topTen }: TopRankingProps) {
               <div className="flex items-center justify-between text-[10px] text-yellow-100/80 md:text-[11px]">
                 <span className="line-clamp-1">{nominee.category}</span>
                 <span className="font-semibold">
-                  {nominee.votes?.toLocaleString?.() ?? 0} votos
+                  {nominee.votes?.toLocaleString?.() ?? 0} votes
                 </span>
               </div>
             </div>
@@ -106,7 +106,7 @@ function TopRanking({ topTen }: TopRankingProps) {
       {/* Mención de ganadores 6–10 */}
       {sixToTen.length > 0 && (
         <div className="rounded-lg border border-yellow-500/20 bg-black/30 px-3 py-2 text-[11px] text-yellow-100/80 md:text-xs">
-          <span className="font-semibold">También forman parte de los 10 líderes premiados:</span>{' '}
+          <span className="font-semibold">Also among the top 10 award recipients:</span>{' '}
           {sixToTen
             .map((n, idx) => `${idx + 6}º ${n.name}`)
             .join(' · ')}

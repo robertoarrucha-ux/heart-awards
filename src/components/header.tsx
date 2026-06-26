@@ -73,7 +73,7 @@ export default function Header() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="w-9 px-0 hover:bg-white/5">
                 <Globe className="h-4 w-4" />
-                <span className="sr-only">Cambiar idioma</span>
+                <span className="sr-only">Change language</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="glass border-white/10">

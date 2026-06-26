@@ -37,8 +37,8 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
     const shareUrl = window.location.href;
     navigator.clipboard.writeText(shareUrl);
     toast({
-      title: "¡Enlace Copiado!",
-      description: "El enlace al perfil de este nominado ha sido copiado a tu portapapeles.",
+      title: "Link Copied!",
+      description: "The link to this nominee's profile has been copied to your clipboard.",
     });
   };
 
@@ -60,14 +60,14 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
       const result = await castVoteAction(nomineeId);
       if (result.success) {
         toast({
-          title: "¡Voto Registrado!",
+          title: "Vote Registered!",
           description: result.message,
         });
         setCurrentVotes(prev => prev + 1);
       } else {
         toast({
           variant: "destructive",
-          title: "Error al Votar",
+          title: "Voting Error",
           description: result.message,
         });
       }
@@ -76,7 +76,7 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Ocurrió un error inesperado al procesar tu voto.",
+        description: "An unexpected error occurred while processing your vote.",
       });
     } finally {
       setIsVoting(false);
@@ -94,7 +94,7 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
         >
           <Link href="/vota" className="inline-flex items-center text-primary hover:underline mb-8 gap-2 font-medium">
             <ArrowLeft size={20} />
-            Volver a la lista de votación
+            Back to voting list
           </Link>
         </motion.div>
 
@@ -146,7 +146,7 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                 >
                   <h1 className="text-4xl font-extrabold text-foreground tracking-tight">{nominee.name}</h1>
                   <Badge variant={nominee.nomineeType === 'persona' ? 'outline' : 'default'} className="mt-2 uppercase tracking-widest text-[10px]">
-                    {nominee.nomineeType === 'persona' ? 'Persona Física' : 'Entidad / Proyecto'}
+                    {nominee.nomineeType === 'persona' ? 'Individual' : 'Entity / Project'}
                   </Badge>
                 </motion.div>
 
@@ -197,11 +197,11 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                   disabled={isVoting}
                 >
                   {isVoting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <VoteIcon className="mr-2 h-5 w-5" />}
-                  Votar por {nominee.name.split(' ')[0]}
+                  Vote for {nominee.name.split(' ')[0]}
                 </Button>
                 <Button variant="outline" onClick={handleShare} className="w-full">
                   <Share2 className="mr-2 h-5 w-5" />
-                  Compartir Perfil
+                  Share Profile
                 </Button>
               </motion.div>
             </div>
@@ -216,7 +216,7 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                 >
                   <h2 className="text-2xl font-bold text-foreground flex items-center gap-3 mb-4">
                     <BookOpen size={24} className="text-primary" />
-                    Reseña Biográfica
+                    Biographical Profile
                   </h2>
                   <p className="text-muted-foreground leading-relaxed text-lg whitespace-pre-wrap">
                     {nominee.bio}
@@ -233,7 +233,7 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                   >
                     <h2 className="text-2xl font-bold text-foreground flex items-center gap-3 mb-4 not-italic">
                       <Sparkles size={24} className="text-primary" />
-                      Lección de Liderazgo
+                      Leadership Lesson
                     </h2>
                     <p className="text-foreground/90 leading-relaxed text-lg">
                       "{nominee.leadershipLesson}"
@@ -251,12 +251,12 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                   >
                     <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                       <Bot size={24} className="text-primary" />
-                      Video de Presentación
+                      Presentation Video
                     </h2>
                     <div className="aspect-video rounded-xl overflow-hidden border border-primary/10 shadow-lg">
                       <iframe
                         src={youtubeEmbedUrl}
-                        title={`Video de ${nominee.name}`}
+                        title={`Video — ${nominee.name}`}
                         className="w-full h-full"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -276,16 +276,16 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                 >
                   <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                     <BarChart size={20} className="text-primary" />
-                    Estado de Votación
+                    Voting Status
                   </h3>
                   <div className="space-y-4">
                     <div className="flex justify-between items-end">
                       <span className="text-3xl font-black text-primary">{currentVotes.toLocaleString()}</span>
-                      <span className="text-sm text-muted-foreground font-medium">Votos totales</span>
+                      <span className="text-sm text-muted-foreground font-medium">Total votes</span>
                     </div>
                     <Progress value={progressValue} className="h-3 [&>div]:bg-primary" />
                     <p className="text-xs text-muted-foreground text-center">
-                      Este nominado ocupa actualmente el puesto #{rank} en el ranking global.
+                      This nominee currently holds position #{rank} in the global ranking.
                     </p>
                   </div>
                 </motion.div>
@@ -297,7 +297,7 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                   transition={{ delay: 0.8 }}
                   className="bg-card p-6 rounded-xl border border-primary/10 shadow-sm"
                 >
-                  <h3 className="text-xl font-bold mb-4">Redes y Contacto</h3>
+                  <h3 className="text-xl font-bold mb-4">Social & Contact</h3>
                   <div className="flex flex-col gap-2">
                     {nominee.instagramUrl && (
                       <a href={nominee.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2 hover:bg-primary/5 rounded-lg transition-colors group">
@@ -320,11 +320,11 @@ export default function NomineePageClient({ nominee, rank, highestVoteCount }: N
                     {nominee.websiteUrl && (
                       <a href={nominee.websiteUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2 hover:bg-primary/5 rounded-lg transition-colors group">
                         <LinkIcon className="text-primary group-hover:scale-110 transition-transform" />
-                        <span className="text-sm font-medium">Sitio Web Oficial</span>
+                        <span className="text-sm font-medium">Official Website</span>
                       </a>
                     )}
                     {!nominee.instagramUrl && !nominee.facebookUrl && !nominee.linkedinUrl && !nominee.websiteUrl && (
-                      <p className="text-sm text-muted-foreground italic">No hay enlaces sociales disponibles.</p>
+                      <p className="text-sm text-muted-foreground italic">No social links available.</p>
                     )}
                   </div>
                 </motion.div>

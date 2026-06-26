@@ -333,10 +333,10 @@ export default function TicketsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {[
-                  { icon: <Users className="w-8 h-8" />, title: "300-400 Líderes", desc: "De Gobierno y Empresa de Europa y América Latina." },
-                  { icon: <Handshake className="w-8 h-8" />, title: "Alianzas Estratégicas", desc: "2 Reuniones de alianzas exclusivas por sede." },
-                  { icon: <Award className="w-8 h-8" />, title: "20 Charlas", desc: "Inspiración pura de los líderes más influyentes." },
-                  { icon: <Heart className="w-8 h-8" />, title: "La Gran Fiesta", desc: "La fiesta hispanoamericana más grande de Europa Central." },
+                  { icon: <Users className="w-8 h-8" />, title: "300–400 Leaders", desc: "From Government and Business across Europe and Latin America." },
+                  { icon: <Handshake className="w-8 h-8" />, title: "Strategic Alliances", desc: "2 exclusive alliance meetings per venue." },
+                  { icon: <Award className="w-8 h-8" />, title: "20 Talks", desc: "Pure inspiration from the most influential leaders." },
+                  { icon: <Heart className="w-8 h-8" />, title: "The Grand Gala", desc: "The largest Hispanic-American gala in Central Europe." },
                 ].map((item, i) => (
                   <motion.div 
                     key={i}
@@ -358,11 +358,11 @@ export default function TicketsPage() {
             {/* IMPACT NUMBERS */}
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 mb-32 py-16 border-y border-white/10">
               {[
-                { label: "Países Representados", value: "12" },
-                { label: "Líderes Presenciales", value: "300–400" },
-                { label: "Asistentes en Línea", value: "1,000" },
-                { label: "Aliados Oficiales", value: "20" },
-                { label: "Alcance & Impacto", value: "1M+" },
+                { label: "Countries Represented", value: "12" },
+                { label: "In-Person Leaders", value: "300–400" },
+                { label: "Online Attendees", value: "1,000" },
+                { label: "Official Partners", value: "20" },
+                { label: "Reach & Impact", value: "1M+" },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
                   <div className="text-4xl md:text-6xl font-black text-primary mb-2 tracking-tighter">{stat.value}</div>
@@ -381,10 +381,10 @@ export default function TicketsPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                     {[
-                      "Gerentes / Directores",
-                      "Emprendedores",
-                      "Oficiales de Gobierno",
-                      "Cuerpo Diplomático",
+                      "Managers / Directors",
+                      "Entrepreneurs",
+                      "Government Officials",
+                      "Diplomatic Corps",
                     ].map((profile, i) => (
                       <div key={i} className="flex items-center gap-3 text-white font-medium">
                         <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
@@ -394,12 +394,12 @@ export default function TicketsPage() {
                   </div>
 
                   <div className="mb-8">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Provenientes de</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Coming from</p>
                     <div className="space-y-3">
                       {[
-                        { pct: "30%", label: "Empresas y Gobiernos de América Latina" },
-                        { pct: "30%", label: "Latinoamericanos en Europa" },
-                        { pct: "40%", label: "Europeos invirtiendo o buscando invertir en América Latina" },
+                        { pct: "30%", label: "Companies and Governments from Latin America" },
+                        { pct: "30%", label: "Latin Americans living in Europe" },
+                        { pct: "40%", label: "Europeans investing or seeking to invest in Latin America" },
                       ].map((item, i) => (
                         <div key={i} className="flex items-center gap-4">
                           <span className="text-2xl font-black text-primary w-14 shrink-0">{item.pct}</span>
@@ -411,7 +411,7 @@ export default function TicketsPage() {
 
                   <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10">
                     <span className="text-3xl font-black text-primary">42</span>
-                    <span className="text-sm text-muted-foreground">años de edad promedio</span>
+                    <span className="text-sm text-muted-foreground">average age</span>
                   </div>
                 </div>
 
@@ -516,7 +516,7 @@ export default function TicketsPage() {
                         <div className="absolute top-3 left-3 z-20">
                            <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${selectedEdition === 'vienna' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
                               <MapPin className="w-3 h-3" />
-                              {selectedEdition === 'vienna' ? 'Viena' : 'Madrid'}
+                              {selectedEdition === 'vienna' ? 'Vienna' : 'Madrid'}
                            </div>
                         </div>
 

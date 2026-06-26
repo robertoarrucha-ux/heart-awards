@@ -53,7 +53,7 @@ function AdminPartnersContent() {
     return () => unsubscribe();
   }, []);
 
-  // Aprobar o rechazar postulaciones pendientes — usa server action para enviar email
+  // Approve or reject pending applications — uses server action to send email
   const handleDecision = async (partner: Partner, decision: 'active' | 'rejected') => {
     const key = `${partner.id}-${decision}`;
     setActionLoading(key);
@@ -64,34 +64,34 @@ function AdminPartnersContent() {
         organization: partner.organization,
       });
       if (result.success) {
-        toast({ title: decision === 'active' ? '✅ Aliado aprobado' : '❌ Solicitud rechazada', description: result.message });
+        toast({ title: decision === 'active' ? '✅ Partner approved' : '❌ Application rejected', description: result.message });
       } else {
         throw new Error(result.message);
       }
     } catch (error: any) {
-      toast({ variant: 'destructive', title: 'Error', description: error.message || 'No se pudo actualizar el estado.' });
+      toast({ variant: 'destructive', title: 'Error', description: error.message || 'Could not update status.' });
     } finally {
       setActionLoading(null);
     }
   };
 
-  // Suspender / reactivar aliados activos — sin email, directo en Firestore
+  // Suspend / reactivate active partners — no email, direct Firestore write
   const handleToggleSuspend = async (partnerId: string, newStatus: 'active' | 'suspended') => {
     try {
       await updateDoc(doc(db, 'partners', partnerId), { status: newStatus });
-      toast({ title: 'Estado actualizado', description: `Aliado marcado como ${newStatus}.` });
+      toast({ title: 'Status updated', description: `Partner marked as ${newStatus}.` });
     } catch (error) {
-      toast({ variant: 'destructive', title: 'Error', description: 'No se pudo actualizar el estado.' });
+      toast({ variant: 'destructive', title: 'Error', description: 'Could not update status.' });
     }
   };
 
   const handleDeletePartner = async (partnerId: string) => {
-    if (!confirm('¿Estás seguro de eliminar a este socio? Se perderá su seguimiento de clicks.')) return;
+    if (!confirm('Are you sure you want to delete this partner? Their click tracking will be lost.')) return;
     try {
       await deleteDoc(doc(db, 'partners', partnerId));
-      toast({ title: 'Socio eliminado' });
+      toast({ title: 'Partner deleted' });
     } catch (error) {
-      toast({ variant: 'destructive', title: 'Error al eliminar' });
+      toast({ variant: 'destructive', title: 'Error deleting' });
     }
   };
 
@@ -116,38 +116,38 @@ function AdminPartnersContent() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <AdminHeader title="Gestión de Aliados" icon={Users} />
+        <AdminHeader title="Partner Management" icon={Users} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
            <Card className="bg-white/5 border-white/10 text-white">
              <CardHeader className="pb-2">
-               <CardTitle className="text-sm font-medium text-gray-400">Total Solicitudes</CardTitle>
+               <CardTitle className="text-sm font-medium text-gray-400">Total Applications</CardTitle>
              </CardHeader>
              <CardContent>
                <div className="text-4xl font-bold">{partners.filter(p => p.status === 'pending').length}</div>
-               <p className="text-xs text-yellow-500 mt-2">Pendientes de aprobación</p>
+               <p className="text-xs text-yellow-500 mt-2">Pending approval</p>
              </CardContent>
            </Card>
 
            <Card className="bg-white/5 border-white/10 text-white">
              <CardHeader className="pb-2">
-               <CardTitle className="text-sm font-medium text-gray-400">Aliados Activos</CardTitle>
+               <CardTitle className="text-sm font-medium text-gray-400">Active Partners</CardTitle>
              </CardHeader>
              <CardContent>
                <div className="text-4xl font-bold">{partners.filter(p => p.status === 'active').length}</div>
-               <p className="text-xs text-green-500 mt-2">Generando tráfico</p>
+               <p className="text-xs text-green-500 mt-2">Generating traffic</p>
              </CardContent>
            </Card>
 
            <Card className="bg-white/5 border-white/10 text-white">
              <CardHeader className="pb-2">
-               <CardTitle className="text-sm font-medium text-gray-400">Tráfico Total Aliados</CardTitle>
+               <CardTitle className="text-sm font-medium text-gray-400">Total Partner Traffic</CardTitle>
              </CardHeader>
              <CardContent>
                <div className="text-4xl font-bold">
                  {partners.reduce((acc, p) => acc + (p.clickCount || 0), 0)}
                </div>
-               <p className="text-xs text-blue-500 mt-2">Clicks únicos</p>
+               <p className="text-xs text-blue-500 mt-2">Unique clicks</p>
              </CardContent>
            </Card>
         </div>
@@ -159,7 +159,7 @@ function AdminPartnersContent() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
                   type="text"
-                  placeholder="Nombre, email o empresa..."
+                  placeholder="Name, email or company..."
                   className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -170,25 +170,25 @@ function AdminPartnersContent() {
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
-                <option value="all">Todos los Estados</option>
-                <option value="pending">Pendientes</option>
-                <option value="active">Activos</option>
-                <option value="suspended">Suspendidos</option>
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="active">Active</option>
+                <option value="suspended">Suspended</option>
               </select>
             </div>
-            <p className="text-xs text-gray-500">Mostrando {filteredPartners.length} registros</p>
+            <p className="text-xs text-gray-500">Showing {filteredPartners.length} records</p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-white/5 text-gray-400 text-xs uppercase tracking-widest font-bold">
-                  <th className="px-8 py-5">Socio</th>
-                  <th className="px-8 py-5">Organización / Web</th>
-                  <th className="px-8 py-5">Referido / Código</th>
+                  <th className="px-8 py-5">Partner</th>
+                  <th className="px-8 py-5">Organization / Website</th>
+                  <th className="px-8 py-5">Referral / Code</th>
                   <th className="px-8 py-5">Clicks</th>
-                  <th className="px-8 py-5">Estado</th>
-                  <th className="px-8 py-5">Acciones</th>
+                  <th className="px-8 py-5">Status</th>
+                  <th className="px-8 py-5">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -234,7 +234,7 @@ function AdminPartnersContent() {
                         p.status === 'rejected'  ? 'bg-red-500/10 text-red-400' :
                         /* suspended */             'bg-orange-500/10 text-orange-400'
                       }`}>
-                        {p.status === 'active' ? 'Activo' : p.status === 'pending' ? 'Pendiente' : p.status === 'rejected' ? 'Rechazado' : 'Suspendido'}
+                        {p.status === 'active' ? 'Active' : p.status === 'pending' ? 'Pending' : p.status === 'rejected' ? 'Rejected' : 'Suspended'}
                       </span>
                     </td>
                     <td className="px-8 py-6">
@@ -251,7 +251,7 @@ function AdminPartnersContent() {
                             {actionLoading === `${p.id}-active`
                               ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
                               : <CheckCircle2 className="w-3.5 h-3.5" />}
-                            Aprobar
+                            Approve
                           </Button>
                           <Button
                             onClick={() => handleDecision(p, 'rejected')}
@@ -263,7 +263,7 @@ function AdminPartnersContent() {
                             {actionLoading === `${p.id}-rejected`
                               ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
                               : <XCircle className="w-3.5 h-3.5" />}
-                            Rechazar
+                            Reject
                           </Button>
                         </>)}
 
@@ -273,7 +273,7 @@ function AdminPartnersContent() {
                             onClick={() => handleToggleSuspend(p.id, 'suspended')}
                             size="sm" variant="ghost" className="text-yellow-500 hover:bg-yellow-500/10 h-8"
                           >
-                            <Ban className="w-4 h-4 mr-1" /> Suspender
+                            <Ban className="w-4 h-4 mr-1" /> Suspend
                           </Button>
                         )}
 
@@ -283,7 +283,7 @@ function AdminPartnersContent() {
                             onClick={() => handleToggleSuspend(p.id, 'active')}
                             size="sm" variant="ghost" className="text-green-500 hover:bg-green-500/10 h-8"
                           >
-                            <CheckCircle2 className="w-4 h-4 mr-1" /> Reactivar
+                            <CheckCircle2 className="w-4 h-4 mr-1" /> Reactivate
                           </Button>
                         )}
 

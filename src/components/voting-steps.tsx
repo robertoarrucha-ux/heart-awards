@@ -9,20 +9,20 @@ type VotingStepsProps = {
 const steps = [
   {
     id: 1,
-    label: 'Conéctate con la comunidad',
-    description: 'Únete a nuestros canales oficiales antes de votar.',
+    label: 'Connect with the community',
+    description: 'Join our official channels before voting.',
     icon: Users,
   },
   {
     id: 2,
-    label: 'Elige tu líder',
-    description: 'Explora nominados y selecciona a tu favorito.',
+    label: 'Choose your leader',
+    description: 'Explore nominees and select your favorite.',
     icon: Vote,
   },
   {
     id: 3,
-    label: 'Confirma tu voto',
-    description: 'Registra tu voto único para esta edición.',
+    label: 'Confirm your vote',
+    description: 'Cast your unique vote for this edition.',
     icon: Sparkles,
   },
 ];

@@ -78,8 +78,8 @@ export default function NominationRequestCard({
         const result = await updateNominationRequestCategoryAction(request.id, tempCategory);
         if (result.success) {
             toast({
-                title: "Éxito",
-                description: "Categoría actualizada correctamente.",
+                title: "Success",
+                description: "Category updated successfully.",
             });
             setIsEditingCategory(false);
         } else {
@@ -93,7 +93,7 @@ export default function NominationRequestCard({
         toast({
             variant: "destructive",
             title: "Error",
-            description: "Ocurrió un error al actualizar la categoría.",
+            description: "An error occurred while updating the category.",
         });
     } finally {
         setIsUpdatingCategory(false);
@@ -105,25 +105,25 @@ export default function NominationRequestCard({
   };
 
   // Normalización defensiva para renderizado seguro
-  const nomineeName = request.nomineeName || (request as any).name || (request as any).fullName || "Sin nombre";
-  const nomineeEmail = request.nomineeEmail || (request as any).email || "Sin email";
+  const nomineeName = request.nomineeName || (request as any).name || (request as any).fullName || "No name";
+  const nomineeEmail = request.nomineeEmail || (request as any).email || "No email";
   const nomineeType = request.nomineeType || (request as any).type || 'persona';
-  const nomineeCountry = request.nomineeCountry || (request as any).country || "No especificado";
-  const nomineeBio = request.nomineeBio || (request as any).bio || "Sin biografía disponible";
-  const leadershipLesson = request.leadershipLesson || (request as any).lesson || "No especificada";
+  const nomineeCountry = request.nomineeCountry || (request as any).country || "Not specified";
+  const nomineeBio = request.nomineeBio || (request as any).bio || "No biography available";
+  const leadershipLesson = request.leadershipLesson || (request as any).lesson || "Not specified";
   const category = request.category || "General";
-  const positionAndProject = request.positionAndProject || (request as any).position || (request as any).project || "No especificado";
-  const organizationName = request.organizationName || (request as any).organization || (request as any).company || "No especificado";
+  const positionAndProject = request.positionAndProject || (request as any).position || (request as any).project || "Not specified";
+  const organizationName = request.organizationName || (request as any).organization || (request as any).company || "Not specified";
 
   const formatTimestamp = (timestamp: any): string => {
     if (!timestamp) return "No disponible";
     try {
       // Handles both Firestore server Timestamps (object with seconds) and client Timestamps (object with toDate)
       const date = timestamp.seconds ? new Date(timestamp.seconds * 1000) : (typeof timestamp.toDate === 'function' ? timestamp.toDate() : new Date(timestamp));
-      if (isNaN(date.getTime())) return "Fecha inválida";
-      
+      if (isNaN(date.getTime())) return "Invalid date";
+
       // Using Intl.DateTimeFormat for locale-specific formatting.
-      return new Intl.DateTimeFormat('es-ES', {
+      return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -133,7 +133,7 @@ export default function NominationRequestCard({
       }).format(date);
     } catch (e) {
       console.error("Error formatting timestamp", e);
-      return "Fecha inválida";
+      return "Invalid date";
     }
   };
 
@@ -160,11 +160,11 @@ export default function NominationRequestCard({
                       </CardTitle>
                       <div className="flex flex-col items-end gap-1">
                           <Badge variant={nomineeType === 'persona' ? 'outline' : 'default'} className="text-[10px] uppercase tracking-wider">
-                              {nomineeType === 'persona' ? 'Persona Física' : 'Entidad / Proyecto'}
+                              {nomineeType === 'persona' ? 'Individual' : 'Entity / Project'}
                           </Badge>
                           {request.edition && (
                               <Badge variant="secondary" className="text-[10px] bg-primary/10 text-primary border-primary/20">
-                                  Edición {request.edition}
+                                  Edition {request.edition}
                               </Badge>
                           )}
                       </div>
@@ -174,7 +174,7 @@ export default function NominationRequestCard({
                           <div className="flex items-center gap-2 w-full max-w-sm">
                               <Select value={tempCategory} onValueChange={setTempCategory}>
                                   <SelectTrigger className="h-8 text-xs">
-                                      <SelectValue placeholder="Selecciona categoría" />
+                                      <SelectValue placeholder="Select category" />
                                   </SelectTrigger>
                                   <SelectContent>
                                       {getAvailableCategories().map(cat => (
@@ -229,110 +229,110 @@ export default function NominationRequestCard({
         </CardHeader>
         <CardContent className="flex-grow px-4 pb-4 space-y-4">
            <div className="space-y-1">
-                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Mail size={16}/> {nomineeType === 'persona' ? 'Correo Electrónico' : 'Correo de Contacto'}</h4>
+                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Mail size={16}/> {nomineeType === 'persona' ? 'Email Address' : 'Contact Email'}</h4>
                 <p className="text-sm text-foreground">{nomineeEmail}</p>
            </div>
            <div className="space-y-1">
-                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Flag size={16}/> {nomineeType === 'persona' ? 'País de Residencia' : 'País de Operación'}</h4>
+                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Flag size={16}/> {nomineeType === 'persona' ? 'Country of Residence' : 'Country of Operation'}</h4>
                 <p className="text-sm text-foreground">{nomineeCountry}</p>
            </div>
            <div className="space-y-1">
-                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Briefcase size={16}/> {nomineeType === 'persona' ? 'Cargo o Puesto' : 'Área de Impacto'}</h4>
+                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Briefcase size={16}/> {nomineeType === 'persona' ? 'Position / Title' : 'Area of Impact'}</h4>
                 <p className="text-sm text-foreground">{positionAndProject}</p>
            </div>
            <div className="space-y-1">
-                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Building size={16}/> {nomineeType === 'persona' ? 'Empresa / Organización' : 'Institución Matriz'}</h4>
+                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Building size={16}/> {nomineeType === 'persona' ? 'Company / Organization' : 'Parent Institution'}</h4>
                 <p className="text-sm text-foreground">{organizationName}</p>
            </div>
            <div className="space-y-1">
-                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><BookOpen size={16}/> Breve Reseña</h4>
+                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><BookOpen size={16}/> Brief Profile</h4>
                 <CardDescription>{nomineeBio}</CardDescription>
             </div>
              <div className="space-y-1">
-                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Sparkles size={16}/> Lección de Liderazgo</h4>
+                <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Sparkles size={16}/> Leadership Lesson</h4>
                 <CardDescription>{leadershipLesson}</CardDescription>
             </div>
 
              <div className="flex flex-wrap gap-1 items-center">
-                 <h4 className="text-sm font-semibold text-muted-foreground mr-2">Redes:</h4>
+                 <h4 className="text-sm font-semibold text-muted-foreground mr-2">Social:</h4>
                 {request.websiteUrl && (
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <a href={request.websiteUrl} target="_blank" rel="noopener noreferrer">
-                                <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visitar sitio web del postulante">
+                                <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visit nominee website">
                                     <LinkIcon className="w-4 h-4 text-primary/80 hover:text-primary" />
                                 </Button>
                             </a>
                         </TooltipTrigger>
-                        <TooltipContent><p>Visitar sitio web</p></TooltipContent>
+                        <TooltipContent><p>Visit website</p></TooltipContent>
                     </Tooltip>
                 )}
                 {request.instagramUrl && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                     <a href={request.instagramUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visitar Instagram del postulante">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visit nominee Instagram">
                         <Instagram className="w-4 h-4 text-primary/80 hover:text-primary" />
                         </Button>
                     </a>
                     </TooltipTrigger>
-                    <TooltipContent><p>Visitar Instagram</p></TooltipContent>
+                    <TooltipContent><p>Visit Instagram</p></TooltipContent>
                 </Tooltip>
                 )}
                 {request.facebookUrl && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                     <a href={request.facebookUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visitar Facebook del postulante">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visit nominee Facebook">
                         <Facebook className="w-4 h-4 text-primary/80 hover:text-primary" />
                         </Button>
                     </a>
                     </TooltipTrigger>
-                    <TooltipContent><p>Visitar Facebook</p></TooltipContent>
+                    <TooltipContent><p>Visit Facebook</p></TooltipContent>
                 </Tooltip>
                 )}
                 {request.linkedinUrl && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                     <a href={request.linkedinUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visitar LinkedIn del postulante">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Visit nominee LinkedIn">
                         <Linkedin className="w-4 h-4 text-primary/80 hover:text-primary" />
                         </Button>
                     </a>
                     </TooltipTrigger>
-                    <TooltipContent><p>Visitar LinkedIn</p></TooltipContent>
+                    <TooltipContent><p>Visit LinkedIn</p></TooltipContent>
                 </Tooltip>
                 )}
                 {request.youtubeVideoUrl && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                     <a href={request.youtubeVideoUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Ver video de YouTube del postulante">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Watch nominee YouTube video">
                         <Bot className="w-4 h-4 text-primary/80 hover:text-primary" />
                         </Button>
                     </a>
                     </TooltipTrigger>
-                    <TooltipContent><p>Ver Video de YouTube</p></TooltipContent>
+                    <TooltipContent><p>Watch YouTube Video</p></TooltipContent>
                 </Tooltip>
                 )}
             </div>
             {request.relevantLinks && (
                 <div className="space-y-1">
-                    <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><ExternalLink size={16}/> Enlaces Relevantes</h4>
+                    <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><ExternalLink size={16}/> Relevant Links</h4>
                     <p className="text-sm text-foreground break-all">{request.relevantLinks}</p>
                 </div>
             )}
              {(request.nominatorName || request.nominatorCountry || request.nominatorEmail) && (
                 <div className="space-y-1 bg-muted/50 p-2 rounded-md">
-                    <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><MessageSquare size={16}/> Información del Nominador</h4>
-                    {request.nominatorName && <p className="text-sm text-foreground"><span className="font-medium">Nombre:</span> {request.nominatorName}</p>}
-                    {request.nominatorCountry && <p className="text-sm text-foreground"><span className="font-medium">País:</span> {request.nominatorCountry}</p>}
+                    <h4 className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><MessageSquare size={16}/> Nominator Information</h4>
+                    {request.nominatorName && <p className="text-sm text-foreground"><span className="font-medium">Name:</span> {request.nominatorName}</p>}
+                    {request.nominatorCountry && <p className="text-sm text-foreground"><span className="font-medium">Country:</span> {request.nominatorCountry}</p>}
                     {request.nominatorEmail && <p className="text-sm text-foreground"><span className="font-medium">Email:</span> {request.nominatorEmail}</p>}
                 </div>
             )}
             {request.agreedToTerms && (
                  <div className="flex items-center gap-2 text-sm text-green-400">
-                    <Shield size={16}/> Aceptó los términos y políticas.
+                    <Shield size={16}/> Agreed to terms and policies.
                  </div>
             )}
 
@@ -344,19 +344,19 @@ export default function NominationRequestCard({
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm" className="w-full" disabled={isProcessing}>
                   {isRejecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin"/> : <X className="w-4 h-4 mr-2"/>}
-                  {isRejecting ? 'Rechazando...' : 'Rechazar'}
+                  {isRejecting ? 'Rejecting...' : 'Reject'}
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                  <DialogTitle>Rechazar Nominación</DialogTitle>
+                  <DialogTitle>Reject Nomination</DialogTitle>
                   <DialogDescription>
-                    Puedes incluir una nota que se enviará en el correo de notificación al postulado.
+                    You can include a note that will be sent in the notification email to the applicant.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="py-4">
-                  <Textarea 
-                    placeholder="Escribe aquí el motivo o una breve explicación (opcional)..." 
+                  <Textarea
+                    placeholder="Write the reason or a brief explanation here (optional)..."
                     value={rejectionReason}
                     onChange={(e) => setRejectionReason(e.target.value)}
                     className="min-h-[100px]"
@@ -364,17 +364,17 @@ export default function NominationRequestCard({
                 </div>
                 <DialogFooter className="flex sm:justify-end gap-2">
                   <Button variant="secondary" onClick={() => setIsRejectDialogOpen(false)} disabled={isRejecting}>
-                    Cancelar
+                    Cancel
                   </Button>
-                  <Button 
-                    variant="destructive" 
+                  <Button
+                    variant="destructive"
                     onClick={() => {
                         onReject(request, rejectionReason);
                         setIsRejectDialogOpen(false);
                     }}
                     disabled={isRejecting}
                   >
-                    Confirmar Rechazo
+                    Confirm Rejection
                   </Button>
                 </DialogFooter>
               </DialogContent>
@@ -382,7 +382,7 @@ export default function NominationRequestCard({
 
             <Button size="sm" className="w-full bg-green-600 hover:bg-green-700" onClick={() => onApprove(request)} disabled={isProcessing}>
               {isApproving ? <Loader2 className="w-4 h-4 mr-2 animate-spin"/> : <Check className="w-4 h-4 mr-2"/>}
-              {isApproving ? 'Aprobando...' : 'Aprobar'}
+              {isApproving ? 'Approving...' : 'Approve'}
             </Button>
           </CardFooter>
         )}
@@ -396,7 +396,7 @@ export default function NominationRequestCard({
                     disabled={isProcessing}
                 >
                     {isMovingToPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin"/> : <CalendarClock className="w-4 h-4 mr-2"/>}
-                    {isMovingToPending ? 'Moviendo...' : 'Mover a Pendiente'}
+                    {isMovingToPending ? 'Moving...' : 'Move to Pending'}
                 </Button>
             </CardFooter>
         )}

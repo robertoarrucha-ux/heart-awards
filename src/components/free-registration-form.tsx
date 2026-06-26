@@ -26,18 +26,18 @@ const countries = [
 ];
 
 const participationStatuses = [
-  { value: "Empresas e Inversionistas Europeos", days: "Día 2" },
-  { value: "Premiadas",                          days: "Día 3" },
-  { value: "Nominados",                          days: "Día 3" },
-  { value: "Medios",                             days: "Día 3" },
-  { value: "Aliados",                            days: "Días 1, 2 y 3" },
-  { value: "Red Profesional",                    days: "Día 3" },
+  { value: "European Companies & Investors", days: "Day 2" },
+  { value: "Award Winners",                  days: "Day 3" },
+  { value: "Nominees",                       days: "Day 3" },
+  { value: "Media",                          days: "Day 3" },
+  { value: "Partners",                       days: "Days 1, 2 & 3" },
+  { value: "Professional Network",           days: "Day 3" },
 ];
 
 export function FreeRegistrationForm() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [venues, setVenues] = useState<{ madrid: boolean; viena: boolean }>({ madrid: false, viena: false });
+  const [venues, setVenues] = useState<{ madrid: boolean; viena: boolean }>({ madrid: false, viena: true });
   const { toast } = useToast();
   
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({
@@ -67,8 +67,8 @@ export function FreeRegistrationForm() {
     if (!venues.madrid && !venues.viena) {
       toast({
         variant: "destructive",
-        title: "Selecciona una sede",
-        description: "Por favor indica a cuál de las dos sedes deseas asistir.",
+        title: "Select a venue",
+        description: "Please indicate which venue you wish to attend.",
       });
       return;
     }
@@ -78,7 +78,7 @@ export function FreeRegistrationForm() {
       if (result.success) {
         setSubmitted(true);
         toast({
-          title: "¡Registro enviado!",
+          title: "Registration submitted!",
           description: result.message,
         });
       } else {
@@ -92,7 +92,7 @@ export function FreeRegistrationForm() {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Ocurrió un error inesperado.",
+        description: "An unexpected error occurred.",
       });
     } finally {
       setLoading(false);
@@ -107,22 +107,22 @@ export function FreeRegistrationForm() {
         className="text-center p-8 bg-green-500/10 border border-green-500/20 rounded-3xl"
       >
         <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-6" />
-        <h3 className="text-2xl font-bold mb-4">¡Registro Recibido!</h3>
+        <h3 className="text-2xl font-bold mb-4">Registration Received!</h3>
         <p className="text-gray-400 mb-8">
-          Tu solicitud está en espera de confirmación. Te notificaremos vía email una vez sea revisada.
+          Your request is pending confirmation. We will notify you by email once it has been reviewed.
         </p>
         <div className="bg-white/5 p-6 rounded-2xl border border-white/10 mb-8">
-          <p className="text-sm font-medium mb-4">Te invitamos a unirte a nuestro grupo de WhatsApp para avisos importantes:</p>
-          <a 
-            href="https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn" 
-            target="_blank" 
+          <p className="text-sm font-medium mb-4">We invite you to join our WhatsApp group for important updates:</p>
+          <a
+            href="https://chat.whatsapp.com/JY1ulDE92qGI0aNbUiyqFn"
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-6 py-3 bg-[#25D366] text-white rounded-xl font-bold hover:scale-105 transition-transform"
           >
-            <MessageCircle className="w-5 h-5" /> Unirme al Grupo de WhatsApp
+            <MessageCircle className="w-5 h-5" /> Join the WhatsApp Group
           </a>
         </div>
-        <Button variant="outline" onClick={() => setSubmitted(false)}>Enviar otro registro</Button>
+        <Button variant="outline" onClick={() => setSubmitted(false)}>Submit another registration</Button>
       </motion.div>
     );
   }
@@ -131,21 +131,21 @@ export function FreeRegistrationForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="firstName">Nombre</Label>
-          <Input 
-            id="firstName" 
-            placeholder="Tu nombre" 
-            {...register('firstName', { required: "El nombre es obligatorio" })}
+          <Label htmlFor="firstName">First Name</Label>
+          <Input
+            id="firstName"
+            placeholder="Your first name"
+            {...register('firstName', { required: "First name is required" })}
             className="bg-white/5 border-white/10"
           />
           {errors.firstName && <p className="text-xs text-red-500">{errors.firstName.message}</p>}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="lastName">Apellido</Label>
-          <Input 
-            id="lastName" 
-            placeholder="Tu apellido" 
-            {...register('lastName', { required: "El apellido es obligatorio" })}
+          <Label htmlFor="lastName">Last Name</Label>
+          <Input
+            id="lastName"
+            placeholder="Your last name"
+            {...register('lastName', { required: "Last name is required" })}
             className="bg-white/5 border-white/10"
           />
           {errors.lastName && <p className="text-xs text-red-500">{errors.lastName.message}</p>}
@@ -153,14 +153,14 @@ export function FreeRegistrationForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="email">Correo Electrónico</Label>
-        <Input 
-          id="email" 
-          type="email" 
-          placeholder="tu@email.com" 
-          {...register('email', { 
-            required: "El email es obligatorio",
-            pattern: { value: /^\S+@\S+$/i, message: "Email inválido" }
+        <Label htmlFor="email">Email Address</Label>
+        <Input
+          id="email"
+          type="email"
+          placeholder="you@email.com"
+          {...register('email', {
+            required: "Email is required",
+            pattern: { value: /^\S+@\S+$/i, message: "Invalid email" }
           })}
           className="bg-white/5 border-white/10"
         />
@@ -169,10 +169,10 @@ export function FreeRegistrationForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="country">País</Label>
+          <Label htmlFor="country">Country</Label>
           <Select onValueChange={(val) => setValue('country', val)}>
             <SelectTrigger className="bg-white/5 border-white/10">
-              <SelectValue placeholder="Selecciona tu país" />
+              <SelectValue placeholder="Select your country" />
             </SelectTrigger>
             <SelectContent>
               {countries.map(c => (
@@ -180,14 +180,14 @@ export function FreeRegistrationForm() {
               ))}
             </SelectContent>
           </Select>
-          <Input type="hidden" {...register('country', { required: "El país es obligatorio" })} />
+          <Input type="hidden" {...register('country', { required: "Country is required" })} />
           {errors.country && <p className="text-xs text-red-500">{errors.country.message}</p>}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="participationStatus">Estatus de Participación</Label>
+          <Label htmlFor="participationStatus">Participation Status</Label>
           <Select onValueChange={(val) => setValue('participationStatus', val)}>
             <SelectTrigger className="bg-white/5 border-white/10">
-              <SelectValue placeholder="Selecciona tu estatus" />
+              <SelectValue placeholder="Select your status" />
             </SelectTrigger>
             <SelectContent>
               {participationStatuses.map(s => (
@@ -197,7 +197,7 @@ export function FreeRegistrationForm() {
               ))}
             </SelectContent>
           </Select>
-          <Input type="hidden" {...register('participationStatus', { required: "El estatus es obligatorio" })} />
+          <Input type="hidden" {...register('participationStatus', { required: "Status is required" })} />
           {errors.participationStatus && <p className="text-xs text-red-500">{errors.participationStatus.message}</p>}
         </div>
       </div>
@@ -206,37 +206,9 @@ export function FreeRegistrationForm() {
       <div className="space-y-3">
         <Label className="flex items-center gap-2">
           <MapPin className="w-4 h-4 text-primary" />
-          ¿A qué sede(s) deseas asistir? <span className="text-red-500">*</span>
+          Which venue are you attending? <span className="text-red-500">*</span>
         </Label>
-        <p className="text-xs text-gray-500">
-          Puedes seleccionar una o ambas sedes. Tu sede principal depende de tu categoría: <strong className="text-gray-400">Madrid</strong> para proyectos Empresariales, <strong className="text-gray-400">Viena</strong> para proyectos Sociales.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <button
-            type="button"
-            onClick={() => handleVenueChange('madrid')}
-            className={`flex items-center gap-4 p-4 rounded-2xl border transition-all text-left ${
-              venues.madrid
-                ? 'bg-primary/10 border-primary/40 text-white'
-                : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'
-            }`}
-          >
-            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-              venues.madrid ? 'bg-primary border-primary' : 'border-white/30'
-            }`}>
-              {venues.madrid && (
-                <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              )}
-            </div>
-            <div>
-              <p className="font-bold text-sm text-white">🇪🇸 Madrid</p>
-              <p className="text-xs opacity-70">19, 20 y 21 de Noviembre 2026</p>
-              <p className="text-xs opacity-50 mt-0.5">Proyectos Empresariales</p>
-            </div>
-          </button>
-
+        <div className="grid grid-cols-1 gap-4">
           <button
             type="button"
             onClick={() => handleVenueChange('viena')}
@@ -256,9 +228,9 @@ export function FreeRegistrationForm() {
               )}
             </div>
             <div>
-              <p className="font-bold text-sm text-white">🇦🇹 Viena</p>
-              <p className="text-xs opacity-70">3, 4 y 5 de Diciembre 2026</p>
-              <p className="text-xs opacity-50 mt-0.5">Proyectos Sociales</p>
+              <p className="font-bold text-sm text-white">🇦🇹 Vienna, Austria</p>
+              <p className="text-xs opacity-70">December 3, 4 & 5, 2026</p>
+              <p className="text-xs opacity-50 mt-0.5">Heart-Led Summit & Awards</p>
             </div>
           </button>
         </div>
@@ -267,21 +239,21 @@ export function FreeRegistrationForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="websiteOrLinkedin">Web / LinkedIn</Label>
-          <Input 
-            id="websiteOrLinkedin" 
-            placeholder="https://..." 
-            {...register('websiteOrLinkedin', { required: "El enlace es obligatorio" })}
+          <Label htmlFor="websiteOrLinkedin">Website / LinkedIn</Label>
+          <Input
+            id="websiteOrLinkedin"
+            placeholder="https://..."
+            {...register('websiteOrLinkedin', { required: "Website or LinkedIn is required" })}
             className="bg-white/5 border-white/10"
           />
           {errors.websiteOrLinkedin && <p className="text-xs text-red-500">{errors.websiteOrLinkedin.message}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="whatsapp">WhatsApp</Label>
-          <Input 
-            id="whatsapp" 
-            placeholder="+1234567890" 
-            {...register('whatsapp', { required: "El WhatsApp es obligatorio" })}
+          <Input
+            id="whatsapp"
+            placeholder="+1234567890"
+            {...register('whatsapp', { required: "WhatsApp is required" })}
             className="bg-white/5 border-white/10"
           />
           {errors.whatsapp && <p className="text-xs text-red-500">{errors.whatsapp.message}</p>}
@@ -289,30 +261,30 @@ export function FreeRegistrationForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="comments">Preguntas y/o Comentarios</Label>
-        <Textarea 
-          id="comments" 
-          placeholder="Algo que quieras añadir..." 
+        <Label htmlFor="comments">Questions and/or Comments</Label>
+        <Textarea
+          id="comments"
+          placeholder="Anything you'd like to add..."
           {...register('comments')}
           className="bg-white/5 border-white/10 min-h-[100px]"
         />
       </div>
 
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-6 rounded-xl"
         disabled={loading}
       >
         {loading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Enviando...
+            Submitting...
           </>
-        ) : "Enviar Registro Gratuito"}
+        ) : "Submit Free Registration"}
       </Button>
-      
+
       <p className="text-[10px] text-gray-500 text-center">
-        Al enviar este formulario, aceptas que podamos contactarte para informarte sobre el estado de tu registro.
+        By submitting this form, you agree that we may contact you to inform you about the status of your registration.
       </p>
     </form>
   );

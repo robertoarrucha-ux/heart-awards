@@ -11,33 +11,33 @@ import { cn } from '@/lib/utils';
 import { getSliderImageUrl } from '@/lib/assets';
 
 const SLIDE_IMAGES = [
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena.webp'), alt: 'Gala de Premiación en Viena' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena.webp'), alt: 'Awards Gala in Vienna' },
   { url: getSliderImageUrl('Heart-Led Summit & Awards 1.JPEG'), alt: 'Heart-Led Summit & Awards' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 2.webp'), alt: 'Momentos de la gala en Viena' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 6.webp'), alt: 'Líderes premiados en Viena' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 2.webp'), alt: 'Premiación Heart-Led Summit & Awards' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 5.webp'), alt: 'Gala de premiación 2025' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Mauricio-Vila.webp'), alt: 'Mauricio Vila en Heart-Led Summit & Awards' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 2.webp'), alt: 'Gala highlights in Vienna' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 6.webp'), alt: 'Award recipients in Vienna' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 2.webp'), alt: 'Heart-Led Summit & Awards ceremony' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 5.webp'), alt: '2025 awards gala' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Mauricio-Vila.webp'), alt: 'Mauricio Vila at Heart-Led Summit & Awards' },
   { url: getSliderImageUrl('Heart-Led Summit & Awards 18.webp'), alt: 'Heart-Led Summit & Awards 2024' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 3.webp'), alt: 'Networking entre líderes' },
-  { url: getSliderImageUrl('Gonzalo-Munoz-Abogabir-Latin-American-Leaders-Awards.webp'), alt: 'Gonzalo Muñoz Abogabir en Heart-Led Summit & Awards' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 20.webp'), alt: 'Líderes latinoamericanos reunidos' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 3.webp'), alt: 'Networking among leaders' },
+  { url: getSliderImageUrl('Gonzalo-Munoz-Abogabir-Latin-American-Leaders-Awards.webp'), alt: 'Gonzalo Muñoz Abogabir at Heart-Led Summit & Awards' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 20.webp'), alt: 'Heart-Led leaders gathering' },
   { url: getSliderImageUrl('Latin-American-Leaders-Awards-1.webp'), alt: 'Heart-Led Summit & Awards' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-8.webp'), alt: 'Reconocimientos Heart-Led Summit & Awards' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 28.webp'), alt: 'Cumbre de líderes latinoamericanos' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-8.webp'), alt: 'Heart-Led Summit & Awards recognition' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 28.webp'), alt: 'Heart-Led leaders summit' },
   { url: getSliderImageUrl('Heart-Led Summit & Awards 13.webp'), alt: 'Heart-Led Summit & Awards 2023' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-7.webp'), alt: 'Entrega de premios' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 16.webp'), alt: 'Alianzas y negocios en el evento' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 29.webp'), alt: 'Líderes reunidos en la cumbre' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 14.webp'), alt: 'Panel de líderes latinoamericanos' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 4.webp'), alt: 'Panel de discusión en Viena' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-3.webp'), alt: 'Premiación en el evento' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-6.webp'), alt: 'Líderes latinoamericanos' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-5.webp'), alt: 'Reconocimientos a líderes' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-7.webp'), alt: 'Awards ceremony' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 16.webp'), alt: 'Strategic partnerships at the event' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 29.webp'), alt: 'Leaders gathered at the summit' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 14.webp'), alt: 'Heart-Led leaders panel' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 4.webp'), alt: 'Discussion panel in Vienna' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-3.webp'), alt: 'Award ceremony' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-6.webp'), alt: 'Heart-Led leaders' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-5.webp'), alt: 'Leadership recognition' },
   { url: getSliderImageUrl('Heart-Led Summit & Awards 25.webp'), alt: 'Heart-Led Summit & Awards 2025' },
-  { url: getSliderImageUrl('Heart-Led Summit & Awards 19.webp'), alt: 'Gala anual Heart-Led Summit & Awards' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-4.webp'), alt: 'Ceremonia de premiación' },
-  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 3.webp'), alt: 'Reconocimientos en Viena' },
+  { url: getSliderImageUrl('Heart-Led Summit & Awards 19.webp'), alt: 'Annual Heart-Led Summit & Awards gala' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-4.webp'), alt: 'Awards ceremony' },
+  { url: getSliderImageUrl('Latin-American-Leaders-Awards-Viena 3.webp'), alt: 'Recognition in Vienna' },
 ];
 
 export default function PhotoSlideshow() {
@@ -75,9 +75,9 @@ export default function PhotoSlideshow() {
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-primary text-xs font-bold uppercase tracking-widest mb-6"
           >
             <Sparkles size={14} />
-            <span>Mejores Momentos</span>
+            <span>Best Moments</span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold">Alianzas, Negocios y Amigos que cambiarán tu vida</h2>
+          <h2 className="text-4xl md:text-6xl font-bold">Connections, Insights, and Friendships That Will Change Your Life</h2>
       </div>
 
       <div className="w-full">
@@ -140,7 +140,7 @@ export default function PhotoSlideshow() {
                   "h-1 transition-all duration-700 rounded-full",
                   selectedIndex === index ? "w-12 bg-primary" : "w-3 bg-white/20 hover:bg-white/40"
                 )}
-                aria-label={`Ir a diapositiva ${index + 1}`}
+                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
@@ -152,7 +152,7 @@ export default function PhotoSlideshow() {
           className="mt-16 text-center"
         >
           <p className="text-xs text-foreground/30 uppercase tracking-[0.3em] font-bold">
-            Viena & Madrid 2026
+            Vienna 2026
           </p>
         </motion.div>
       </div>
